@@ -39,14 +39,42 @@
   @apply mt-8 inline-flex items-center justify-center rounded-md bg-white px-6 py-3 text-sm font-semibold text-graphite-950 shadow-sm transition-all hover:bg-graphite-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
 }
 
-.dots {
-  @apply absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2;
+/* Кнопки навигации — только стрелки, без круга */
+.slider :global(.swiper-button-prev),
+.slider :global(.swiper-button-next) {
+  width: 2rem;
+  height: 2rem;
+  margin-top: 0;
+  left: 1rem;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.2s;
+}
+.slider :global(.swiper-button-prev:hover),
+.slider :global(.swiper-button-next:hover) {
+  color: #fff;
+}
+.slider :global(.swiper-button-next) {
+  left: auto;
+  right: 1rem;
+}
+.slider :global(.swiper-button-prev::after),
+.slider :global(.swiper-button-next::after) {
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
-.dot {
-  @apply h-2 w-2 rounded-full border-2 border-white bg-transparent p-0 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent;
+/* Scrollbar Swiper — только цвет под дизайн, позиция нативная */
+.slider :global(.swiper-scrollbar) {
+  background: rgba(255, 255, 255, 0.2);
 }
 
-.dotActive {
-  @apply block h-full w-full rounded-full bg-white;
+.slider :global(.swiper-scrollbar-drag) {
+  background: #fff;
+  cursor: grab;
+}
+
+.slider :global(.swiper-scrollbar-drag:active) {
+  cursor: grabbing;
 }

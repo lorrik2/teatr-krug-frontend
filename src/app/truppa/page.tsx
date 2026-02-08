@@ -5,7 +5,7 @@ import { actors } from "@/lib/mock-data";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
-  title: "Труппа — Камерный театр",
+  title: "Труппа — Драматический театр «Круг»",
   description: "Актеры и режиссёры театра. Биографии, роли, фото.",
 };
 

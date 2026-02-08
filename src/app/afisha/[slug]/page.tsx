@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const play = performances.find((p) => p.slug === slug);
   if (!play) return { title: "Спектакль" };
   return {
-    title: `${play.title} — Камерный театр`,
+    title: `${play.title} — Драматический театр «Круг»`,
     description: play.description,
     openGraph: { title: play.title, description: play.description },
   };

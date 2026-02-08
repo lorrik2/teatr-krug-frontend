@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const actor = actors.find((a) => a.slug === slug);
   if (!actor) return { title: "Артист" };
   return {
-    title: `${actor.name} — Камерный театр`,
+    title: `${actor.name} — Драматический театр «Круг»`,
     description: actor.bio,
     openGraph: { title: actor.name, description: actor.bio },
   };

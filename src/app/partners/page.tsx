@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
-  title: "Партнёры и спонсоры — Камерный театр",
+  title: "Партнёры и спонсоры — Драматический театр «Круг»",
   description: "Партнёры и спонсоры театра.",
 };
 

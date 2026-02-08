@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const item = newsItems.find((n) => n.slug === slug);
   if (!item) return { title: "Новость" };
   return {
-    title: `${item.title} — Камерный театр`,
+    title: `${item.title} — Драматический театр «Круг»`,
     description: item.excerpt,
     openGraph: { title: item.title, description: item.excerpt },
   };

@@ -6,7 +6,7 @@ import TicketsBlock from "@/components/TicketsBlock";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
-  title: "Афиша — Камерный театр",
+  title: "Афиша — Драматический театр «Круг»",
   description: "Репертуар спектаклей текущего сезона. Даты, время, возрастной рейтинг. Купить билеты онлайн.",
 };
 

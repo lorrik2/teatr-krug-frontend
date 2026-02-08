@@ -14,7 +14,11 @@ const gallery = [
 
 export default function About() {
   return (
-    <section className={styles.section} id="o-teatre" aria-labelledby="about-title">
+    <section
+      className={styles.section}
+      id="o-teatre"
+      aria-labelledby="about-title"
+    >
       <div className={styles.container}>
         <motion.div
           className={styles.header}
@@ -38,13 +42,19 @@ export default function About() {
             viewport={{ once: true }}
           >
             <p className={styles.lead}>
-              Камерный театр основан в 1995 году. Мы занимаем историческое здание в центре города — бывший особняк XIX века, переоборудованный под камерную сцену.
+              Драматический театр «Круг» основан в 2010 году. Мы занимаем
+              историческое здание в центре города — бывший особняк XIX века,
+              переоборудованный под камерную сцену.
             </p>
             <p>
-              Наша миссия — сохранять живую театральную традицию и открывать классику новым поколениям. Художественный руководитель — Андрей Волков, режиссёр и педагог, лауреат национальных премий.
+              Наша миссия — сохранять живую театральную традицию и открывать
+              классику новым поколениям. Художественный руководитель — Андрей
+              Волков, режиссёр и педагог, лауреат национальных премий.
             </p>
             <p>
-              В репертуаре — русская и мировая классика, современная драматургия и экспериментальные постановки. Зрительный зал на 120 мест создаёт атмосферу камерности и доверия между сценой и залом.
+              В репертуаре — русская и мировая классика, современная драматургия
+              и экспериментальные постановки. Зрительный зал на 120 мест создаёт
+              атмосферу камерности и доверия между сценой и залом.
             </p>
             <Link href="/o-teatre" className={styles.link}>
               Подробнее об истории и миссии →
@@ -53,7 +63,9 @@ export default function About() {
 
           <div className={styles.videoWrap}>
             <div className={styles.videoPlaceholder}>
-              <span className={styles.videoLabel}>Видео-визитка театра (2–3 мин)</span>
+              <span className={styles.videoLabel}>
+                Видео-визитка театра (2–3 мин)
+              </span>
               <div className={styles.videoPlaceholderInner} />
             </div>
           </div>
@@ -69,13 +81,13 @@ export default function About() {
           <ul className={styles.galleryGrid}>
             {gallery.map((img, i) => (
               <li key={i}>
-<Image
-                src={img.src}
-                alt={img.alt}
-                width={600}
-                height={400}
-                className={styles.galleryImg}
-              />
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  width={600}
+                  height={400}
+                  className={styles.galleryImg}
+                />
               </li>
             ))}
           </ul>

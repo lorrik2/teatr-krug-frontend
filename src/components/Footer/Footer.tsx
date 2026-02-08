@@ -9,10 +9,11 @@ export default function Footer() {
         <div className={styles.topGrid}>
           <div className={styles.brand}>
             <Link href="/" className={styles.logo}>
-              Камерный театр
+              Драматический театр «Круг»
             </Link>
             <p className={styles.tagline}>
-              Камерный театр — живая сцена, классика и современность. С 1995 года.
+              Драматический театр «Круг» — живая сцена, классика и
+              современность. С 2010 года.
             </p>
           </div>
           <nav className={styles.links} aria-label="Меню в подвале">
@@ -30,23 +31,47 @@ export default function Footer() {
             <p className={styles.contactsTitle}>Контакты</p>
             <p className={styles.address}>{contactInfo.address}</p>
             <p>
-              <a href={`tel:${contactInfo.boxOffice.replace(/\s/g, "")}`} className={styles.tel}>
+              <a
+                href={`tel:${contactInfo.boxOffice.replace(/\s/g, "")}`}
+                className={styles.tel}
+              >
                 Касса: {contactInfo.boxOffice}
               </a>
             </p>
             <p>
-              <a href={`mailto:${contactInfo.emailBoxOffice}`} className={styles.mail}>
+              <a
+                href={`mailto:${contactInfo.emailBoxOffice}`}
+                className={styles.mail}
+              >
                 {contactInfo.emailBoxOffice}
               </a>
             </p>
             <div className={styles.social}>
-              <a href={contactInfo.social.vk} target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="ВКонтакте">
+              <a
+                href={contactInfo.social.vk}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.socialLink}
+                aria-label="ВКонтакте"
+              >
                 VK
               </a>
-              <a href={contactInfo.social.telegram} target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="Telegram">
+              <a
+                href={contactInfo.social.telegram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.socialLink}
+                aria-label="Telegram"
+              >
                 TG
               </a>
-              <a href={contactInfo.social.instagram} target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="Instagram">
+              <a
+                href={contactInfo.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.socialLink}
+                aria-label="Instagram"
+              >
                 IG
               </a>
             </div>
@@ -56,7 +81,8 @@ export default function Footer() {
       <div className={styles.bottom}>
         <div className={styles.bottomInner}>
           <p className={styles.copyright}>
-            © {new Date().getFullYear()} Камерный театр. Все права защищены.
+            © {new Date().getFullYear()} Драматический театр «Круг». Все права
+            защищены.
           </p>
           <div className={styles.legal}>
             <Link href="/privacy" className={styles.legalLink}>

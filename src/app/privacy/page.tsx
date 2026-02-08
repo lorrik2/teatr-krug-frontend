@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
-  title: "Политика конфиденциальности — Камерный театр",
+  title: "Политика конфиденциальности — Драматический театр «Круг»",
   description: "Политика конфиденциальности сайта театра.",
 };
 

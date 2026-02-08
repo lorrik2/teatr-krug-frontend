@@ -26,20 +26,74 @@
   @apply rounded-md border border-graphite-300 bg-white px-4 py-2 text-graphite-900 focus:border-graphite-950 focus:outline-none focus:ring-1 focus:ring-graphite-950;
 }
 
+.cardsWrap {
+  @apply relative;
+}
+
+/* Высота под 2 карточки (постер 4/5 + body + gap) */
+.cardsWrapCollapsed {
+  max-height: 1280px;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+}
+
+.cardsWrapExpanded {
+  max-height: none;
+}
+
 .cardsGrid {
   @apply grid gap-8 sm:grid-cols-2 lg:grid-cols-4;
+  grid-auto-rows: 1fr;
+}
+
+/* На мобильном: полупрозрачный градиент и кнопка «Показать ещё» */
+.fadeOverlay {
+  @apply pointer-events-none absolute bottom-0 left-0 right-0 flex flex-col items-center justify-end pb-6 pt-24;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.85) 40%, transparent 100%);
+}
+
+.fadeOverlayVisible {
+  @apply pointer-events-auto;
+}
+
+.fadeOverlayHidden {
+  @apply hidden;
+}
+
+.fadeCta {
+  @apply flex flex-col items-center gap-3;
+}
+
+.fadeBtn {
+  @apply rounded-md bg-graphite-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-graphite-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-graphite-950;
+}
+
+.fadeLink {
+  @apply text-sm font-medium text-graphite-600 no-underline hover:text-graphite-950 hover:underline;
+}
+
+@media (min-width: 768px) {
+  .cardsWrapCollapsed {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .fadeOverlay {
+    display: none !important;
+  }
 }
 
 .card {
-  @apply list-none;
+  @apply list-none min-h-0;
 }
 
 .cardLink {
-  @apply block overflow-hidden rounded-lg border border-graphite-200 bg-graphite-50 no-underline shadow-sm transition-all hover:border-graphite-400 hover:shadow-md;
+  @apply flex h-full flex-col overflow-hidden rounded-lg border border-graphite-200 bg-graphite-50 no-underline shadow-sm transition-all hover:border-graphite-400 hover:shadow-md;
 }
 
 .posterWrap {
-  @apply relative aspect-[4/5] overflow-hidden bg-graphite-200;
+  @apply relative shrink-0 overflow-hidden bg-graphite-200;
+  aspect-ratio: 4 / 5;
 }
 
 .poster {
@@ -55,7 +109,11 @@
 }
 
 .body {
-  @apply p-4;
+  @apply flex min-h-0 flex-1 flex-col p-4;
+}
+
+.buttons {
+  @apply mt-auto flex flex-wrap gap-2 pt-4;
 }
 
 .cardTitle {
@@ -74,9 +132,6 @@
   @apply mt-2 line-clamp-2 text-sm text-graphite-600;
 }
 
-.buttons {
-  @apply mt-4 flex flex-wrap gap-2;
-}
 
 .btnDetail {
   @apply inline-flex items-center rounded border border-graphite-400 px-4 py-2 text-sm font-medium text-graphite-700 transition-colors hover:bg-graphite-200;

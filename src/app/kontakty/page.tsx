@@ -3,7 +3,7 @@ import Contacts from "@/components/Contacts";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
-  title: "Контакты — Камерный театр",
+  title: "Контакты — Драматический театр «Круг»",
   description: "Адрес, телефоны кассы и администрации, схема проезда, режим работы, соцсети.",
 };
 

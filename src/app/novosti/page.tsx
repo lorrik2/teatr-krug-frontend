@@ -5,7 +5,7 @@ import { newsItems } from "@/lib/mock-data";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
-  title: "Новости — Камерный театр",
+  title: "Новости — Драматический театр «Круг»",
   description: "Анонсы творческих вечеров, рецензии, экскурсии по театру, блог.",
 };
 
