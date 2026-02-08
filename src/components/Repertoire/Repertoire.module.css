@@ -1,0 +1,95 @@
+.section {
+  @apply bg-white py-16 md:py-24;
+}
+
+.container {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.header {
+  @apply mb-10 text-center;
+}
+
+.title {
+  @apply font-serif text-3xl font-bold tracking-tight text-graphite-950 md:text-4xl;
+}
+
+.subtitle {
+  @apply mt-2 text-lg text-graphite-600;
+}
+
+.filters {
+  @apply mt-4 flex justify-center;
+}
+
+.select {
+  @apply rounded-md border border-graphite-300 bg-white px-4 py-2 text-graphite-900 focus:border-graphite-950 focus:outline-none focus:ring-1 focus:ring-graphite-950;
+}
+
+.cardsGrid {
+  @apply grid gap-8 sm:grid-cols-2 lg:grid-cols-4;
+}
+
+.card {
+  @apply list-none;
+}
+
+.cardLink {
+  @apply block overflow-hidden rounded-lg border border-graphite-200 bg-graphite-50 no-underline shadow-sm transition-all hover:border-graphite-400 hover:shadow-md;
+}
+
+.posterWrap {
+  @apply relative aspect-[4/5] overflow-hidden bg-graphite-200;
+}
+
+.poster {
+  @apply h-full w-full object-cover transition-transform duration-300;
+}
+
+.cardLink:hover .poster {
+  @apply scale-105;
+}
+
+.age {
+  @apply absolute right-2 top-2 rounded bg-graphite-950 px-2 py-0.5 text-xs font-medium text-white;
+}
+
+.body {
+  @apply p-4;
+}
+
+.cardTitle {
+  @apply font-serif text-lg font-bold text-graphite-950;
+}
+
+.meta {
+  @apply mt-1 text-sm text-graphite-600;
+}
+
+.genre {
+  @apply mt-0.5 text-sm font-medium text-graphite-700;
+}
+
+.desc {
+  @apply mt-2 line-clamp-2 text-sm text-graphite-600;
+}
+
+.buttons {
+  @apply mt-4 flex flex-wrap gap-2;
+}
+
+.btnDetail {
+  @apply inline-flex items-center rounded border border-graphite-400 px-4 py-2 text-sm font-medium text-graphite-700 transition-colors hover:bg-graphite-200;
+}
+
+.btnTicket {
+  @apply inline-flex items-center justify-center rounded-md bg-graphite-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:bg-graphite-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-graphite-950;
+}
+
+.moreWrap {
+  @apply mt-12 text-center;
+}
+
+.moreLink {
+  @apply font-medium text-graphite-950 no-underline hover:underline;
+}

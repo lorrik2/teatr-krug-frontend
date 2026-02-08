@@ -1,0 +1,67 @@
+.section {
+  @apply bg-graphite-950 py-16 text-white md:py-24;
+}
+
+.container {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.premiereGrid {
+  @apply grid gap-10 lg:grid-cols-2 lg:gap-16;
+}
+
+.posterBlock {
+  @apply order-2 lg:order-1;
+}
+
+.posterWrap {
+  @apply relative aspect-[4/5] overflow-hidden rounded-lg bg-graphite-800;
+}
+
+.poster {
+  @apply h-full w-full object-cover;
+}
+
+.content {
+  @apply order-1 flex flex-col lg:order-2 lg:justify-center;
+}
+
+.badge {
+  @apply mb-2 text-sm font-medium uppercase tracking-wider text-graphite-400;
+}
+
+.title {
+  @apply font-serif text-3xl font-bold md:text-4xl;
+}
+
+.dateTime {
+  @apply mt-2 text-graphite-300;
+}
+
+.desc {
+  @apply mt-4 leading-relaxed text-graphite-200;
+}
+
+.metaList {
+  @apply mt-6 grid gap-2;
+}
+
+.dt {
+  @apply text-sm font-medium text-graphite-400;
+}
+
+.dd {
+  @apply text-graphite-100;
+}
+
+.actions {
+  @apply mt-8 flex flex-wrap gap-4;
+}
+
+.btnDetail {
+  @apply inline-flex items-center justify-center rounded-md border-2 border-white px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-white hover:text-graphite-950;
+}
+
+.btnTicket {
+  @apply inline-flex items-center justify-center rounded-md bg-white px-6 py-3 text-sm font-semibold text-graphite-950 shadow-sm transition-all hover:bg-graphite-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+}

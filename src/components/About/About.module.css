@@ -1,0 +1,71 @@
+.section {
+  @apply bg-white py-16 md:py-24;
+}
+
+.container {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.header {
+  @apply mb-12 text-center;
+}
+
+.title {
+  @apply font-serif text-3xl font-bold tracking-tight text-graphite-950 md:text-4xl;
+}
+
+.subtitle {
+  @apply mt-2 text-lg text-graphite-600;
+}
+
+.content {
+  @apply grid gap-10 lg:grid-cols-2 lg:gap-16;
+}
+
+.text {
+  @apply space-y-4 text-graphite-700;
+}
+
+.lead {
+  @apply text-lg font-medium text-graphite-900;
+}
+
+.link {
+  @apply mt-4 inline-block font-medium text-graphite-950 no-underline hover:underline;
+}
+
+.videoWrap {
+  @apply flex flex-col;
+}
+
+.videoPlaceholder {
+  @apply relative flex aspect-video items-center justify-center rounded-lg bg-graphite-200;
+}
+
+.videoLabel {
+  @apply z-10 text-center text-graphite-600;
+}
+
+.videoPlaceholderInner {
+  @apply absolute inset-0 rounded-lg border-2 border-dashed border-graphite-400;
+}
+
+.gallery {
+  @apply mt-16;
+}
+
+.galleryTitle {
+  @apply mb-6 font-serif text-2xl font-bold text-graphite-950;
+}
+
+.galleryGrid {
+  @apply grid gap-4 sm:grid-cols-2 lg:grid-cols-4;
+}
+
+.galleryGrid li {
+  @apply list-none overflow-hidden rounded-lg;
+}
+
+.galleryImg {
+  @apply h-full w-full object-cover transition-transform duration-300 hover:scale-105;
+}

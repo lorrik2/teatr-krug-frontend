@@ -1,0 +1,71 @@
+.section {
+  @apply bg-white py-16 md:py-24;
+}
+
+.container {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.header {
+  @apply mb-10 text-center;
+}
+
+.title {
+  @apply font-serif text-3xl font-bold tracking-tight text-graphite-950 md:text-4xl;
+}
+
+.subtitle {
+  @apply mt-2 text-lg text-graphite-600;
+}
+
+.newsGrid {
+  @apply grid gap-8 md:grid-cols-3;
+}
+
+.card {
+  @apply list-none;
+}
+
+.cardLink {
+  @apply block overflow-hidden rounded-lg border border-graphite-200 bg-graphite-50 no-underline transition-all hover:border-graphite-400 hover:shadow-md;
+}
+
+.imageWrap {
+  @apply relative aspect-[3/2] overflow-hidden bg-graphite-200;
+}
+
+.image {
+  @apply h-full w-full object-cover transition-transform duration-300;
+}
+
+.cardLink:hover .image {
+  @apply scale-105;
+}
+
+.category {
+  @apply absolute left-2 top-2 rounded bg-graphite-950 px-2 py-0.5 text-xs font-medium text-white;
+}
+
+.body {
+  @apply p-4;
+}
+
+.date {
+  @apply text-sm text-graphite-500;
+}
+
+.cardTitle {
+  @apply mt-1 font-serif text-lg font-bold text-graphite-950;
+}
+
+.excerpt {
+  @apply mt-2 line-clamp-2 text-sm text-graphite-600;
+}
+
+.moreWrap {
+  @apply mt-12 text-center;
+}
+
+.moreLink {
+  @apply font-medium text-graphite-950 no-underline hover:underline;
+}

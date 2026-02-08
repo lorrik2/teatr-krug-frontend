@@ -1,0 +1,52 @@
+.section {
+  @apply relative h-[70vh] min-h-[400px] overflow-hidden;
+}
+
+.slider {
+  @apply relative h-full w-full;
+}
+
+.slide {
+  @apply relative h-full w-full;
+}
+
+.imageWrap {
+  @apply absolute inset-0;
+}
+
+.image {
+  @apply object-cover;
+}
+
+.overlay {
+  @apply absolute inset-0 bg-graphite-950/50;
+}
+
+.content {
+  @apply absolute inset-0 flex flex-col items-center justify-center px-4 text-center text-white;
+}
+
+.title {
+  @apply font-serif text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl;
+  @apply drop-shadow-lg;
+}
+
+.subtitle {
+  @apply mt-3 text-lg md:text-xl text-graphite-200;
+}
+
+.cta {
+  @apply mt-8 inline-flex items-center justify-center rounded-md bg-white px-6 py-3 text-sm font-semibold text-graphite-950 shadow-sm transition-all hover:bg-graphite-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+}
+
+.dots {
+  @apply absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2;
+}
+
+.dot {
+  @apply h-2 w-2 rounded-full border-2 border-white bg-transparent p-0 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent;
+}
+
+.dotActive {
+  @apply block h-full w-full rounded-full bg-white;
+}

@@ -1,0 +1,35 @@
+.section {
+  @apply bg-graphite-950 py-16 text-white md:py-20;
+}
+
+.container {
+  @apply mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8;
+}
+
+.inner {
+  @apply mx-auto max-w-xl;
+}
+
+.title {
+  @apply font-serif text-2xl font-bold md:text-3xl;
+}
+
+.subtitle {
+  @apply mt-2 text-graphite-300;
+}
+
+.form {
+  @apply mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center;
+}
+
+.input {
+  @apply min-w-0 flex-1 rounded-md border border-graphite-600 bg-graphite-800 px-4 py-3 text-white placeholder-graphite-400 focus:border-white focus:outline-none focus:ring-1 focus:ring-white disabled:opacity-50;
+}
+
+.button {
+  @apply shrink-0 rounded-md bg-white px-6 py-3 font-semibold text-graphite-950 transition-colors hover:bg-graphite-200 disabled:opacity-50;
+}
+
+.success {
+  @apply mt-4 text-sm text-graphite-300;
+}

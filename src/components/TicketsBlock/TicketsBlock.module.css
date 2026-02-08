@@ -1,0 +1,23 @@
+.section {
+  @apply bg-graphite-100 py-16 md:py-20;
+}
+
+.container {
+  @apply mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8;
+}
+
+.title {
+  @apply font-serif text-3xl font-bold tracking-tight text-graphite-950 md:text-4xl;
+}
+
+.subtitle {
+  @apply mt-2 text-lg text-graphite-600;
+}
+
+.cta {
+  @apply mt-8 inline-flex items-center justify-center rounded-md bg-graphite-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:bg-graphite-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-graphite-950;
+}
+
+.note {
+  @apply mt-4 text-sm text-graphite-500;
+}

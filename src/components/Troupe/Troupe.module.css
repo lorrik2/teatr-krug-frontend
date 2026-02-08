@@ -1,0 +1,79 @@
+.section {
+  @apply bg-graphite-100 py-16 md:py-24;
+}
+
+.container {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.header {
+  @apply mb-10 text-center;
+}
+
+.title {
+  @apply font-serif text-3xl font-bold tracking-tight text-graphite-950 md:text-4xl;
+}
+
+.subtitle {
+  @apply mt-2 text-lg text-graphite-600;
+}
+
+.filters {
+  @apply mt-4 flex justify-center gap-2;
+}
+
+.filterBtn {
+  @apply rounded-md border border-graphite-400 bg-white px-4 py-2 text-sm font-medium text-graphite-700 transition-colors hover:bg-graphite-200;
+}
+
+.filterActive {
+  @apply rounded-md border border-graphite-950 bg-graphite-950 px-4 py-2 text-sm font-medium text-white;
+}
+
+.troupeGrid {
+  @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-4;
+}
+
+.card {
+  @apply list-none;
+}
+
+.cardLink {
+  @apply block overflow-hidden rounded-lg border border-graphite-200 bg-white no-underline shadow-sm transition-all hover:border-graphite-400 hover:shadow-md;
+}
+
+.photoWrap {
+  @apply relative aspect-[4/5] overflow-hidden bg-graphite-200;
+}
+
+.photo {
+  @apply h-full w-full object-cover transition-transform duration-300;
+}
+
+.cardLink:hover .photo {
+  @apply scale-105;
+}
+
+.body {
+  @apply p-4;
+}
+
+.name {
+  @apply font-serif text-lg font-bold text-graphite-950;
+}
+
+.rank {
+  @apply mt-0.5 text-sm text-graphite-600;
+}
+
+.role {
+  @apply text-sm text-graphite-500;
+}
+
+.moreWrap {
+  @apply mt-12 text-center;
+}
+
+.moreLink {
+  @apply font-medium text-graphite-950 no-underline hover:underline;
+}

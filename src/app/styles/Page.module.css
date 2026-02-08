@@ -1,0 +1,179 @@
+.wrap {
+  @apply mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 md:py-16;
+}
+
+.header {
+  @apply mb-12 text-center;
+}
+
+.h1 {
+  @apply font-serif text-3xl font-bold text-graphite-950 md:text-4xl;
+}
+
+.lead {
+  @apply mt-2 text-lg text-graphite-600;
+}
+
+.section {
+  @apply mt-8;
+}
+
+.contentSection {
+  @apply mt-12 max-w-3xl;
+}
+
+.contentSection p {
+  @apply mt-3 text-graphite-700 leading-relaxed;
+}
+
+.h2 {
+  @apply font-serif text-2xl font-bold text-graphite-950;
+}
+
+/* Afisha grid */
+.cardsGrid {
+  @apply grid gap-8 sm:grid-cols-2 lg:grid-cols-4;
+}
+
+.card {
+  @apply list-none overflow-hidden rounded-lg border border-graphite-200 bg-graphite-50;
+}
+
+.cardLink {
+  @apply block no-underline;
+}
+
+.posterWrap {
+  @apply relative aspect-[4/5] overflow-hidden bg-graphite-200;
+}
+
+.poster {
+  @apply h-full w-full object-cover;
+}
+
+.age {
+  @apply absolute right-2 top-2 rounded bg-graphite-950 px-2 py-0.5 text-xs font-medium text-white;
+}
+
+.body {
+  @apply p-4;
+}
+
+.cardTitle {
+  @apply font-serif text-lg font-bold text-graphite-950;
+}
+
+.meta {
+  @apply mt-1 text-sm text-graphite-600;
+}
+
+.genre {
+  @apply mt-0.5 text-sm font-medium text-graphite-700;
+}
+
+.desc {
+  @apply mt-2 line-clamp-2 text-sm text-graphite-600;
+}
+
+.btnDetail {
+  @apply mt-3 inline-block rounded border border-graphite-400 px-4 py-2 text-sm font-medium text-graphite-700 no-underline hover:bg-graphite-200;
+}
+
+.btnTicket {
+  @apply mt-3 block w-full rounded-md bg-graphite-950 px-6 py-3 text-center text-sm font-semibold text-white shadow-sm transition-all hover:bg-graphite-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-graphite-950;
+}
+
+/* Gallery (about) */
+.gallery {
+  @apply mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3;
+}
+
+.gallery li {
+  @apply list-none overflow-hidden rounded-lg;
+}
+
+.galleryImg {
+  @apply h-full w-full object-cover;
+}
+
+.videoPlaceholder {
+  @apply flex min-h-[240px] items-center justify-center rounded-lg border-2 border-dashed border-graphite-300 bg-graphite-100 text-graphite-600;
+}
+
+/* Troupe */
+.troupeGrid {
+  @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-4;
+}
+
+.troupeCard {
+  @apply list-none overflow-hidden rounded-lg border border-graphite-200 bg-white shadow-sm;
+}
+
+.troupeCardLink {
+  @apply block no-underline;
+}
+
+.troupePhotoWrap {
+  @apply relative aspect-[4/5] overflow-hidden bg-graphite-200;
+}
+
+.troupePhoto {
+  @apply h-full w-full object-cover;
+}
+
+.troupeBody {
+  @apply p-4;
+}
+
+.troupeName {
+  @apply font-serif text-lg font-bold text-graphite-950;
+}
+
+.troupeRank {
+  @apply mt-0.5 text-sm text-graphite-600;
+}
+
+.troupeRole {
+  @apply text-sm text-graphite-500;
+}
+
+/* News */
+.newsGrid {
+  @apply grid gap-8 md:grid-cols-2 lg:grid-cols-3;
+}
+
+.newsCard {
+  @apply list-none overflow-hidden rounded-lg border border-graphite-200 bg-graphite-50;
+}
+
+.newsCardLink {
+  @apply block no-underline hover:opacity-95;
+}
+
+.newsImageWrap {
+  @apply relative aspect-[3/2] overflow-hidden bg-graphite-200;
+}
+
+.newsImage {
+  @apply h-full w-full object-cover;
+}
+
+.newsCategory {
+  @apply absolute left-2 top-2 rounded bg-graphite-950 px-2 py-0.5 text-xs font-medium text-white;
+}
+
+.newsBody {
+  @apply p-4;
+}
+
+.newsDate {
+  @apply text-sm text-graphite-500;
+}
+
+.newsTitle {
+  @apply mt-1 font-serif text-lg font-bold text-graphite-950;
+}
+
+.newsExcerpt {
+  @apply mt-2 line-clamp-2 text-sm text-graphite-600;
+}
