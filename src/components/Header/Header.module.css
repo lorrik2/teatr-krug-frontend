@@ -13,12 +13,12 @@
 
 .logoImg {
   @apply w-auto object-contain;
-  height: 4rem;
+  height: 6rem;
 }
 
 @media (min-width: 400px) {
   .logoImg {
-    height: 5rem;
+    height: 7.5rem;
   }
 }
 
@@ -40,15 +40,15 @@
 
 .ticketBtn {
   @apply inline-flex items-center justify-center rounded-md px-6 py-3 text-sm font-semibold text-white transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
-  background: var(--color-graphite-950);
+  background: var(--color-accent-red);
 }
 .ticketBtn:hover {
-  filter: brightness(1.2);
+  filter: brightness(1.1);
 }
 
 .burger {
   @apply relative flex h-10 w-10 shrink-0 flex-col items-center justify-center gap-1.5 rounded p-2 text-graphite-950 outline-none min-[960px]:hidden;
-  @apply hover:ring-2 hover:ring-graphite-950 hover:ring-offset-2 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 active:outline-none active:ring-0;
+  @apply hover:ring-0 hover:ring-offset-0 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 active:outline-none active:ring-0;
   -webkit-tap-highlight-color: transparent;
 }
 

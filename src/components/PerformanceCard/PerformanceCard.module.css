@@ -12,6 +12,13 @@
   aspect-ratio: 4 / 5;
 }
 
+/* Десктоп: карточки чуть шире и ниже */
+@media (min-width: 1024px) {
+  .cardClickArea {
+    aspect-ratio: 5 / 6;
+  }
+}
+
 /* ateatra-style: на мобильном — шире (растянутые карточки) */
 @media (max-width: 639px) {
   .cardClickAreaWide {

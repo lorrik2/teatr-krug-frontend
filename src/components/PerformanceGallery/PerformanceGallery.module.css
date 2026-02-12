@@ -1,0 +1,29 @@
+/* mbronnaya style — чистая сетка */
+.gallery {
+  @apply mt-8;
+}
+
+.videoWrap {
+  @apply overflow-hidden rounded-lg bg-graphite-100;
+  aspect-ratio: 16 / 9;
+}
+
+.teaserPlaceholder {
+  @apply flex h-full w-full items-center justify-center bg-graphite-200;
+}
+
+.teaserPlaceholderText {
+  @apply text-sm text-graphite-500;
+}
+
+.video {
+  @apply h-full w-full;
+}
+
+.imgWrap {
+  @apply overflow-hidden bg-graphite-100;
+}
+
+.img {
+  @apply h-full w-full object-cover;
+}

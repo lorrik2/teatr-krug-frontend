@@ -1,17 +1,52 @@
+export interface CastMember {
+  name: string;
+  role: string;
+  /** slug актёра из команды — для фото */
+  actorSlug?: string;
+}
+
 export interface Performance {
   id: string;
   title: string;
   slug: string;
   poster: string;
+  /** Галерея фото для карусели на странице спектакля (если не задано — используется poster) */
+  gallery?: string[];
+  /** Подзаголовок: «спектакль X по пьесе Y. редакция Z | 18+» */
+  subtitle?: string;
+  /** Драматург / автор пьесы */
+  author?: string;
+  /** Режиссёр-постановщик */
+  director?: string;
+  /** Цитата режиссёра о спектакле */
+  directorQuote?: string;
+  /** Художник-постановщик */
+  designer?: string;
+  /** Художник по свету */
+  lightingDesigner?: string;
+  /** Звукорежиссёр */
+  soundDesigner?: string;
+  /** Свето-звуко оператор */
+  lightSoundOperator?: string;
+  /** Актёры и роли */
+  cast?: CastMember[];
+  /** Отзывы о спектакле */
+  reviews?: Review[];
+  /** URL тизера/трейлера (youtube, vimeo и т.п.) */
+  teaserUrl?: string;
   date: string;
   time: string;
   ageRating: string;
   genre: string;
   description: string;
   duration?: string;
+  /** Количество антрактов */
+  intermissions?: number;
   isPremiere?: boolean;
   /** Есть ли спектакль в афише (продажа билетов) */
   inAfisha?: boolean;
+  /** Даты и время показов в сезоне (если несколько — одна строка на каждую) */
+  schedule?: { date: string; time: string }[];
 }
 
 export interface Premiere {
@@ -52,6 +87,8 @@ export interface Review {
   id: string;
   quote: string;
   author: string;
+  /** Ссылка на отзыв во ВКонтакте */
+  vkUrl?: string;
 }
 
 export const navLinks = [
@@ -70,55 +107,131 @@ export const performances: Performance[] = [
     title: "Вишнёвый сад",
     slug: "vishnevyj-sad",
     poster: "/spect/bese.jpg",
+    gallery: ["/spect/bese.jpg", "/fon/6.jpg", "/fon/7.jpg"],
+    subtitle: "спектакль андрея волкова по пьесе антона чехова. новая редакция 2025 года | 12+",
+    author: "Антон Чехов",
+    director: "Андрей Волков",
+    designer: "Мария Иванова",
+    lightingDesigner: "Олег Светлов",
+    soundDesigner: "Ирина Звукова",
+    lightSoundOperator: "Алексей Петров",
+    cast: [
+      { name: "Мария Светлова", role: "Раневская", actorSlug: "mariya-svetlova" },
+      { name: "Дмитрий Козлов", role: "Лопахин", actorSlug: "dmitrij-kozlov" },
+      { name: "Елена Новикова", role: "Варя", actorSlug: "elena-novikova" },
+      { name: "Игорь Белов", role: "Гаев" },
+      { name: "Ольга Морозова", role: "Аня" },
+    ],
+    reviews: [
+      { id: "p1", quote: "Спектакль «Вишнёвый сад» — это что-то потрясающее! Какие красивые актрисы, это первое, что покоряет с первых минут! Далее, необычность самой постановки, трогательность чувств просто… В самое сердце!! Сегодня я, кажется, по-настоящему полюбила ТЕАТР!", author: "Л. Зотикова", vkUrl: "https://vk.com/wall123456789_123" },
+      { id: "p2", quote: "Ощущение, будто искупалась в океане загадочных и ранимых женских душ. Молчание — в нём столько смысла, молчание — это порой единственный выход. В этих женщинах я узнаю себя.", author: "О. Обойшева", vkUrl: "https://vk.com/wall123456789_456" },
+    ],
+    teaserUrl: "https://vk.com/video_ext.php?oid=-20088533&id=456239156&hash=94f0bbe1c794819d",
     date: "15 февраля 2025",
     time: "19:00",
     ageRating: "12+",
     genre: "Драма",
-    description: "Классическая постановка Чехова о уходящей эпохе.",
+    description:
+      "Классическая постановка Чехова о уходящей эпохе. Символ уходящего мира и надежда на новый. Без париков и бутафории — с живыми эмоциями и актуальными смыслами.",
+    directorQuote:
+      "В «Вишнёвом саду» очень важно показать грань между уходящим миром и надеждой. Без париков и бутафории — с живыми эмоциями и актуальными смыслами.",
     duration: "2 ч 40 мин",
+    intermissions: 1,
     isPremiere: true,
     inAfisha: true,
+    schedule: [
+      { date: "15 февраля 2025", time: "19:00" },
+      { date: "22 февраля 2025", time: "19:00" },
+      { date: "8 марта 2025", time: "18:00" },
+    ],
   },
   {
     id: "2",
     title: "Ревизор",
     slug: "revizor",
     poster: "/spect/hamlt.jpg",
+    gallery: ["/spect/hamlt.jpg", "/fon/4.jpg", "/fon/1.jpg"],
+    subtitle: "спектакль андрея волкова по пьесе николая гоголя. современное прочтение | 12+",
+    author: "Николай Гоголь",
+    director: "Андрей Волков",
+    designer: "Мария Иванова",
+    cast: [
+      { name: "Дмитрий Козлов", role: "Хлестаков", actorSlug: "dmitrij-kozlov" },
+      { name: "Елена Новикова", role: "Анна Андреевна", actorSlug: "elena-novikova" },
+      { name: "Игорь Белов", role: "Городничий" },
+      { name: "Мария Светлова", role: "Марья Антоновна", actorSlug: "mariya-svetlova" },
+    ],
     date: "22 февраля 2025",
     time: "18:30",
     ageRating: "12+",
     genre: "Комедия",
-    description: "Гоголь в современном прочтении.",
+    description:
+      "Гоголь в современном прочтении. Острые характеры, актуальные темы взяточничества и самообмана. Классика звучит по-новому.",
     duration: "2 ч 20 мин",
+    intermissions: 1,
+    lightSoundOperator: "Алексей Петров",
     isPremiere: true,
     inAfisha: true,
+    schedule: [
+      { date: "22 февраля 2025", time: "18:30" },
+      { date: "15 марта 2025", time: "19:00" },
+    ],
   },
   {
     id: "3",
     title: "Чайка",
     slug: "chajka",
     poster: "/spect/idiot.jpg",
+    gallery: ["/spect/idiot.jpg", "/fon/2.jpg", "/fon/3.jpg"],
+    subtitle: "спектакль андрея волкова по пьесе антона чехова | 16+",
+    author: "Антон Чехов",
+    director: "Андрей Волков",
+    cast: [
+      { name: "Мария Светлова", role: "Аркадина", actorSlug: "mariya-svetlova" },
+      { name: "Дмитрий Козлов", role: "Треплёв", actorSlug: "dmitrij-kozlov" },
+      { name: "Елена Новикова", role: "Маша", actorSlug: "elena-novikova" },
+      { name: "Ольга Морозова", role: "Нина" },
+    ],
     date: "1 марта 2025",
     time: "19:00",
     ageRating: "16+",
     genre: "Драма",
-    description: "Вечная пьеса о любви и творчестве.",
+    description:
+      "Вечная пьеса о любви и творчестве. Премьера сезона с новым актёрским составом и обновлённой сценографией.",
     duration: "3 ч",
+    intermissions: 2,
+    lightSoundOperator: "Алексей Петров",
     isPremiere: true,
     inAfisha: true,
+    schedule: [{ date: "1 марта 2025", time: "19:00" }],
   },
   {
     id: "4",
     title: "Три сестры",
     slug: "tri-sestry",
     poster: "/spect/kazn.jpg",
+    gallery: ["/spect/kazn.jpg", "/fon/8.jpg", "/fon/67.jpg"],
+    subtitle: "спектакль андрея волкова по пьесе антона чехова | 12+",
+    author: "Антон Чехов",
+    director: "Андрей Волков",
+    cast: [
+      { name: "Мария Светлова", role: "Маша", actorSlug: "mariya-svetlova" },
+      { name: "Елена Новикова", role: "Ольга", actorSlug: "elena-novikova" },
+      { name: "Ольга Морозова", role: "Ирина" },
+    ],
     date: "8 марта 2025",
     time: "19:00",
     ageRating: "12+",
     genre: "Драма",
-    description: "Чехов. Мечты о Москве.",
+    description: "Чехов. Мечты о Москве. Три сестры — три судьбы, связанные общей надеждой.",
     duration: "2 ч 50 мин",
+    intermissions: 1,
+    lightSoundOperator: "Алексей Петров",
     inAfisha: true,
+    schedule: [
+      { date: "8 марта 2025", time: "19:00" },
+      { date: "22 марта 2025", time: "18:30" },
+    ],
   },
 ];
 
@@ -130,6 +243,10 @@ export const repertoirePerformances: Performance[] = [
     title: "Идиот",
     slug: "idiot",
     poster: "/spect/idiot.jpg",
+    gallery: ["/spect/idiot.jpg", "/fon/2.jpg"],
+    subtitle: "спектакль андрея волкова по роману фёдора достоевского | 16+",
+    author: "Фёдор Достоевский",
+    director: "Андрей Волков",
     date: "—",
     time: "—",
     ageRating: "16+",
@@ -137,6 +254,8 @@ export const repertoirePerformances: Performance[] = [
     description:
       "Достоевский. История князя Мышкина — «идиота», чья доброта и честность сталкиваются с жестоким миром.",
     duration: "3 ч 10 мин",
+    intermissions: 2,
+    lightSoundOperator: "Алексей Петров",
     inAfisha: false,
   },
   {
@@ -144,6 +263,10 @@ export const repertoirePerformances: Performance[] = [
     title: "Бесы",
     slug: "besy",
     poster: "/spect/bese.jpg",
+    gallery: ["/spect/bese.jpg", "/fon/14.jpg", "/fon/13.jpg"],
+    subtitle: "спектакль андрея волкова по роману фёдора достоевского | 18+",
+    author: "Фёдор Достоевский",
+    director: "Андрей Волков",
     date: "—",
     time: "—",
     ageRating: "18+",
@@ -151,6 +274,8 @@ export const repertoirePerformances: Performance[] = [
     description:
       "Достоевский. Роман о революционных идеях и человеческой природе.",
     duration: "2 ч 55 мин",
+    intermissions: 1,
+    lightSoundOperator: "Алексей Петров",
     inAfisha: false,
   },
 ];
@@ -262,12 +387,14 @@ export const performanceReviews: Review[] = [
     quote:
       "Спектакль «Вишнёвый сад» — это что-то потрясающее! Какие красивые актрисы, это первое, что покоряет с первых минут! Далее, необычность самой постановки, трогательность чувств просто… В самое сердце!! Сегодня я, кажется, по-настоящему полюбила ТЕАТР!",
     author: "Л. Зотикова",
+    vkUrl: "https://vk.com/wall123456789_123",
   },
   {
     id: "p2",
     quote:
       "Ощущение, будто искупалась в океане загадочных и ранимых женских душ. Молчание — в нём столько смысла, молчание — это порой единственный выход. В этих женщинах я узнаю себя.",
     author: "О. Обойшева",
+    vkUrl: "https://vk.com/wall123456789_456",
   },
 ];
 
@@ -278,24 +405,28 @@ export const theaterReviews: Review[] = [
     quote:
       "Уютный камерный театр с особой атмосферой. Каждый раз прихожу сюда с радостью — здесь чувствуется живой театр, искренность и профессионализм. Очень приятная касса и зал.",
     author: "Л. Зотикова",
+    vkUrl: "https://vk.com/wall123456789_111",
   },
   {
     id: "t2",
     quote:
       "Театр «Круг» — моё любимое место в городе. Небольшой зал, близость к сцене, настоящие эмоции. После спектаклей всегда хочется вернуться.",
     author: "О. Обойшева",
+    vkUrl: "https://vk.com/wall123456789_222",
   },
   {
     id: "t3",
     quote:
       "Открыла для себя этот театр недавно и уже успела побывать на нескольких постановках. Атмосфера душевная, труппа сильная, репертуар интересный. Рекомендую всем любителям драматического театра.",
     author: "Е. Сууронен",
+    vkUrl: "https://vk.com/wall123456789_333",
   },
   {
     id: "t4",
     quote:
       "Небольшой, но очень душевный театр. Чувствуется, что здесь работают люди, влюблённые в своё дело. Удобное расположение, всегда приветливый персонал.",
     author: "С. Рошиор",
+    vkUrl: "https://vk.com/wall123456789_444",
   },
 ];
 

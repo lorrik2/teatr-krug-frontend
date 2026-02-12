@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fancyapps/ui": "^6.1.10",
     "framer-motion": "^11.11.17",
     "next": "15.0.5",
     "react": "^19.0.0",

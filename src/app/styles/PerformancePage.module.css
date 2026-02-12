@@ -1,0 +1,134 @@
+/* Макет в стиле mbronnaya.ru — классический театральный */
+
+.wrap {
+  @apply mx-auto max-w-4xl px-6 py-10 sm:px-8 md:py-12 lg:px-12;
+}
+
+/* Breadcrumbs — сверху */
+.breadcrumbs {
+  @apply mb-8 flex items-center gap-2 text-xs uppercase tracking-wider text-graphite-500;
+}
+
+.breadcrumbs a:hover {
+  @apply text-graphite-950 underline;
+}
+
+.breadcrumbsSep {
+  @apply text-graphite-400;
+}
+
+/* Текстовый блок под слайдером */
+.aboutBlock {
+  @apply mt-4 md:mt-6;
+}
+
+.aboutTitle {
+  @apply font-serif text-3xl font-medium tracking-tight text-graphite-950 md:text-4xl;
+}
+
+.aboutDesc {
+  @apply mt-6 max-w-3xl text-base leading-relaxed text-graphite-700 md:text-lg;
+}
+
+.aboutDesc p + p {
+  @apply mt-4;
+}
+
+/* Продолжительность и антракты */
+.infoBlock {
+  @apply mt-8 flex flex-wrap gap-x-8 gap-y-4;
+}
+
+.infoItem {
+  @apply flex flex-col gap-1;
+}
+
+.infoLabel {
+  @apply text-xs font-medium uppercase tracking-wider text-graphite-500;
+}
+
+.infoValue {
+  @apply font-serif text-base text-graphite-950 md:text-lg;
+}
+
+/* Создатели — стиль mbronnaya: роль | имена */
+.creatorsBlock {
+  @apply mt-12 grid gap-x-12 gap-y-6 border-t border-graphite-200 pt-10 sm:grid-cols-2 lg:grid-cols-3;
+}
+
+.creatorRow {
+  @apply flex flex-col gap-1;
+}
+
+.creatorLabel {
+  @apply text-xs font-medium uppercase tracking-wider text-graphite-500;
+}
+
+.creatorName {
+  @apply font-serif text-base text-graphite-950 md:text-lg;
+}
+
+.creatorNameLink {
+  @apply font-serif text-base text-graphite-950 no-underline hover:underline md:text-lg;
+}
+
+.directorQuoteLabelLink {
+  @apply text-graphite-950 no-underline hover:underline;
+}
+
+/* Цитата режиссёра — блок как на mbronnaya */
+.directorQuoteBlock {
+  @apply mt-12 border-l-2 border-graphite-800 bg-graphite-50 py-6 pl-6 pr-8 md:pl-10;
+}
+
+.directorQuoteLabel {
+  @apply text-xs font-medium uppercase tracking-wider text-graphite-500;
+}
+
+.directorQuoteText {
+  @apply mt-2 font-serif text-base italic leading-relaxed text-graphite-800 md:text-lg;
+}
+
+/* Даты и время показов — между режиссёром и участниками */
+.scheduleBlock {
+  @apply mt-12 space-y-3 border-t border-graphite-200 pt-10;
+}
+
+.scheduleRow {
+  @apply flex flex-row items-center justify-between gap-4;
+}
+
+.scheduleDateTime {
+  @apply font-serif text-base text-graphite-950 sm:text-lg;
+}
+
+.scheduleSep {
+  @apply mx-2 text-graphite-400;
+}
+
+.scheduleCta {
+  @apply shrink-0 rounded-md border-2 border-transparent bg-transparent px-4 py-2 text-sm font-semibold transition-all;
+  color: var(--color-accent-red);
+}
+.scheduleCta:hover {
+  border-color: var(--color-accent-red);
+}
+
+/* Секции */
+.section {
+  @apply mt-16 border-t border-graphite-200 pt-14 md:mt-20 md:pt-16;
+}
+
+.sectionTitle {
+  @apply text-xs font-medium uppercase tracking-wider text-graphite-500;
+}
+
+/* Обёртка для Reviews (светлый вариант) */
+.reviewsWrapper {
+  @apply mt-16 md:mt-20;
+}
+
+/* Отступ от тизера до блока покупки билетов */
+.ticketsWrapper {
+  @apply mt-16 md:mt-20;
+}

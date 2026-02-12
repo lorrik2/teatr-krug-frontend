@@ -1,0 +1,19 @@
+.galleryGrid {
+  @apply mt-4 grid list-none gap-4 sm:grid-cols-2 lg:grid-cols-3;
+}
+
+.galleryList {
+  @apply list-none;
+}
+
+.thumbBtn {
+  @apply block w-full cursor-zoom-in overflow-hidden rounded-lg border-0 p-0 text-left outline-none no-underline;
+}
+
+.thumbImg {
+  @apply h-full w-full object-cover transition-transform duration-300;
+}
+
+.thumbBtn:hover .thumbImg {
+  @apply scale-105;
+}

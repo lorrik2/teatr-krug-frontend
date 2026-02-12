@@ -1,5 +1,11 @@
+/* Тёмный вариант — главная */
 .section {
   @apply overflow-x-hidden bg-graphite-950 py-16 text-white md:py-24;
+}
+
+/* Светлый вариант — страница спектакля */
+.sectionLight {
+  @apply overflow-x-hidden bg-white py-16 md:py-24;
 }
 
 .container {
@@ -16,8 +22,18 @@
   padding-top: 0.15em;
 }
 
+.titleLight {
+  @apply font-posterama text-3xl font-bold tracking-wide text-graphite-950 md:text-4xl;
+  letter-spacing: 0.05em;
+  padding-top: 0.15em;
+}
+
 .subtitle {
   @apply mt-2 text-graphite-400;
+}
+
+.subtitleLight {
+  @apply mt-2 text-graphite-600;
 }
 
 .sliderWrap {
@@ -41,19 +57,59 @@
   @apply relative overflow-hidden rounded-lg border border-graphite-700 bg-graphite-900/50 px-6 pt-12 pb-8 md:px-8 md:pt-14 md:pb-10;
 }
 
+.quoteLight {
+  @apply relative overflow-hidden rounded-lg border border-graphite-200 bg-graphite-50 px-6 pt-12 pb-8 md:px-8 md:pt-14 md:pb-10;
+}
+
 .quoteMark {
   @apply absolute top-2 left-2 block font-serif text-7xl leading-none text-graphite-600 opacity-60 md:text-8xl md:top-3 md:left-3;
+}
+
+.quoteMarkLight {
+  @apply absolute top-2 left-2 block font-serif text-7xl leading-none text-graphite-300 opacity-80 md:text-8xl md:top-3 md:left-3;
 }
 
 .quoteText {
   @apply relative z-10 text-lg leading-relaxed text-graphite-100 md:text-xl;
 }
 
+.quoteTextLight {
+  @apply relative z-10 text-lg leading-relaxed text-graphite-800 md:text-xl;
+}
+
 .attribution {
   @apply mt-4 text-sm text-graphite-500;
 }
 
-/* Swiper pagination — точки в стиле референса */
+.attributionLight {
+  @apply mt-4 text-sm text-graphite-600;
+}
+
+.attributionInner {
+  @apply inline-flex items-center gap-2;
+}
+
+.vkLink {
+  @apply inline-flex shrink-0 transition-colors;
+}
+
+.section .vkLink {
+  @apply text-graphite-400;
+}
+
+.sectionLight .vkLink {
+  @apply text-graphite-500;
+}
+
+.vkLink:hover {
+  color: #0077ff;
+}
+
+.vkIcon {
+  @apply h-5 w-5;
+}
+
+/* Swiper pagination */
 .slider :global(.swiper-pagination) {
   position: relative;
   margin-top: 1.5rem;
@@ -62,16 +118,32 @@
 .slider :global(.swiper-pagination-bullet) {
   width: 8px;
   height: 8px;
-  background: rgba(255, 255, 255, 0.3);
   opacity: 1;
   transition: background 0.3s, transform 0.3s;
 }
 
-.slider :global(.swiper-pagination-bullet-active) {
+.section .slider :global(.swiper-pagination-bullet) {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.section .slider :global(.swiper-pagination-bullet-active) {
   background: #fff;
   transform: scale(1.2);
 }
 
-.slider :global(.swiper-pagination-bullet:hover) {
+.section .slider :global(.swiper-pagination-bullet:hover) {
   background: rgba(255, 255, 255, 0.6);
+}
+
+.sectionLight .slider :global(.swiper-pagination-bullet) {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.sectionLight .slider :global(.swiper-pagination-bullet-active) {
+  background: var(--color-graphite-950);
+  transform: scale(1.2);
+}
+
+.sectionLight .slider :global(.swiper-pagination-bullet:hover) {
+  background: rgba(0, 0, 0, 0.4);
 }

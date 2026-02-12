@@ -30,10 +30,35 @@
   @apply font-serif text-2xl font-bold text-graphite-950;
 }
 
-/* Afisha / Repertuar grid — карточки PerformanceCard */
+/* Afisha / Repertuar grid — карточки PerformanceCard (пропорционально крупнее) */
 .cardsGrid {
-  @apply grid gap-8 sm:grid-cols-2 lg:grid-cols-4;
+  @apply grid gap-6 sm:gap-8;
+  grid-template-columns: 1fr;
   grid-auto-rows: 1fr;
+}
+
+@media (min-width: 640px) {
+  .cardsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .cardsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1536px) {
+  .cardsGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1920px) {
+  .cardsGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 .card {

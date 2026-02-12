@@ -79,6 +79,10 @@
   @apply scale-105;
 }
 
+.slideBtn {
+  @apply block h-full w-full cursor-zoom-in border-0 bg-transparent p-0 text-left outline-none no-underline;
+}
+
 /* Swiper pagination */
 .slider :global(.swiper-pagination-bullet) {
   @apply bg-white/50;

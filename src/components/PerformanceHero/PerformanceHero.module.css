@@ -1,0 +1,45 @@
+/* mbronnaya style — слайдер на всю ширину */
+.section {
+  @apply relative h-[55vh] min-h-[360px] w-full overflow-hidden md:h-[60vh] md:min-h-[420px];
+}
+
+.slider {
+  @apply relative h-full w-full;
+}
+
+.slide {
+  @apply relative h-full w-full;
+}
+
+.imageWrap {
+  @apply absolute inset-0;
+}
+
+.image {
+  @apply object-cover;
+}
+
+.placeholder {
+  @apply h-full w-full bg-graphite-300;
+}
+
+.slideBtn {
+  @apply block h-full w-full cursor-zoom-in border-0 bg-transparent p-0 text-left outline-none no-underline;
+}
+
+/* Пагинация — точки */
+.slider :global(.swiper-pagination) {
+  bottom: 1rem;
+}
+
+.slider :global(.swiper-pagination-bullet) {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  transition: background 0.2s;
+}
+
+.slider :global(.swiper-pagination-bullet-active) {
+  background: #fff;
+}

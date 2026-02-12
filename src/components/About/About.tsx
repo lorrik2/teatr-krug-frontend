@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import { motion } from "framer-motion";
+import useFancybox from "@/hooks/useFancybox";
 import styles from "./About.module.css";
 
 import "swiper/css";
@@ -18,6 +19,8 @@ const gallery = [
 ];
 
 export default function About() {
+  const [fancyboxRef] = useFancybox();
+
   return (
     <section
       className={styles.section}
@@ -66,7 +69,7 @@ export default function About() {
             </Link>
           </motion.div>
 
-          <div className={styles.sliderWrap}>
+          <div ref={fancyboxRef} className={styles.sliderWrap}>
             <Swiper
               modules={[Pagination, Autoplay]}
               spaceBetween={0}
@@ -81,15 +84,23 @@ export default function About() {
             >
               {gallery.map((img, i) => (
                 <SwiperSlide key={i} className={styles.slide}>
-                  <div className={styles.slideInner}>
-                    <Image
-                      src={img.src}
-                      alt={img.alt}
-                      fill
-                      className={styles.slideImg}
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                  </div>
+                  <a
+                    href={img.src}
+                    data-fancybox="about-gallery"
+                    data-caption={`${img.alt} (${i + 1}/${gallery.length})`}
+                    className={styles.slideBtn}
+                    aria-label={`Открыть фото: ${img.alt}`}
+                  >
+                    <div className={styles.slideInner}>
+                      <Image
+                        src={img.src}
+                        alt={img.alt}
+                        fill
+                        className={styles.slideImg}
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    </div>
+                  </a>
                 </SwiperSlide>
               ))}
             </Swiper>

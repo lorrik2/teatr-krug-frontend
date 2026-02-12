@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import GalleryLightbox from "@/components/GalleryLightbox";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
@@ -54,19 +54,7 @@ export default function AboutPage() {
 
       <section id="gallery" className={styles.contentSection}>
         <h2 className={styles.h2}>Фотогалерея</h2>
-        <ul className={styles.gallery}>
-          {gallery.map((img, i) => (
-            <li key={i}>
-              <Image
-                src={img.src}
-                alt={img.alt}
-                width={800}
-                height={500}
-                className={styles.galleryImg}
-              />
-            </li>
-          ))}
-        </ul>
+        <GalleryLightbox images={gallery} variant="grid" />
       </section>
 
       <section className={styles.contentSection}>
