@@ -1,5 +1,5 @@
 .section {
-  @apply bg-graphite-100 py-16 md:py-24;
+  @apply bg-white py-16 md:py-24;
 }
 
 .container {
@@ -11,7 +11,8 @@
 }
 
 .title {
-  @apply font-serif text-3xl font-bold tracking-tight text-graphite-950 md:text-4xl;
+  @apply font-posterama text-3xl font-bold tracking-wide text-graphite-950 md:text-4xl;
+  letter-spacing: 0.04em;
 }
 
 .subtitle {
@@ -44,13 +45,18 @@
   max-height: none;
 }
 
-.troupeGrid {
-  @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-4;
+.teamGrid {
+  @apply grid gap-10 sm:grid-cols-2 lg:grid-cols-4;
 }
 
 .fadeOverlay {
   @apply pointer-events-none absolute bottom-0 left-0 right-0 flex flex-col items-center justify-end pb-6 pt-24;
-  background: linear-gradient(to top, rgba(231, 231, 231, 0.98) 0%, rgba(231, 231, 231, 0.85) 40%, transparent 100%);
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(255, 255, 255, 0.85) 40%,
+    transparent 100%
+  );
 }
 
 .fadeOverlayVisible {
@@ -66,7 +72,11 @@
 }
 
 .fadeBtn {
-  @apply rounded-md bg-graphite-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-graphite-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-graphite-950;
+  @apply rounded-md px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+  background: var(--color-graphite-950);
+}
+.fadeBtn:hover {
+  filter: brightness(1.1);
 }
 
 .fadeLink {
@@ -89,27 +99,32 @@
 }
 
 .cardLink {
-  @apply block overflow-hidden rounded-lg border border-graphite-200 bg-white no-underline shadow-sm transition-all hover:border-graphite-400 hover:shadow-md;
+  @apply flex flex-col items-center text-center no-underline transition-all hover:opacity-90;
 }
 
 .photoWrap {
-  @apply relative aspect-[4/5] overflow-hidden bg-graphite-200;
+  @apply relative flex h-60 w-60 shrink-0 overflow-hidden rounded-full border-2 border-graphite-200 bg-graphite-200 ring-2 ring-white shadow-lg transition-transform duration-300 sm:h-64 sm:w-64 md:h-56 md:w-56 lg:h-60 lg:w-60;
 }
 
 .photo {
-  @apply h-full w-full object-cover transition-transform duration-300;
+  @apply h-full w-full object-cover object-top transition-transform duration-500;
 }
 
 .cardLink:hover .photo {
-  @apply scale-105;
+  @apply scale-110;
+}
+
+.cardLink:hover .photoWrap {
+  @apply border-graphite-400;
 }
 
 .body {
-  @apply p-4;
+  @apply mt-4 px-2;
 }
 
 .name {
-  @apply font-serif text-lg font-bold text-graphite-950;
+  @apply font-posterama text-lg font-bold text-graphite-950;
+  letter-spacing: 0.02em;
 }
 
 .rank {

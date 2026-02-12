@@ -1,5 +1,5 @@
 .section {
-  @apply bg-graphite-100 py-16 md:py-20;
+  @apply bg-graphite-50 py-16 md:py-20;
 }
 
 .container {
@@ -7,15 +7,21 @@
 }
 
 .title {
-  @apply font-serif text-3xl font-bold tracking-tight text-graphite-950 md:text-4xl;
+  @apply font-posterama text-3xl font-bold tracking-wide text-graphite-950 md:text-4xl;
+  letter-spacing: 0.04em;
 }
 
 .subtitle {
   @apply mt-2 text-lg text-graphite-600;
 }
 
+/* Полная заливка красным */
 .cta {
-  @apply mt-8 inline-flex items-center justify-center rounded-md bg-graphite-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:bg-graphite-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-graphite-950;
+  @apply mt-8 inline-flex items-center justify-center rounded-md px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+  background: var(--color-graphite-950);
+}
+.cta:hover {
+  filter: brightness(1.1);
 }
 
 .note {

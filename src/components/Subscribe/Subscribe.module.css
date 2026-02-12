@@ -11,7 +11,8 @@
 }
 
 .title {
-  @apply font-serif text-2xl font-bold md:text-3xl;
+  @apply font-posterama text-2xl font-bold md:text-3xl;
+  letter-spacing: 0.04em;
 }
 
 .subtitle {
@@ -27,7 +28,11 @@
 }
 
 .button {
-  @apply shrink-0 rounded-md bg-white px-6 py-3 font-semibold text-graphite-950 transition-colors hover:bg-graphite-200 disabled:opacity-50;
+  @apply shrink-0 rounded-md px-6 py-3 font-semibold text-white transition-colors disabled:opacity-50;
+  background: var(--color-graphite-950);
+}
+.button:not(:disabled):hover {
+  filter: brightness(1.1);
 }
 
 .success {

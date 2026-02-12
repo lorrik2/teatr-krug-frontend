@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "Актеры и режиссёры театра. Биографии, роли, фото.",
 };
 
-export default function TroupePage() {
+export default function TeamPage() {
   return (
     <div className={styles.wrap}>
       <header className={styles.header}>
@@ -18,28 +18,28 @@ export default function TroupePage() {
       </header>
 
       <section className={styles.section}>
-        <ul className={styles.troupeGrid}>
+        <ul className={styles.teamGrid}>
           {actors.map((actor) => (
-            <li key={actor.id} className={styles.troupeCard}>
+            <li key={actor.id} className={styles.teamCard}>
               <Link
                 href={`/team/${actor.slug}`}
-                className={styles.troupeCardLink}
+                className={styles.teamCardLink}
               >
-                <div className={styles.troupePhotoWrap}>
+                <div className={styles.teamPhotoWrap}>
                   <Image
                     src={actor.photo}
                     alt={actor.name}
                     width={400}
                     height={500}
-                    className={styles.troupePhoto}
+                    className={styles.teamPhoto}
                   />
                 </div>
-                <div className={styles.troupeBody}>
-                  <h2 className={styles.troupeName}>{actor.name}</h2>
+                <div className={styles.teamBody}>
+                  <h2 className={styles.teamName}>{actor.name}</h2>
                   {actor.rank && (
-                    <p className={styles.troupeRank}>{actor.rank}</p>
+                    <p className={styles.teamRank}>{actor.rank}</p>
                   )}
-                  <p className={styles.troupeRole}>{actor.role}</p>
+                  <p className={styles.teamRole}>{actor.role}</p>
                 </div>
               </Link>
             </li>

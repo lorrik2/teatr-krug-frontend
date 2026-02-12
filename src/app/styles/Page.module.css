@@ -30,9 +30,10 @@
   @apply font-serif text-2xl font-bold text-graphite-950;
 }
 
-/* Afisha grid */
+/* Afisha / Repertuar grid — карточки PerformanceCard */
 .cardsGrid {
   @apply grid gap-8 sm:grid-cols-2 lg:grid-cols-4;
+  grid-auto-rows: 1fr;
 }
 
 .card {
@@ -91,12 +92,23 @@
   @apply mt-2 line-clamp-2 text-sm text-graphite-600;
 }
 
+/* Контурная */
 .btnDetail {
-  @apply mt-3 inline-block rounded border border-graphite-400 px-4 py-2 text-sm font-medium text-graphite-700 no-underline hover:bg-graphite-200;
+  @apply mt-3 inline-block rounded border-2 px-4 py-2 text-sm font-medium no-underline transition-colors;
+  border-color: var(--color-graphite-950);
+  color: var(--color-graphite-950);
+}
+.btnDetail:hover {
+  background: rgb(0 0 0 / 0.06);
 }
 
+/* Полная заливка */
 .btnTicket {
-  @apply mt-3 block w-full rounded-md bg-graphite-950 px-6 py-3 text-center text-sm font-semibold text-white shadow-sm transition-all hover:bg-graphite-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-graphite-950;
+  @apply mt-3 block w-full rounded-md px-6 py-3 text-center text-sm font-semibold text-white shadow-sm transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+  background: var(--color-graphite-950);
+}
+.btnTicket:hover {
+  filter: brightness(1.2);
 }
 
 /* Gallery (about) */
@@ -116,40 +128,40 @@
   @apply flex min-h-[240px] items-center justify-center rounded-lg border-2 border-dashed border-graphite-300 bg-graphite-100 text-graphite-600;
 }
 
-/* Troupe */
-.troupeGrid {
+/* Team */
+.teamGrid {
   @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-4;
 }
 
-.troupeCard {
+.teamCard {
   @apply list-none overflow-hidden rounded-lg border border-graphite-200 bg-white shadow-sm;
 }
 
-.troupeCardLink {
+.teamCardLink {
   @apply block no-underline;
 }
 
-.troupePhotoWrap {
+.teamPhotoWrap {
   @apply relative aspect-[4/5] overflow-hidden bg-graphite-200;
 }
 
-.troupePhoto {
+.teamPhoto {
   @apply h-full w-full object-cover;
 }
 
-.troupeBody {
+.teamBody {
   @apply p-4;
 }
 
-.troupeName {
+.teamName {
   @apply font-serif text-lg font-bold text-graphite-950;
 }
 
-.troupeRank {
+.teamRank {
   @apply mt-0.5 text-sm text-graphite-600;
 }
 
-.troupeRole {
+.teamRole {
   @apply text-sm text-graphite-500;
 }
 

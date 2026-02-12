@@ -9,28 +9,43 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        /* Референс persona-teatrkrug: чёрно-белая гамма */
         graphite: {
-          50: "#f6f6f6",
-          100: "#e7e7e7",
-          200: "#d1d1d1",
-          300: "#b0b0b0",
-          400: "#888888",
-          500: "#6d6d6d",
-          600: "#5d5d5d",
-          700: "#4f4f4f",
-          800: "#454545",
-          900: "#3d3d3d",
-          950: "#1a1a1a",
+          50: "#fafafa",
+          100: "#f5f5f5",
+          200: "#e5e5e5",
+          300: "#d4d4d4",
+          400: "#a3a3a3",
+          500: "#737373",
+          600: "#525252",
+          700: "#404040",
+          800: "#262626",
+          900: "#171717",
+          950: "#0a0a0a",
         },
-        accent: "#c9a227",
+        "accent-red": "rgb(197 35 37)",
       },
       fontFamily: {
-        serif: ["var(--font-playfair)", "Georgia", "serif"],
+        posterama: [
+          "Posterama",
+          "var(--font-posterama)",
+          "Cinzel",
+          "Georgia",
+          "serif",
+        ],
+        serif: [
+          "Posterama",
+          "var(--font-posterama)",
+          "Cinzel",
+          "Georgia",
+          "serif",
+        ],
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
       animation: {
         "fade-in": "fadeIn 0.6s ease-out",
         "slide-up": "slideUp 0.5s ease-out",
+        "quote-in": "quoteIn 0.5s ease-out",
       },
       keyframes: {
         fadeIn: {
@@ -40,6 +55,10 @@ const config: Config = {
         slideUp: {
           "0%": { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        quoteIn: {
+          "0%": { opacity: "0", transform: "translateY(12px) scale(0.98)" },
+          "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
         },
       },
     },

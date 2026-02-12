@@ -62,7 +62,7 @@
 }
 
 .posterWrap {
-  @apply relative aspect-[4/5] overflow-hidden rounded-lg bg-graphite-800;
+  @apply relative aspect-[4/5] overflow-hidden rounded-sm bg-graphite-800;
 }
 
 .poster {
@@ -74,7 +74,8 @@
 }
 
 .title {
-  @apply font-serif text-3xl font-bold md:text-4xl;
+  @apply font-posterama text-3xl font-bold md:text-4xl;
+  letter-spacing: 0.05em;
 }
 
 .dateTime {
@@ -101,12 +102,23 @@
   @apply mt-8 flex flex-wrap gap-4;
 }
 
+/* Контурная — на тёмном фоне */
 .btnDetail {
-  @apply inline-flex items-center justify-center rounded-md border-2 border-white px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-white hover:text-graphite-950;
+  @apply inline-flex items-center justify-center rounded-md border-2 px-6 py-3 text-sm font-semibold text-white transition-all;
+  border-color: var(--color-graphite-950);
+  background: transparent;
+}
+.btnDetail:hover {
+  background: var(--color-graphite-950);
 }
 
+/* Полная заливка чёрным */
 .btnTicket {
-  @apply inline-flex items-center justify-center rounded-md bg-white px-6 py-3 text-sm font-semibold text-graphite-950 shadow-sm transition-all hover:bg-graphite-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+  @apply inline-flex items-center justify-center rounded-md px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+  background: var(--color-graphite-950);
+}
+.btnTicket:hover {
+  filter: brightness(1.2);
 }
 
 /* Кнопки Swiper: на адаптиве скрыты (используем квадратики в header), на декстопе — по бокам слайда */

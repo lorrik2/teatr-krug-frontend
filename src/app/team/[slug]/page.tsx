@@ -30,8 +30,8 @@ export default async function ActorPage({ params }: Props) {
   return (
     <div className={styles.wrap}>
       <header className={styles.header}>
-        <Link href="/truppa" className="text-graphite-600 hover:underline">
-          ← Труппа
+        <Link href="/team" className="text-graphite-600 hover:underline">
+          ← Команда
         </Link>
         <div className="mt-8 grid gap-8 md:grid-cols-2">
           <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-graphite-200">

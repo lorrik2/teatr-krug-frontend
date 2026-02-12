@@ -22,8 +22,8 @@ yarn start
 
 ## Структура
 
-- **`src/app/`** — страницы (SSR, SEO): главная, Афиша, О театре, Труппа, Новости, Контакты, а также динамические маршруты для спектакля/артиста/новости.
-- **`src/components/`** — переиспользуемые блоки: Header, Footer, Hero, Repertoire, Premiere, TicketsBlock, About, Troupe, News, Contacts, Subscribe. Стили в отдельных `.module.css` (Tailwind + кастомные классы).
+- **`src/app/`** — страницы (SSR, SEO): главная, Афиша, О театре, Команда, Новости, Контакты, а также динамические маршруты для спектакля/артиста/новости.
+- **`src/components/`** — переиспользуемые блоки: Header, Footer, Hero, Repertoire, Premiere, TicketsBlock, About, Team, News, Contacts, Subscribe. Стили в отдельных `.module.css` (Tailwind + кастомные классы).
 - **`src/lib/mock-data.ts`** — моковые данные для афиши, премьеры, труппы, новостей и контактов.
 
 ## Дизайн

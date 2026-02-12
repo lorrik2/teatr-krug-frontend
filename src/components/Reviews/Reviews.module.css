@@ -1,0 +1,76 @@
+.section {
+  @apply overflow-x-hidden bg-graphite-950 py-16 text-white md:py-24;
+}
+
+.container {
+  @apply mx-auto max-w-7xl overflow-x-hidden px-4 sm:px-6 lg:px-8;
+}
+
+.header {
+  @apply mb-12 text-center;
+}
+
+.title {
+  @apply font-posterama text-3xl font-bold tracking-wide md:text-4xl;
+  letter-spacing: 0.05em;
+}
+
+.subtitle {
+  @apply mt-2 text-graphite-400;
+}
+
+.sliderWrap {
+  @apply relative overflow-hidden;
+}
+
+.slider {
+  @apply w-full overflow-hidden pb-14;
+}
+
+.slider :global(.swiper-wrapper) {
+  align-items: stretch;
+}
+
+.slider :global(.swiper-slide) {
+  height: auto;
+  box-sizing: border-box;
+}
+
+.quote {
+  @apply relative overflow-hidden rounded-lg border border-graphite-700 bg-graphite-900/50 px-6 py-8 md:px-8 md:py-10;
+}
+
+.quoteMark {
+  @apply absolute top-0 left-0 block font-serif text-7xl leading-none text-graphite-600 opacity-60 md:text-8xl;
+}
+
+.quoteText {
+  @apply relative z-10 text-lg leading-relaxed text-graphite-100 md:text-xl;
+}
+
+.attribution {
+  @apply mt-4 text-sm text-graphite-500;
+}
+
+/* Swiper pagination — точки в стиле референса */
+.slider :global(.swiper-pagination) {
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+.slider :global(.swiper-pagination-bullet) {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  opacity: 1;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.slider :global(.swiper-pagination-bullet-active) {
+  background: #fff;
+  transform: scale(1.2);
+}
+
+.slider :global(.swiper-pagination-bullet:hover) {
+  background: rgba(255, 255, 255, 0.6);
+}

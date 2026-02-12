@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { navLinks, contactInfo } from "@/lib/mock-data";
 import styles from "./Footer.module.css";
 
@@ -9,7 +10,13 @@ export default function Footer() {
         <div className={styles.topGrid}>
           <div className={styles.brand}>
             <Link href="/" className={styles.logo}>
-              Драматический театр «Круг»
+              <Image
+                src="/logo/лого круг.png"
+                alt="Драматический театр Круг"
+                width={140}
+                height={48}
+                className={styles.logoImg}
+              />
             </Link>
             <p className={styles.tagline}>
               Драматический театр «Круг» — живая сцена, классика и

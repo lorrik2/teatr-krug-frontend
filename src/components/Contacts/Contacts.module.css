@@ -1,5 +1,5 @@
 .section {
-  @apply bg-graphite-100 py-16 md:py-24;
+  @apply bg-graphite-50 py-16 md:py-24;
 }
 
 .container {
@@ -7,7 +7,8 @@
 }
 
 .title {
-  @apply text-center font-serif text-3xl font-bold tracking-tight text-graphite-950 md:text-4xl;
+  @apply text-center font-posterama text-3xl font-bold tracking-wide text-graphite-950 md:text-4xl;
+  letter-spacing: 0.04em;
 }
 
 .subtitle {
@@ -23,11 +24,11 @@
 }
 
 .block {
-  @apply rounded-lg border border-graphite-200 bg-white p-4;
+  @apply rounded-sm border border-graphite-200 bg-white p-4;
 }
 
 .blockTitle {
-  @apply mb-2 font-serif text-lg font-bold text-graphite-950;
+  @apply mb-2 font-posterama text-lg font-bold text-graphite-950;
 }
 
 .address {
@@ -51,7 +52,7 @@
 }
 
 .transport {
-  @apply rounded-lg border border-graphite-200 bg-white p-4;
+  @apply rounded-sm border border-graphite-200 bg-white p-4;
 }
 
 .mapWrap {

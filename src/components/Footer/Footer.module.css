@@ -1,5 +1,5 @@
 .footer {
-  @apply mt-auto bg-graphite-950 text-graphite-300;
+  @apply mt-auto bg-graphite-950 text-graphite-400;
 }
 
 .top {
@@ -15,7 +15,11 @@
 }
 
 .logo {
-  @apply font-serif text-xl font-bold text-white no-underline;
+  @apply block no-underline;
+}
+
+.logoImg {
+  @apply h-10 w-auto object-contain opacity-90 transition-opacity hover:opacity-100;
 }
 
 .tagline {

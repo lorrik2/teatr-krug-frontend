@@ -19,7 +19,7 @@
 }
 
 .overlay {
-  @apply absolute inset-0 bg-graphite-950/50;
+  @apply absolute inset-0 bg-black/60;
 }
 
 .content {
@@ -27,16 +27,22 @@
 }
 
 .title {
-  @apply font-serif text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl;
+  @apply font-posterama text-4xl font-bold tracking-wide md:text-5xl lg:text-6xl;
   @apply drop-shadow-lg;
+  letter-spacing: 0.08em;
 }
 
 .subtitle {
   @apply mt-3 text-lg md:text-xl text-graphite-200;
 }
 
+/* Залитая красная кнопка на слайдере */
 .cta {
-  @apply mt-8 inline-flex items-center justify-center rounded-md bg-white px-6 py-3 text-sm font-semibold text-graphite-950 shadow-sm transition-all hover:bg-graphite-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+  @apply mt-8 inline-flex items-center justify-center rounded-sm px-6 py-3 text-sm font-semibold text-white transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+  background: var(--color-accent-red);
+}
+.cta:hover {
+  filter: brightness(1.1);
 }
 
 /* Кнопки навигации — только стрелки, без круга */

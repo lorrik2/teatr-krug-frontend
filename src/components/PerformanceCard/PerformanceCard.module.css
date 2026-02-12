@@ -1,0 +1,84 @@
+/* ateatra-style: фото как фон, текст поверх */
+.card {
+  @apply flex list-none min-h-0 flex-col overflow-hidden rounded-lg border border-graphite-200 shadow-sm transition-all hover:shadow-lg;
+}
+
+.cardInner {
+  @apply relative flex min-h-0 flex-1 flex-col overflow-hidden;
+}
+
+.cardClickArea {
+  @apply relative block flex-1 no-underline;
+  aspect-ratio: 4 / 5;
+}
+
+/* ateatra-style: на мобильном — шире (растянутые карточки) */
+@media (max-width: 639px) {
+  .cardClickAreaWide {
+    aspect-ratio: 3 / 2;
+  }
+}
+
+.cardClickArea:hover .posterImg {
+  @apply scale-105;
+}
+
+.posterBg {
+  @apply absolute inset-0 overflow-hidden bg-graphite-200;
+}
+
+.posterImg {
+  @apply h-full w-full object-cover transition-transform duration-300;
+}
+
+.overlay {
+  @apply pointer-events-none absolute inset-0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 10, 0.95) 0%,
+    rgba(10, 10, 10, 0.5) 40%,
+    transparent 70%
+  );
+}
+
+.age {
+  @apply absolute right-2 top-2 rounded bg-graphite-950 px-2 py-0.5 text-xs font-medium text-white;
+}
+
+.topLeft {
+  @apply absolute left-2 top-2 flex flex-col gap-1;
+}
+
+.dateTime {
+  @apply text-base font-bold text-white;
+}
+
+.content {
+  @apply absolute bottom-0 left-0 right-0 flex flex-col gap-3 p-4;
+}
+
+.contentLink {
+  @apply block no-underline;
+}
+
+.cardTitle {
+  @apply font-posterama text-lg font-bold tracking-wide text-white;
+}
+
+.genre {
+  @apply mt-0.5 text-sm text-white/80;
+}
+
+.btnDetail {
+  @apply mt-3 inline-flex items-center border-b-2 border-white pb-1 text-sm font-medium text-white transition-colors;
+}
+.btnDetail:hover {
+  @apply border-white/70 text-white/90;
+}
+
+.btnTicket {
+  @apply flex w-full shrink-0 items-center justify-center rounded-none border-2 border-white bg-transparent px-6 py-3 text-sm font-semibold text-white no-underline transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+}
+.btnTicket:hover {
+  @apply bg-white text-graphite-950;
+}

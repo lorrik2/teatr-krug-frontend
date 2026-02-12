@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { navLinks } from "@/lib/mock-data";
@@ -26,7 +27,14 @@ export default function Header() {
     <header ref={headerRef} className={styles.header}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo} aria-label="На главную">
-          <span className={styles.logoText}>Драматический театр «Круг»</span>
+          <Image
+            src="/logo/лого круг.png"
+            alt="Драматический театр Круг"
+            width={140}
+            height={48}
+            className={styles.logoImg}
+            priority
+          />
         </Link>
 
         <nav className={styles.nav} aria-label="Основное меню">
@@ -65,7 +73,7 @@ export default function Header() {
           <motion.div
             className={styles.mobileMenu}
             initial={{ opacity: 0, maxHeight: 0 }}
-            animate={{ opacity: 1, maxHeight: 400 }}
+            animate={{ opacity: 1, maxHeight: 520 }}
             exit={{ opacity: 0, maxHeight: 0 }}
             transition={{ duration: 0.2 }}
           >

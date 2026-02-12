@@ -1,5 +1,6 @@
 .header {
-  @apply relative sticky top-0 z-50 w-full border-b border-graphite-200 bg-graphite-100/95 backdrop-blur supports-[backdrop-filter]:bg-graphite-100/80;
+  @apply relative sticky top-0 z-50 w-full border-b border-graphite-300;
+  background: #cccccc;
 }
 
 .container {
@@ -10,8 +11,8 @@
   @apply flex shrink-0 items-center no-underline;
 }
 
-.logoText {
-  @apply font-serif text-xl font-bold text-graphite-950;
+.logoImg {
+  @apply h-10 w-auto object-contain min-[400px]:h-12;
 }
 
 .nav {
@@ -23,7 +24,7 @@
 }
 
 .navLink {
-  @apply text-sm font-medium text-graphite-700 no-underline transition-colors hover:text-graphite-950;
+  @apply block rounded-md px-3 py-2 text-sm font-medium text-graphite-800 no-underline transition-colors duration-200 hover:bg-graphite-200/70 hover:text-graphite-950;
 }
 
 .actions {
@@ -31,7 +32,11 @@
 }
 
 .ticketBtn {
-  @apply inline-flex items-center justify-center rounded-md bg-graphite-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:bg-graphite-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-graphite-950;
+  @apply inline-flex items-center justify-center rounded-md px-6 py-3 text-sm font-semibold text-white transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+  background: var(--color-graphite-950);
+}
+.ticketBtn:hover {
+  filter: brightness(1.2);
 }
 
 .burger {
@@ -44,8 +49,8 @@
 }
 
 .mobileMenu {
-  @apply absolute left-0 right-0 top-full z-50 overflow-hidden border-t border-graphite-200 bg-graphite-100 min-[960px]:hidden;
-  box-shadow: 0 12px 40px -4px rgba(0, 0, 0, 0.25), 0 6px 16px -2px rgba(0, 0, 0, 0.12);
+  @apply absolute left-0 right-0 top-full z-50 overflow-hidden border-t border-graphite-300 bg-[#cccccc] min-[960px]:hidden;
+  box-shadow: 0 12px 40px -4px rgba(0, 0, 0, 0.15);
 }
 
 .mobileList {
@@ -53,9 +58,13 @@
 }
 
 .mobileLink {
-  @apply -mx-4 block px-4 py-3 text-graphite-700 no-underline hover:bg-graphite-200 hover:text-graphite-950;
+  @apply -mx-4 block rounded-md px-4 py-3 text-graphite-800 no-underline transition-colors duration-200 hover:bg-graphite-200/80 hover:text-graphite-950;
 }
 
 .mobileTicketBtn {
-  @apply mt-2 inline-flex w-full justify-center rounded-md bg-graphite-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:bg-graphite-800;
+  @apply mt-2 inline-flex w-full justify-center rounded-md px-6 py-3 text-sm font-semibold text-white transition-all;
+  background: var(--color-accent-red);
+}
+.mobileTicketBtn:hover {
+  filter: brightness(1.1);
 }

@@ -11,7 +11,8 @@
 }
 
 .title {
-  @apply font-serif text-3xl font-bold tracking-tight text-graphite-950 md:text-4xl;
+  @apply font-posterama text-3xl font-bold tracking-wide text-graphite-950 md:text-4xl;
+  letter-spacing: 0.04em;
 }
 
 .subtitle {
@@ -27,7 +28,7 @@
 }
 
 .cardLink {
-  @apply block overflow-hidden rounded-lg border border-graphite-200 bg-graphite-50 no-underline transition-all hover:border-graphite-400 hover:shadow-md;
+  @apply block overflow-hidden rounded-sm border border-graphite-200 bg-white no-underline transition-all hover:border-graphite-400 hover:shadow-lg;
 }
 
 .imageWrap {
@@ -55,7 +56,7 @@
 }
 
 .cardTitle {
-  @apply mt-1 font-serif text-lg font-bold text-graphite-950;
+  @apply mt-1 font-posterama text-lg font-bold text-graphite-950;
 }
 
 .excerpt {

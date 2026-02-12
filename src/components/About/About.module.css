@@ -11,7 +11,8 @@
 }
 
 .title {
-  @apply font-serif text-3xl font-bold tracking-tight text-graphite-950 md:text-4xl;
+  @apply font-posterama text-3xl font-bold tracking-wide text-graphite-950 md:text-4xl;
+  letter-spacing: 0.04em;
 }
 
 .subtitle {
@@ -39,7 +40,7 @@
 }
 
 .videoPlaceholder {
-  @apply relative flex aspect-video items-center justify-center rounded-lg bg-graphite-200;
+  @apply relative flex aspect-video items-center justify-center rounded-sm bg-graphite-200;
 }
 
 .videoLabel {
@@ -47,7 +48,7 @@
 }
 
 .videoPlaceholderInner {
-  @apply absolute inset-0 rounded-lg border-2 border-dashed border-graphite-400;
+  @apply absolute inset-0 rounded-sm border-2 border-dashed border-graphite-400;
 }
 
 .gallery {
@@ -55,7 +56,8 @@
 }
 
 .galleryTitle {
-  @apply mb-6 font-serif text-2xl font-bold text-graphite-950;
+  @apply mb-6 font-posterama text-2xl font-bold text-graphite-950;
+  letter-spacing: 0.04em;
 }
 
 .galleryWrap {
@@ -74,7 +76,12 @@
 
 .fadeOverlay {
   @apply pointer-events-none absolute bottom-0 left-0 right-0 flex flex-col items-center justify-end pb-6 pt-24;
-  background: linear-gradient(to top, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.85) 40%, transparent 100%);
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(255, 255, 255, 0.85) 40%,
+    transparent 100%
+  );
 }
 
 .fadeOverlayVisible {
@@ -90,7 +97,11 @@
 }
 
 .fadeBtn {
-  @apply rounded-md bg-graphite-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-graphite-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-graphite-950;
+  @apply rounded-md px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+  background: var(--color-graphite-950);
+}
+.fadeBtn:hover {
+  filter: brightness(1.1);
 }
 
 .fadeLink {
@@ -113,7 +124,7 @@
 }
 
 .galleryGrid li {
-  @apply list-none overflow-hidden rounded-lg;
+  @apply list-none overflow-hidden rounded-sm;
 }
 
 .galleryImg {

@@ -1,29 +1,53 @@
+/* Posterama: положите PosteramaText-Regular.woff2 в public/fonts/ для использования */
+@font-face {
+  font-family: "Posterama";
+  src: url("/fonts/PosteramaText-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --color-graphite-950: #1a1a1a;
-    --color-graphite-900: #3d3d3d;
-    --color-graphite-800: #454545;
-    --color-graphite-100: #e7e7e7;
-    --color-accent: #c9a227;
+    /* Референс persona-teatrkrug: стильная чёрно-белая гамма */
+    --color-graphite-950: #0a0a0a;
+    --color-graphite-900: #171717;
+    --color-graphite-800: #262626;
+    --color-graphite-100: #f5f5f5;
+    /* Цвет логотипа — красный для контрастных кнопок */
+    --color-accent-red: rgb(197 35 37);
   }
   html {
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-graphite-100 text-graphite-900 antialiased;
+    @apply bg-white text-graphite-900 antialiased;
   }
 }
 
 @layer components {
+  /* Чёрная кнопка */
   .btn-ticket {
-    @apply inline-flex items-center justify-center rounded-md bg-graphite-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:bg-graphite-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-graphite-950;
+    @apply inline-flex items-center justify-center rounded-md px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+    background: var(--color-graphite-950);
   }
-  .btn-ticket-alt {
-    @apply inline-flex items-center justify-center rounded-md border-2 border-graphite-950 px-6 py-3 text-sm font-semibold text-graphite-950 transition-all hover:bg-graphite-950 hover:text-white;
+  .btn-ticket:hover {
+    filter: brightness(1.2);
+  }
+  /* Контурная чёрная кнопка */
+  .btn-ticket-outline {
+    @apply inline-flex items-center justify-center rounded-md border-2 px-6 py-3 text-sm font-semibold transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+    border-color: var(--color-graphite-950);
+    color: var(--color-graphite-950);
+    background: transparent;
+  }
+  .btn-ticket-outline:hover {
+    background: var(--color-graphite-950);
+    color: white;
   }
   .section-title {
     @apply font-serif text-3xl font-bold tracking-tight text-graphite-950 md:text-4xl;
