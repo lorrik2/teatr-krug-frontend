@@ -88,10 +88,11 @@ function mapStrapiActor(d: any): Actor {
     ? d.roles.map((r: any) => (typeof r === "string" ? r : r?.text)).filter(Boolean)
     : [];
 
+  const slug = typeof d.slug === "string" ? d.slug : "";
   return {
     id: d.documentId || String(d.id),
     name: d.name,
-    slug: d.slug,
+    slug,
     photo,
     role: d.role || "",
     rank: d.rank,

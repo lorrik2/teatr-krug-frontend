@@ -7,7 +7,12 @@ type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
   const actors = await getActors();
-  return actors.map((a) => ({ slug: a.slug }));
+  return actors
+    .map((a) => {
+      const slug = typeof a.slug === "string" ? a.slug : String(a?.slug ?? "");
+      return { slug };
+    })
+    .filter((p) => p.slug.length > 0);
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
