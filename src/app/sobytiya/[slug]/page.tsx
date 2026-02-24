@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import OptimizedImage from "@/components/OptimizedImage";
+import NewsArticleJsonLd from "@/components/seo/NewsArticleJsonLd";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { getNewsItemBySlug, getNewsItems } from "@/lib/cms-data";
+import { SITE_URL } from "@/lib/site-config";
 import styles from "../../styles/Page.module.css";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -16,10 +19,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const item = await getNewsItemBySlug(slug);
   if (!item) return { title: "Событие" };
+  const url = `${SITE_URL}/sobytiya/${slug}`;
   return {
     title: `${item.title} — Драматический театр «Круг»`,
     description: item.excerpt,
-    openGraph: { title: item.title, description: item.excerpt },
+    alternates: { canonical: url },
+    openGraph: {
+      title: item.title,
+      description: item.excerpt,
+      url,
+      images: item.image ? [{ url: item.image, alt: item.title }] : undefined,
+    },
   };
 }
 
@@ -30,6 +40,14 @@ export default async function EventItemPage({ params }: Props) {
 
   return (
     <div className={styles.wrap}>
+      <NewsArticleJsonLd item={item} />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Главная", href: "/" },
+          { name: "События", href: "/sobytiya" },
+          { name: item.title },
+        ]}
+      />
       <header className={styles.header}>
         <Link href="/sobytiya" className="text-graphite-600 hover:underline">
           ← События

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import Repertoire from "@/components/Repertoire";
 import About from "@/components/About";
@@ -13,6 +14,14 @@ import {
   getTheaterReviews,
   getActors,
 } from "@/lib/cms-data";
+import { SITE_URL } from "@/lib/site-config";
+
+export const metadata: Metadata = {
+  title: "Драматический театр «Круг» — Афиша, билеты, события",
+  description:
+    "Официальный сайт драматического театра «Круг». Афиша спектаклей, покупка билетов, труппа, события и контакты.",
+  alternates: { canonical: SITE_URL },
+};
 
 export default async function HomePage() {
   const [heroSlides, performances, newsItems, contactInfo, reviews, actors] =

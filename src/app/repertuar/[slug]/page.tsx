@@ -6,9 +6,12 @@ import {
   getRepertoirePerformances,
   getActors,
 } from "@/lib/cms-data";
+import { SITE_URL } from "@/lib/site-config";
 import { isDirectorOrArtisticDirector } from "@/lib/actor-utils";
 import { DEFAULT_TICKETS_URL } from "@/lib/mock-data";
 import PerformanceHero from "@/components/PerformanceHero";
+import PerformanceEventJsonLd from "@/components/seo/PerformanceEventJsonLd";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import PerformanceCast from "@/components/PerformanceCast";
 import PerformanceGallery from "@/components/PerformanceGallery";
 import GalleryLightbox from "@/components/GalleryLightbox";
@@ -26,10 +29,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const play = await getPerformanceBySlug(slug);
   if (!play) return { title: "Спектакль" };
+  const url = `${SITE_URL}/repertuar/${slug}`;
   return {
     title: `${play.title} — Репертуар — Драматический театр «Круг»`,
     description: play.description,
-    openGraph: { title: play.title, description: play.description },
+    alternates: { canonical: url },
+    openGraph: {
+      title: play.title,
+      description: play.description,
+      url,
+      images: play.poster ? [{ url: play.poster, alt: play.title }] : undefined,
+    },
   };
 }
 
@@ -54,6 +64,18 @@ export default async function RepertuarSlugPage({ params }: Props) {
   const hasReviews = play.reviews && play.reviews.length > 0;
   return (
     <>
+      <PerformanceEventJsonLd
+        play={play}
+        basePath="repertuar"
+        ticketsUrl={play.ticketsUrl ?? DEFAULT_TICKETS_URL}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Главная", href: "/" },
+          { name: "Спектакли", href: "/repertuar" },
+          { name: play.title },
+        ]}
+      />
       <PerformanceHero title={play.title} images={galleryImages} />
       <div className={styles.wrap}>
         <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
