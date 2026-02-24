@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
+import OptimizedImage from "@/components/OptimizedImage";
 import { getNewsItemBySlug, getNewsItems } from "@/lib/cms-data";
 import styles from "../../styles/Page.module.css";
 
@@ -42,7 +42,7 @@ export default async function EventItemPage({ params }: Props) {
 
       <article className="mx-auto max-w-3xl">
         <div className="relative aspect-video overflow-hidden rounded-lg bg-graphite-200">
-          <Image src={item.image} alt="" fill className="object-cover" />
+          <OptimizedImage src={item.image} alt="" fill className="object-cover" effect="blur" />
         </div>
         <div className="mt-6 prose prose-graphite max-w-none">
           <p className="text-lg text-graphite-700">{item.excerpt}</p>

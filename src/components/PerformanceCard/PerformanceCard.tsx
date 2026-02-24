@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import OptimizedImage from "@/components/OptimizedImage";
 import { motion, type Variants } from "framer-motion";
 import type { Performance } from "@/lib/mock-data";
+import { DEFAULT_TICKETS_URL } from "@/lib/mock-data";
 import styles from "./PerformanceCard.module.css";
 
 type CardVariant = "afisha" | "repertuar";
@@ -36,12 +37,13 @@ export default function PerformanceCard({ play, variant, animated, variants, com
           className={`${styles.cardClickArea} ${compact ? styles.cardClickAreaWide : ""}`}
         >
           <div className={styles.posterBg}>
-            <Image
+            <OptimizedImage
               src={play.poster}
               alt={play.title}
               width={400}
               height={560}
               className={styles.posterImg}
+              effect="blur"
             />
             <div className={styles.overlay} />
             <span className={styles.age}>{play.ageRating}</span>
@@ -72,7 +74,7 @@ export default function PerformanceCard({ play, variant, animated, variants, com
           </Link>
           {showTicket && (
             <Link
-              href="https://quicktickets.ru/spb-teatr-krug/s44"
+              href={play.ticketsUrl ?? DEFAULT_TICKETS_URL}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.btnTicket}

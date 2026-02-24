@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import ImageSlider from "@/components/ImageSlider";
 import GalleryLightbox from "@/components/GalleryLightbox";
 import styles from "../styles/Page.module.css";
@@ -46,7 +45,7 @@ export default function TeatrTeosPage() {
         <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
           <Link href="/">Главная</Link>
           <span className={styles.breadcrumbsSep}>→</span>
-          <span>Ещё один театр Маргариты Вафиной</span>
+          <span>Театр Теос</span>
         </nav>
 
         <header className={styles.header}>
@@ -69,7 +68,13 @@ export default function TeatrTeosPage() {
           className={`${styles.contentSection} ${styles.contentSectionWide}`}
         >
           <h2 className={styles.h2}>Фотогалерея</h2>
-          <GalleryLightbox images={galleryImages} variant="grid" />
+          <GalleryLightbox
+            images={galleryImages}
+            variant="grid"
+            limit={4}
+            moreLabel="Смотреть ещё"
+            galleryId="teatr-teos-photos"
+          />
         </section>
 
         <section className={styles.contentSection}>

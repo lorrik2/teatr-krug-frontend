@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import OptimizedImage from "@/components/OptimizedImage";
 import styles from "./PerformanceGallery.module.css";
 
 function toEmbedUrl(url: string): string {
@@ -38,12 +38,13 @@ export default function PerformanceGallery({
       </div>
       {images.map((src, i) => (
         <div key={i} className={styles.imgWrap}>
-          <Image
+          <OptimizedImage
             src={src}
             alt={`Фото спектакля ${i + 1}`}
             width={800}
             height={600}
             className={styles.img}
+            effect="blur"
           />
         </div>
       ))}

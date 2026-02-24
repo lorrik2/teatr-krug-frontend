@@ -25,5 +25,9 @@
 }
 
 .img {
-  @apply h-full w-full object-cover;
+  @apply h-full w-full object-cover transition-transform duration-500 ease-in-out;
+}
+
+.imgWrap:hover .img {
+  @apply scale-105;
 }

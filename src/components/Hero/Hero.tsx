@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import OptimizedImage from "@/components/OptimizedImage";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Scrollbar } from "swiper/modules";
 import styles from "./Hero.module.css";
@@ -16,6 +16,8 @@ export type HeroSlide = {
   subtitle?: string;
   image: string;
   cta?: string;
+  /** Ссылка для кнопки (если не задана — /afisha) */
+  ctaHref?: string;
 };
 
 export default function Hero({
@@ -57,13 +59,14 @@ export default function Hero({
             aria-label={`Слайд ${index + 1} из ${slides.length}: ${slide.title}`}
           >
             <div className={styles.imageWrap}>
-              <Image
+              <OptimizedImage
                 src={slide.image}
                 alt={slide.title}
                 fill
                 className={styles.image}
                 sizes="100vw"
                 priority={index === 0}
+                effect="blur"
               />
               <div className={styles.overlay} aria-hidden />
             </div>
@@ -79,8 +82,12 @@ export default function Hero({
               )}
               <p className={styles.subtitle}>{slide.subtitle}</p>
               <Link
-                href={index === 0 ? "/afisha" : "/afisha#tickets"}
+                href={slide.ctaHref ?? "/afisha"}
                 className={styles.cta}
+                {...(slide.ctaHref?.startsWith("http") && {
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                })}
               >
                 {slide.cta}
               </Link>

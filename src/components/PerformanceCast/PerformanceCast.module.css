@@ -1,6 +1,6 @@
 /* Два кружка в строке на адаптиве, под кружком имя и роль */
 .list {
-  @apply mt-8 grid list-none grid-cols-2 gap-3 sm:gap-4 md:gap-6;
+  @apply mt-8 grid list-none grid-cols-2 gap-2 sm:gap-4 md:gap-6;
   padding: 0;
 }
 
@@ -9,23 +9,37 @@
 }
 
 .link {
-  @apply flex flex-col items-center text-center no-underline transition-all hover:opacity-90;
+  @apply flex flex-col items-center text-center no-underline transition-all;
+}
+button.link {
+  @apply w-full border-0 bg-transparent p-0;
+  font: inherit;
+}
+
+.linkClickable {
+  @apply cursor-pointer;
+}
+.linkClickable:hover {
+  @apply opacity-90;
+}
+.linkClickable:hover .photo {
+  @apply scale-110;
+}
+.linkClickable:hover .photoWrap {
+  @apply border-graphite-400;
+}
+
+/* Без эффектов при наведении, когда страницы актёра нет */
+.linkStatic {
+  @apply flex cursor-default flex-col items-center text-center;
 }
 
 .photoWrap {
-  @apply relative flex h-44 w-44 shrink-0 overflow-hidden rounded-full border-2 border-graphite-200 bg-graphite-200 ring-2 ring-white shadow-lg transition-transform duration-300 sm:h-52 sm:w-52 md:h-64 md:w-64;
+  @apply relative flex h-36 w-36 shrink-0 overflow-hidden rounded-full border-2 border-graphite-200 bg-graphite-200 ring-2 ring-white shadow-lg transition-transform duration-300 ease-in-out sm:h-52 sm:w-52 md:h-64 md:w-64;
 }
 
 .photo {
-  @apply h-full w-full object-cover object-top transition-transform duration-500;
-}
-
-.link:hover .photo {
-  @apply scale-110;
-}
-
-.link:hover .photoWrap {
-  @apply border-graphite-400;
+  @apply h-full w-full object-cover object-top transition-transform duration-500 ease-in-out;
 }
 
 .placeholder {

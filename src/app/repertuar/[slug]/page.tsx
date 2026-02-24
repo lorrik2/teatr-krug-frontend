@@ -6,11 +6,13 @@ import {
   getRepertoirePerformances,
   getActors,
 } from "@/lib/cms-data";
+import { isDirectorOrArtisticDirector } from "@/lib/actor-utils";
+import { DEFAULT_TICKETS_URL } from "@/lib/mock-data";
 import PerformanceHero from "@/components/PerformanceHero";
 import PerformanceCast from "@/components/PerformanceCast";
 import PerformanceGallery from "@/components/PerformanceGallery";
+import GalleryLightbox from "@/components/GalleryLightbox";
 import Reviews from "@/components/Reviews";
-import TicketsBlock from "@/components/TicketsBlock";
 import styles from "../../styles/PerformancePage.module.css";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -36,7 +38,10 @@ export default async function RepertuarSlugPage({ params }: Props) {
   const play = await getPerformanceBySlug(slug);
   if (!play) notFound();
 
-  const actors = await getActors();
+  const [actors, repertoirePerformances] = await Promise.all([
+    getActors(),
+    getRepertoirePerformances(),
+  ]);
   const galleryImages = play.gallery ?? [play.poster];
   const hasCreators =
     play.author ||
@@ -99,7 +104,7 @@ export default async function RepertuarSlugPage({ params }: Props) {
                   return (
                     <div className={styles.creatorRow}>
                       <span className={styles.creatorLabel}>Режиссёр</span>
-                      {directorActor ? (
+                      {directorActor && isDirectorOrArtisticDirector(directorActor) ? (
                         <Link
                           href={`/team/${directorActor.slug}`}
                           className={styles.creatorNameLink}
@@ -157,7 +162,7 @@ export default async function RepertuarSlugPage({ params }: Props) {
               return (
                 <div className={styles.directorQuoteBlock}>
                   <p className={styles.directorQuoteLabel}>
-                    {directorActor ? (
+                    {directorActor && isDirectorOrArtisticDirector(directorActor) ? (
                       <Link
                         href={`/team/${directorActor.slug}`}
                         className={styles.directorQuoteLabelLink}
@@ -196,7 +201,9 @@ export default async function RepertuarSlugPage({ params }: Props) {
                         {item.time}
                       </span>
                       <Link
-                        href="/afisha#tickets"
+                        href={play.ticketsUrl ?? DEFAULT_TICKETS_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className={styles.scheduleCta}
                       >
                         Купить билет
@@ -213,28 +220,57 @@ export default async function RepertuarSlugPage({ params }: Props) {
             <h2 id="cast-title" className={styles.sectionTitle}>
               В спектакле участвуют
             </h2>
-            <PerformanceCast cast={play.cast!} actors={actors} />
+            <PerformanceCast
+              cast={play.cast!}
+              actors={actors}
+              performances={repertoirePerformances}
+            />
+          </section>
+        )}
+      </div>
+
+      {hasReviews && (
+        <div className={styles.reviewsWrapper}>
+          <Reviews
+            reviews={play.reviews!}
+            title="Отзывы зрителей"
+            subtitle="Что говорят о спектакле"
+            variant="dark"
+            id="reviews"
+          />
+        </div>
+      )}
+
+      <div className={styles.wrap}>
+        {galleryImages.length > 0 && (
+          <section
+            className={`${styles.section} ${hasReviews ? styles.sectionAfterReviews : ""}`}
+            aria-labelledby="gallery-title"
+          >
+            <h2 id="gallery-title" className={styles.sectionTitle}>
+              Фотографии
+            </h2>
+            <GalleryLightbox
+              images={galleryImages.map((src, i) => ({
+                src,
+                alt: `${play.title} — фото ${i + 1}`,
+              }))}
+              variant="grid"
+              limit={4}
+              moreLabel="Смотреть ещё"
+              galleryId="performance-photos"
+            />
           </section>
         )}
 
-        {hasReviews && (
-          <div className={styles.reviewsWrapper}>
-            <Reviews
-              reviews={play.reviews!}
-              title="Отзывы зрителей"
-              subtitle="Что говорят о спектакле"
-              variant="light"
-              id="reviews"
-            />
-          </div>
+        {play.teaserUrl && (
+          <section className={styles.section} aria-labelledby="teaser-title">
+            <h2 id="teaser-title" className={styles.sectionTitle}>
+              Тизер
+            </h2>
+            <PerformanceGallery images={[]} teaserUrl={play.teaserUrl} />
+          </section>
         )}
-
-        <section className={styles.section} aria-labelledby="teaser-title">
-          <h2 id="teaser-title" className={styles.sectionTitle}>
-            Тизер
-          </h2>
-          <PerformanceGallery images={[]} teaserUrl={play.teaserUrl} />
-        </section>
 
         {((play.awards?.length ?? 0) > 0 ||
           (play.festivals?.length ?? 0) > 0) && (
@@ -263,11 +299,6 @@ export default async function RepertuarSlugPage({ params }: Props) {
           </section>
         )}
 
-        {play.inAfisha && (
-          <div className={styles.ticketsWrapper}>
-            <TicketsBlock />
-          </div>
-        )}
       </div>
     </>
   );

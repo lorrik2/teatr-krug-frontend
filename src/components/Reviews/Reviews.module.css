@@ -1,6 +1,7 @@
-/* Тёмный вариант — главная */
+/* Тёмный вариант — главная (чуть менее яркий чёрный для комфорта) */
 .section {
-  @apply overflow-x-hidden bg-graphite-950 py-16 text-white md:py-24;
+  @apply overflow-x-hidden py-16 text-white md:py-24;
+  background-color: #222;
 }
 
 /* Светлый вариант — страница спектакля */

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import GalleryLightbox from "@/components/GalleryLightbox";
 import styles from "../styles/Page.module.css";
 
@@ -54,7 +53,13 @@ export default function ArendaZalaPage() {
         className={`${styles.contentSection} ${styles.contentSectionWide}`}
       >
         <h2 className={styles.h2}>Фотографии зала и помещений</h2>
-        <GalleryLightbox images={galleryImages} variant="grid" />
+        <GalleryLightbox
+          images={galleryImages}
+          variant="grid"
+          limit={4}
+          moreLabel="Смотреть ещё"
+          galleryId="arenda-zala-photos"
+        />
       </section>
 
       <section className={styles.contentSection}>

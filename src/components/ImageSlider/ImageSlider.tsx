@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import OptimizedImage from "@/components/OptimizedImage";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import styles from "./ImageSlider.module.css";
@@ -41,13 +41,14 @@ export default function ImageSlider({ images }: ImageSliderProps) {
         {images.map((img, i) => (
           <SwiperSlide key={i} className={styles.slide}>
             <div className={styles.imageWrap}>
-              <Image
+              <OptimizedImage
                 src={img.src}
                 alt={img.alt}
                 fill
                 className={styles.image}
                 sizes="100vw"
                 priority={i === 0}
+                effect="blur"
               />
             </div>
           </SwiperSlide>

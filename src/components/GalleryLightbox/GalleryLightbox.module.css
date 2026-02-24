@@ -1,5 +1,19 @@
+/* Grid-вариант: 2 колонки на адаптивах (мобиле, планшете), 3 на десктопе */
+.galleryGridWrap {
+  @apply mt-4 grid gap-2 sm:gap-3 sm:grid-cols-2 lg:gap-4 lg:grid-cols-3;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .galleryGrid {
-  @apply mt-4 grid list-none gap-4 sm:grid-cols-2 lg:grid-cols-3;
+  @apply contents list-none;
+}
+
+.galleryGridWrap .thumbBtn {
+  @apply relative block aspect-[4/3] w-full cursor-zoom-in overflow-hidden rounded-lg border-0 p-0 text-left outline-none no-underline;
+}
+
+.hiddenTrigger {
+  @apply hidden;
 }
 
 .galleryList {
@@ -8,19 +22,25 @@
 
 /* Вариант «один ряд» — фото и кнопка «смотреть все» как карточки одинакового размера */
 .galleryRow {
-  @apply mt-4 grid gap-4;
-  grid-template-columns: repeat(2, 1fr);
+  @apply mt-4 grid gap-2 sm:gap-3 lg:gap-4;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 380px) {
+  .galleryRow {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (min-width: 640px) {
   .galleryRow {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (min-width: 1024px) {
   .galleryRow {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
 
@@ -37,7 +57,7 @@
 }
 
 .moreCard {
-  @apply flex aspect-[4/3] w-full items-center justify-center rounded-lg border-2 border-dashed border-graphite-300 bg-graphite-50 px-4 py-6 text-center no-underline transition-colors;
+  @apply flex aspect-[4/3] w-full min-h-0 cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-graphite-300 bg-graphite-50 px-3 py-4 sm:px-4 sm:py-6 text-center no-underline transition-colors;
 }
 
 .moreCard:hover,
@@ -47,7 +67,7 @@
 }
 
 .moreCardText {
-  @apply font-medium text-graphite-700;
+  @apply text-sm sm:text-base font-medium text-graphite-700;
 }
 
 .moreCard:hover .moreCardText,
@@ -56,11 +76,11 @@
 }
 
 .thumbBtn {
-  @apply block w-full cursor-zoom-in overflow-hidden rounded-lg border-0 p-0 text-left outline-none no-underline;
+  @apply block w-full min-w-0 cursor-zoom-in overflow-hidden rounded-lg border-0 p-0 text-left outline-none no-underline;
 }
 
 .thumbImg {
-  @apply h-full w-full object-cover transition-transform duration-300;
+  @apply h-full w-full object-cover transition-transform duration-500 ease-in-out;
 }
 
 .thumbBtn:hover .thumbImg {

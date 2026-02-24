@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
+import OptimizedImage from "@/components/OptimizedImage";
 import { getNewsItems } from "@/lib/cms-data";
 import styles from "../styles/Page.module.css";
 
@@ -30,12 +30,13 @@ export default async function EventsPage() {
                 className={styles.newsCardLink}
               >
                 <div className={styles.newsImageWrap}>
-                  <Image
+                  <OptimizedImage
                     src={item.image}
                     alt=""
                     width={600}
                     height={400}
                     className={styles.newsImage}
+                    effect="blur"
                   />
                   <span className={styles.newsCategory}>{item.category}</span>
                 </div>

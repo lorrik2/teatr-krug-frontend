@@ -72,7 +72,7 @@
 }
 
 .slideImg {
-  @apply h-full w-full object-cover transition-transform duration-300;
+  @apply h-full w-full object-cover transition-transform duration-500 ease-in-out;
 }
 
 .slide:hover .slideImg {

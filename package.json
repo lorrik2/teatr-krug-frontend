@@ -19,6 +19,7 @@
     "next": "15.0.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-lazy-load-image-component": "^1.6.3",
     "swiper": "^11.1.14"
   },
   "devDependencies": {

@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
-import { getActors } from "@/lib/cms-data";
-import styles from "../styles/Page.module.css";
+import { getActors, getRepertoirePerformances } from "@/lib/cms-data";
+import TeamGrid from "@/components/Team/TeamGrid";
+import styles from "../team/TeamPage.module.css";
 
 export const metadata: Metadata = {
   title: "Команда — Драматический театр «Круг»",
@@ -10,42 +9,19 @@ export const metadata: Metadata = {
 };
 
 export default async function TroupePage() {
-  const actors = await getActors();
+  const [actors, performances] = await Promise.all([
+    getActors(),
+    getRepertoirePerformances(),
+  ]);
   return (
     <div className={styles.wrap}>
       <header className={styles.header}>
-        <h1 className={styles.h1}>Команда</h1>
-        <p className={styles.lead}>Актеры и режиссёры театра</p>
+        <h1 className={styles.title}>Команда</h1>
+        <p className={styles.subtitle}>Актеры и режиссёры театра</p>
       </header>
 
       <section className={styles.section}>
-        <ul className={styles.troupeGrid}>
-          {actors.map((actor) => (
-            <li key={actor.id} className={styles.troupeCard}>
-              <Link
-                href={`/team/${actor.slug}`}
-                className={styles.troupeCardLink}
-              >
-                <div className={styles.troupePhotoWrap}>
-                  <Image
-                    src={actor.photo}
-                    alt={actor.name}
-                    width={400}
-                    height={500}
-                    className={styles.troupePhoto}
-                  />
-                </div>
-                <div className={styles.troupeBody}>
-                  <h2 className={styles.troupeName}>{actor.name}</h2>
-                  {actor.rank && (
-                    <p className={styles.troupeRank}>{actor.rank}</p>
-                  )}
-                  <p className={styles.troupeRole}>{actor.role}</p>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <TeamGrid actors={actors} performances={performances} />
       </section>
     </div>
   );

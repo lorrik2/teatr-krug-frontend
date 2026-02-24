@@ -47,7 +47,7 @@ export default async function FotogalereyaPage({ searchParams }: Props) {
         </p>
       </header>
 
-      <section className={styles.contentSection}>
+      <section className={`${styles.contentSection} ${styles.contentSectionWide}`}>
         <GalleryLightbox
           images={imagesOnPage}
           variant="grid"

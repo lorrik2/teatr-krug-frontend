@@ -123,9 +123,14 @@
   @apply text-xs font-medium uppercase tracking-wider text-graphite-500;
 }
 
-/* Обёртка для Reviews (светлый вариант) */
+/* Обёртка для Reviews — блок вынесен из wrap, фон на всю ширину страницы */
 .reviewsWrapper {
   @apply mt-16 md:mt-20;
+}
+
+/* Меньший отступ у секции, когда она сразу после блока отзывов */
+.sectionAfterReviews {
+  @apply mt-8 md:mt-10;
 }
 
 /* Награды, дипломы и участие в фестивалях */

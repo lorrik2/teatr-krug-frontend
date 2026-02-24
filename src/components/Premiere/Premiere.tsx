@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import OptimizedImage from "@/components/OptimizedImage";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
 import {
@@ -12,7 +12,7 @@ import {
   Parallax,
   Pagination,
 } from "swiper/modules";
-import { premieres } from "@/lib/mock-data";
+import { premieres, DEFAULT_TICKETS_URL } from "@/lib/mock-data";
 import styles from "./Premiere.module.css";
 
 import "swiper/css";
@@ -84,12 +84,14 @@ export default function Premiere() {
                   data-swiper-parallax-opacity="0.9"
                 >
                   <div className={styles.posterWrap}>
-                    <Image
+                    <OptimizedImage
                       src={prem.poster}
                       alt={prem.title}
                       width={800}
                       height={1000}
                       className={styles.poster}
+                      priority={index === 0}
+                      effect="blur"
                     />
                   </div>
                 </div>
@@ -119,7 +121,12 @@ export default function Premiere() {
                     >
                       Подробнее
                     </Link>
-                    <Link href="/afisha#tickets" className={styles.btnTicket}>
+                    <Link
+                      href={DEFAULT_TICKETS_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.btnTicket}
+                    >
                       Купить билет
                     </Link>
                   </div>

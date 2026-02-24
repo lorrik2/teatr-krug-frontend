@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import OptimizedImage from "@/components/OptimizedImage";
 import Link from "next/link";
 import useFancybox from "@/hooks/useFancybox";
 import type { Actor } from "@/lib/mock-data";
@@ -35,13 +35,14 @@ export default function ActorPageContent({ actor }: ActorPageContentProps) {
               aria-label={`Открыть фото ${actor.name}`}
             >
               <div className={styles.photoWrap}>
-                <Image
+                <OptimizedImage
                   src={actor.photo}
                   alt={actor.name}
                   fill
                   className={styles.photo}
                   sizes="(max-width: 768px) 100vw, 50vw"
                   priority
+                  effect="blur"
                 />
               </div>
             </a>
@@ -56,12 +57,13 @@ export default function ActorPageContent({ actor }: ActorPageContentProps) {
                       className={styles.galleryThumb}
                       aria-label={`Фото ${i + 2}`}
                     >
-                      <Image
+                      <OptimizedImage
                         src={src}
                         alt={`${actor.name} — фото ${i + 2}`}
                         width={160}
                         height={120}
                         className={styles.galleryImg}
+                        effect="blur"
                       />
                     </a>
                   </li>

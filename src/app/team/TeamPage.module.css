@@ -20,7 +20,7 @@
 }
 
 .teamGrid {
-  @apply grid list-none grid-cols-2 gap-4 sm:gap-10 sm:grid-cols-2 lg:grid-cols-4;
+  @apply grid list-none grid-cols-2 gap-2 sm:gap-10 sm:grid-cols-2 lg:grid-cols-4;
 }
 
 .card {
@@ -28,22 +28,41 @@
 }
 
 .cardLink {
-  @apply flex flex-col items-center text-center no-underline transition-all hover:opacity-90;
+  @apply flex flex-col items-center text-center no-underline transition-all;
+}
+button.cardLink {
+  @apply w-full border-0 bg-transparent p-0;
+  font: inherit;
+}
+
+.cardLinkClickable {
+  @apply cursor-pointer;
+}
+.cardLinkClickable:hover {
+  @apply opacity-90;
+}
+
+.cardStatic {
+  @apply flex cursor-default flex-col items-center text-center;
+}
+
+.detailBtn {
+  @apply mt-2 inline-block text-xs font-medium text-graphite-600 underline-offset-2 hover:underline;
 }
 
 .photoWrap {
-  @apply relative flex h-44 w-44 shrink-0 overflow-hidden rounded-full border-2 border-graphite-200 bg-graphite-200 ring-2 ring-white shadow-lg transition-transform duration-300 sm:h-64 sm:w-64 md:h-56 md:w-56 lg:h-60 lg:w-60;
+  @apply relative flex h-36 w-36 shrink-0 overflow-hidden rounded-full border-2 border-graphite-200 bg-graphite-200 ring-2 ring-white shadow-lg transition-transform duration-300 ease-in-out sm:h-64 sm:w-64 md:h-56 md:w-56 lg:h-60 lg:w-60;
 }
 
 .photo {
-  @apply h-full w-full object-cover object-top transition-transform duration-500;
+  @apply h-full w-full object-cover object-top transition-transform duration-500 ease-in-out;
 }
 
-.cardLink:hover .photo {
+.cardLinkClickable:hover .photo {
   @apply scale-110;
 }
 
-.cardLink:hover .photoWrap {
+.cardLinkClickable:hover .photoWrap {
   @apply border-graphite-400;
 }
 

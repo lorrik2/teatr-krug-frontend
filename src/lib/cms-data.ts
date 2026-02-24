@@ -74,6 +74,7 @@ function mapStrapiPerformance(d: any): Performance {
       year: f.year,
       place: f.place,
     })),
+    ticketsUrl: d.ticketsUrl || undefined,
   };
 }
 
@@ -124,6 +125,7 @@ function mapStrapiHeroSlide(d: any) {
     subtitle: d.subtitle,
     image,
     cta: d.cta,
+    ctaHref: d.ctaHref,
     order: d.order ?? 0,
   };
 }
@@ -253,6 +255,7 @@ export async function getHeroSlides(): Promise<
     subtitle?: string;
     image: string;
     cta?: string;
+    ctaHref?: string;
   }>
 > {
   if (await checkStrapi()) {

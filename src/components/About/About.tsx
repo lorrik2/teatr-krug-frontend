@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import OptimizedImage from "@/components/OptimizedImage";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import { motion } from "framer-motion";
@@ -92,12 +92,13 @@ export default function About() {
                     aria-label={`Открыть фото: ${img.alt}`}
                   >
                     <div className={styles.slideInner}>
-                      <Image
+                      <OptimizedImage
                         src={img.src}
                         alt={img.alt}
                         fill
                         className={styles.slideImg}
                         sizes="(max-width: 768px) 100vw, 50vw"
+                        effect="blur"
                       />
                     </div>
                   </a>

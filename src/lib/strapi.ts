@@ -68,7 +68,12 @@ export async function fetchStrapi<T>(
     }
     return res.json();
   } catch (err) {
-    console.warn("Strapi fetch error:", err);
+    const isConnectionRefused =
+      err instanceof Error &&
+      "cause" in err &&
+      typeof (err as { cause?: { code?: string } }).cause === "object" &&
+      (err as { cause?: { code?: string } }).cause?.code === "ECONNREFUSED";
+    if (!isConnectionRefused) console.warn("Strapi fetch error:", err);
     return null;
   }
 }

@@ -6,7 +6,7 @@ import styles from "../styles/Page.module.css";
 export const metadata: Metadata = {
   title: "О театре — Драматический театр «Круг»",
   description:
-    "История здания и труппы, миссия, художественный руководитель, фотогалерея и видео-визитка.",
+    "История здания и труппы, миссия, художественный руководитель, фотогалерея.",
 };
 
 /** Превью для страницы О театре — первые 4 фото */
@@ -68,13 +68,6 @@ export default function AboutPage() {
             label: "Смотреть все фото →",
           }}
         />
-      </section>
-
-      <section className={styles.contentSection}>
-        <h2 className={styles.h2}>Видео-визитка</h2>
-        <div className={styles.videoPlaceholder}>
-          <p>Здесь будет встроено видео 2–3 минуты о театре</p>
-        </div>
       </section>
     </div>
   );

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
-import { getActors } from "@/lib/cms-data";
+import { getActors, getRepertoirePerformances } from "@/lib/cms-data";
+import TeamGrid from "@/components/Team/TeamGrid";
 import styles from "./TeamPage.module.css";
 
 export const metadata: Metadata = {
@@ -10,7 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default async function TeamPage() {
-  const actors = await getActors();
+  const [actors, performances] = await Promise.all([
+    getActors(),
+    getRepertoirePerformances(),
+  ]);
   const sorted = [...actors].sort((a, b) => a.name.localeCompare(b.name));
   return (
     <div className={styles.wrap}>
@@ -20,28 +22,7 @@ export default async function TeamPage() {
       </header>
 
       <section className={styles.section}>
-        <ul className={styles.teamGrid}>
-          {sorted.map((actor) => (
-            <li key={actor.id} className={styles.card}>
-              <Link href={`/team/${actor.slug}`} className={styles.cardLink}>
-                <div className={styles.photoWrap}>
-                  <Image
-                    src={actor.photo}
-                    alt={actor.name}
-                    width={400}
-                    height={500}
-                    className={styles.photo}
-                  />
-                </div>
-                <div className={styles.body}>
-                  <h2 className={styles.name}>{actor.name}</h2>
-                  {actor.rank && <p className={styles.rank}>{actor.rank}</p>}
-                  <p className={styles.role}>{actor.role}</p>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <TeamGrid actors={sorted} performances={performances} />
       </section>
     </div>
   );

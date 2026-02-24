@@ -14,7 +14,7 @@
 @layer base {
   :root {
     /* Референс persona-teatrkrug: стильная чёрно-белая гамма */
-    --color-graphite-950: #0a0a0a;
+    --color-graphite-950: #1a1a1a;
     --color-graphite-900: #171717;
     --color-graphite-800: #262626;
     --color-graphite-100: #f5f5f5;

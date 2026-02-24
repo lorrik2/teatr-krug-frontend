@@ -51,7 +51,12 @@ export interface Performance {
   awards?: { title: string; year?: string }[];
   /** Участие в конкурсах и фестивалях */
   festivals?: { title: string; year?: string; place?: string }[];
+  /** Ссылка на покупку билетов (настраивается в CMS для каждого спектакля) */
+  ticketsUrl?: string;
 }
+
+/** URL по умолчанию для покупки билетов (афиша на quicktickets.ru) */
+export const DEFAULT_TICKETS_URL = "https://quicktickets.ru/spb-teatr-krug/s44";
 
 export interface Premiere {
   id: string;
@@ -148,7 +153,18 @@ export const performances: Performance[] = [
     title: "Вишнёвый сад",
     slug: "vishnevyj-sad",
     poster: "/spect/bese.jpg",
-    gallery: ["/spect/bese.jpg", "/fon/6.jpg", "/fon/7.jpg"],
+    gallery: [
+      "/spect/bese.jpg",
+      "/fon/6.jpg",
+      "/fon/7.jpg",
+      "/fon/1.jpg",
+      "/fon/2.jpg",
+      "/fon/3.jpg",
+      "/fon/4.jpg",
+      "/fon/8.jpg",
+      "/fon/12.jpg",
+      "/fon/13.jpg",
+    ],
     subtitle:
       "спектакль андрея волкова по пьесе антона чехова. новая редакция 2025 года | 12+",
     author: "Антон Чехов",
@@ -625,6 +641,7 @@ export const heroSlides = [
     subtitle: "Премьеры и легендарные постановки",
     image: "/fon/4.jpg",
     cta: "Смотреть афишу",
+    ctaHref: "/afisha",
   },
   {
     id: "2",
@@ -632,6 +649,7 @@ export const heroSlides = [
     subtitle: "«Вишнёвый сад» — 15 февраля",
     image: "/fon/6.jpg",
     cta: "Купить билет",
+    ctaHref: DEFAULT_TICKETS_URL,
   },
   {
     id: "3",
@@ -639,5 +657,6 @@ export const heroSlides = [
     subtitle: "«Ревизор» в новом прочтении",
     image: "/fon/7.jpg",
     cta: "Подробнее",
+    ctaHref: "/afisha",
   },
 ];

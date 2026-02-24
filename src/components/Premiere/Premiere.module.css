@@ -66,7 +66,11 @@
 }
 
 .poster {
-  @apply h-full w-full object-cover;
+  @apply h-full w-full object-cover transition-transform duration-500 ease-in-out;
+}
+
+.posterWrap:hover .poster {
+  @apply scale-105;
 }
 
 .content {

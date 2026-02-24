@@ -1,0 +1,11 @@
+.blurWrap {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  filter: blur(15px);
+  transition: filter 0.3s ease-out;
+}
+
+.blurWrap.blurLoaded {
+  filter: blur(0);
+}

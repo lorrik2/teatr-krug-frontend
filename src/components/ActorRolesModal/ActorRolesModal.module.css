@@ -1,0 +1,77 @@
+.dialog {
+  @apply fixed inset-0 z-50 m-0 max-h-none max-w-none border-0 bg-black/50 p-0 backdrop-blur-sm;
+  width: 100vw;
+  height: 100vh;
+}
+
+.dialog::backdrop {
+  @apply bg-black/50;
+}
+
+.content {
+  @apply relative mx-auto mt-[10vh] max-h-[80vh] w-full max-w-md overflow-y-auto rounded-lg bg-white p-6 shadow-xl;
+}
+
+.closeBtn {
+  @apply absolute right-3 top-3 flex h-8 w-8 items-center justify-center text-2xl text-graphite-500 transition-colors hover:text-graphite-900;
+}
+
+.header {
+  @apply flex items-center gap-4 pb-4;
+}
+
+.photoWrap {
+  @apply h-20 w-20 shrink-0 overflow-hidden rounded-full border-2 border-graphite-200 bg-graphite-100;
+}
+
+.photo {
+  @apply h-full w-full object-cover object-top;
+}
+
+.placeholder {
+  @apply flex h-full w-full items-center justify-center text-2xl font-medium text-graphite-400;
+}
+
+.info {
+  @apply min-w-0 flex-1;
+}
+
+.name {
+  @apply font-posterama text-xl font-bold text-graphite-950;
+}
+
+.rank {
+  @apply mt-0.5 text-sm text-graphite-600;
+}
+
+.rolesBlock {
+  @apply border-t border-graphite-200 pt-4;
+}
+
+.rolesTitle {
+  @apply mb-2 text-sm font-medium text-graphite-600;
+}
+
+.rolesList {
+  @apply flex list-none flex-col gap-1.5 p-0;
+}
+
+.roleItem {
+  @apply list-none;
+}
+
+.roleLink {
+  @apply flex flex-col gap-0.5 rounded px-2 py-1.5 no-underline transition-colors hover:bg-graphite-100;
+}
+
+.roleName {
+  @apply font-medium text-graphite-900;
+}
+
+.performanceTitle {
+  @apply text-sm text-graphite-600;
+}
+
+.noRoles {
+  @apply border-t border-graphite-200 pt-4 text-sm text-graphite-500;
+}

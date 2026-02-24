@@ -17,4 +17,4 @@ export const theaterGalleryImages = [
   { src: "/fon/145.jpg", alt: "Театр" },
 ];
 
-export const GALLERY_PAGE_SIZE = 6;
+export const GALLERY_PAGE_SIZE = 12;

@@ -26,16 +26,16 @@
   }
 }
 
-.cardClickArea:hover .posterImg {
+.card:hover .posterBg {
   @apply scale-105;
 }
 
 .posterBg {
-  @apply absolute inset-0 overflow-hidden bg-graphite-200;
+  @apply absolute inset-0 overflow-hidden bg-graphite-200 transition-transform duration-500 ease-in-out;
 }
 
 .posterImg {
-  @apply h-full w-full object-cover transition-transform duration-300;
+  @apply h-full w-full object-cover;
 }
 
 .overlay {

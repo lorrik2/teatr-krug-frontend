@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import OptimizedImage from "@/components/OptimizedImage";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import useFancybox from "@/hooks/useFancybox";
@@ -58,13 +58,14 @@ export default function PerformanceHero({
                 aria-label={`Открыть галерею, фото ${index + 1}`}
               >
                 <div className={styles.imageWrap}>
-                  <Image
+                  <OptimizedImage
                     src={src}
                     alt={`${title} — фото ${index + 1}`}
                     fill
                     className={styles.image}
                     sizes="100vw"
                     priority={index === 0}
+                    effect="blur"
                   />
                 </div>
               </a>

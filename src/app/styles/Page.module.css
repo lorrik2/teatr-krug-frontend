@@ -114,6 +114,29 @@
   @apply mb-6 flex flex-wrap gap-2;
 }
 
+/* Кнопки фильтра по месяцам — афиша, sticky при скролле */
+.monthFilters {
+  @apply sticky z-10 mb-6 flex flex-wrap gap-2 overflow-x-auto bg-white py-3 pb-2 sm:gap-3;
+  top: 5rem;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+  border-bottom: 1px solid rgb(229 229 229);
+}
+
+@media (min-width: 768px) {
+  .monthFilters {
+    top: 6rem;
+  }
+}
+
+.monthFilterBtn {
+  @apply shrink-0 rounded-md border border-graphite-300 bg-white px-4 py-2 text-sm font-medium text-graphite-700 transition-colors hover:border-graphite-400 hover:bg-graphite-50;
+}
+
+.monthFilterActive {
+  @apply shrink-0 rounded-md border border-graphite-950 bg-graphite-950 px-4 py-2 text-sm font-medium text-white;
+}
+
 /* Radix Accordion — афиша по месяцам */
 .accordionRoot {
   @apply flex flex-col;
@@ -121,6 +144,7 @@
 
 .accordionItem {
   @apply border-b border-graphite-200;
+  scroll-margin-top: 6.5rem;
 }
 
 .accordionItem:last-child {
@@ -129,12 +153,14 @@
 
 .accordionHeader {
   @apply m-0;
+  /* Учитываем header + sticky фильтры по месяцам */
+  scroll-margin-top: 10rem;
 }
 
 .accordionTrigger {
-  @apply flex w-full cursor-pointer items-center justify-between gap-4 rounded-md px-0 py-4 text-left font-posterama text-2xl font-bold text-graphite-950 transition-colors hover:bg-graphite-100 md:text-3xl;
+  @apply flex w-full cursor-pointer items-center justify-between gap-4 rounded-md px-0 py-4 text-left font-posterama text-2xl font-bold text-graphite-950 md:text-3xl;
   letter-spacing: 0.04em;
-  background: none;
+  background: transparent;
   border: none;
   outline: none;
   -webkit-tap-highlight-color: transparent;
@@ -142,13 +168,17 @@
 
 .accordionTrigger:focus,
 .accordionTrigger:focus-visible,
+.accordionTrigger:focus-within,
 .accordionTrigger:active {
   outline: none;
+  box-shadow: none;
+  background: transparent;
 }
 
 .accordionTrigger[data-state="open"] {
-  @apply bg-graphite-100;
+  background: transparent;
 }
+
 
 .accordionChevron {
   @apply shrink-0 text-graphite-500 transition-transform duration-200 ease-out;
@@ -189,7 +219,7 @@
 }
 
 .monthCards {
-  @apply mt-2;
+  @apply mt-2 pb-6 md:pb-8;
 }
 
 .filterBtn {

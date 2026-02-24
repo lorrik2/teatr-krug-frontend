@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import * as Accordion from "@radix-ui/react-accordion";
 import type { Performance } from "@/lib/mock-data";
 import { PerformanceCard } from "@/components/PerformanceCard";
@@ -100,18 +101,50 @@ export default function AfishaContent({
   });
 
   const nearestMonthKey = sortedEntries[0]?.[0] ?? "";
+  const [value, setValue] = useState<string>(nearestMonthKey);
+  const monthEntries = sortedEntries.filter(([k]) => k !== "no-date");
+
+  const goToMonth = useCallback((monthKey: string) => {
+    setValue(monthKey);
+    // Ждём завершения анимации collapse предыдущего месяца — иначе layout shift сдвигает скролл ниже
+    const scrollAfterLayout = () => {
+      const el = document.getElementById(`afisha-month-${monthKey}`);
+      el?.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    setTimeout(scrollAfterLayout, 320);
+  }, []);
 
   return (
     <section className={styles.section}>
+      {monthEntries.length > 1 && (
+        <div className={styles.monthFilters} role="group" aria-label="Фильтр по месяцам">
+          {monthEntries.map(([monthKey, { label }]) => (
+            <button
+              key={monthKey}
+              type="button"
+              onClick={() => goToMonth(monthKey)}
+              className={value === monthKey ? styles.monthFilterActive : styles.monthFilterBtn}
+              aria-pressed={value === monthKey}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      )}
       <Accordion.Root
         type="single"
-        collapsible={false}
-        defaultValue={nearestMonthKey}
+        collapsible
+        value={value}
+        onValueChange={setValue}
         className={styles.accordionRoot}
       >
         {sortedEntries.map(([monthKey, { label, items }]) => (
-          <Accordion.Item key={monthKey} value={monthKey} className={styles.accordionItem}>
-            <Accordion.Header className={styles.accordionHeader}>
+          <Accordion.Item
+            key={monthKey}
+            value={monthKey}
+            className={styles.accordionItem}
+          >
+            <Accordion.Header id={monthKey !== "no-date" ? `afisha-month-${monthKey}` : undefined} className={styles.accordionHeader}>
               <Accordion.Trigger className={styles.accordionTrigger}>
                 <span>{label}</span>
                 <span className={styles.accordionChevron} aria-hidden>

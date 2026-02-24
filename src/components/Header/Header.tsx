@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import OptimizedImage from "@/components/OptimizedImage";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { navItems, type NavItem } from "@/lib/mock-data";
+import { navItems, DEFAULT_TICKETS_URL, type NavItem } from "@/lib/mock-data";
 import styles from "./Header.module.css";
 
 function isDropdown(item: NavItem): item is { label: string; items: { href: string; label: string }[] } {
@@ -49,13 +49,14 @@ export default function Header() {
     <header ref={headerRef} className={styles.header}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo} aria-label="На главную">
-          <Image
+          <OptimizedImage
             src="/logo/без фона.png"
             alt="Драматический театр Круг"
-            width={220}
-            height={80}
+            width={280}
+            height={100}
             className={styles.logoImg}
             priority
+            effect="blur"
           />
         </Link>
 
@@ -118,7 +119,12 @@ export default function Header() {
         </nav>
 
         <div className={styles.actions}>
-          <Link href="/afisha#tickets" className={styles.ticketBtn}>
+          <Link
+            href={DEFAULT_TICKETS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.ticketBtn}
+          >
             Купить билет
           </Link>
         </div>
@@ -202,7 +208,9 @@ export default function Header() {
               })}
               <li>
                 <Link
-                  href="/afisha#tickets"
+                  href={DEFAULT_TICKETS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={styles.mobileTicketBtn}
                   onClick={() => setMobileOpen(false)}
                 >
