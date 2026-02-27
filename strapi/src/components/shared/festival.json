@@ -1,1 +1,1 @@
-{"collectionName":"components_shared_festivals","info":{"displayName":"Festival","icon":"movie","description":"Фестиваль или конкурс"},"options":{},"attributes":{"title":{"type":"string","required":true},"year":{"type":"string"},"place":{"type":"string"}}}
+{"collectionName":"components_shared_festivals","info":{"displayName":"Фестиваль","icon":"movie","description":"Фестиваль или конкурс"},"options":{},"attributes":{"title":{"type":"string","required":true},"year":{"type":"string"},"place":{"type":"string"}}}

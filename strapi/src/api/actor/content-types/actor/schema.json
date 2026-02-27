@@ -7,30 +7,53 @@
     "displayName": "Актёр",
     "description": "Актёры и сотрудники театра"
   },
-  "options": { "draftAndPublish": false },
+  "options": {
+    "draftAndPublish": false
+  },
   "pluginOptions": {},
   "attributes": {
-    "name": { "type": "string", "required": true },
-    "slug": { "type": "uid", "targetField": "name", "required": true },
+    "name": {
+      "type": "string",
+      "required": true,
+      "description": "Имя актёра или сотрудника"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true,
+      "description": "URL для страницы (например ivanov)"
+    },
     "photo": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images"],
+      "description": "Портрет"
     },
-    "role": { "type": "string" },
-    "rank": { "type": "string" },
-    "bio": { "type": "text" },
+    "role": {
+      "type": "string",
+      "description": "Основная роль в театре"
+    },
+    "rank": {
+      "type": "string",
+      "description": "Должность или звание"
+    },
+    "bio": {
+      "type": "text",
+      "description": "Биография, о себе"
+    },
     "roles": {
       "type": "component",
       "repeatable": true,
-      "component": "shared.role-item"
+      "component": "shared.role-item",
+      "description": "Роли в спектаклях"
     },
     "gallery": {
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images"],
+      "description": "Фотографии"
     },
     "theaterPage": {
       "type": "string",

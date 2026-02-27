@@ -1,1 +1,1 @@
-{"collectionName":"components_shared_reviews","info":{"displayName":"Review","icon":"quote","description":"Отзыв о спектакле или театре"},"options":{},"attributes":{"quote":{"type":"text","required":true},"author":{"type":"string","required":true},"vkUrl":{"type":"string"}}}
+{"collectionName":"components_shared_reviews","info":{"displayName":"Отзыв","icon":"quote","description":"Отзыв о спектакле или театре"},"options":{},"attributes":{"quote":{"type":"text","required":true},"author":{"type":"string","required":true},"vkUrl":{"type":"string"}}}

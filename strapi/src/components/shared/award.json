@@ -1,1 +1,1 @@
-{"collectionName":"components_shared_awards","info":{"displayName":"Award","icon":"star","description":"Награда или диплом"},"options":{},"attributes":{"title":{"type":"string","required":true},"year":{"type":"string"}}}
+{"collectionName":"components_shared_awards","info":{"displayName":"Награда","icon":"star","description":"Награда или диплом"},"options":{},"attributes":{"title":{"type":"string","required":true},"year":{"type":"string"}}}

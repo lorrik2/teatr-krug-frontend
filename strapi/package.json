@@ -4,6 +4,7 @@
   "private": true,
   "description": "A Strapi application",
   "scripts": {
+    "ru-labels": "node scripts/ru-labels.js",
     "build": "strapi build",
     "console": "strapi console",
     "deploy": "strapi deploy",

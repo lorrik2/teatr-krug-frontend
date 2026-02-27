@@ -1,1 +1,70 @@
-{"kind":"singleType","collectionName":"contact","info":{"singularName":"contact","pluralName":"contacts","displayName":"Контакты","description":"Контактная информация театра"},"options":{},"pluginOptions":{},"attributes":{"address":{"type":"string"},"boxOffice":{"type":"string"},"admin":{"type":"string"},"press":{"type":"string"},"emailBoxOffice":{"type":"string"},"emailAdmin":{"type":"string"},"emailPress":{"type":"string"},"socialVk":{"type":"string"},"socialTelegram":{"type":"string"},"socialInstagram":{"type":"string"},"workingHoursBoxOffice":{"type":"string"},"workingHoursAdmin":{"type":"string"},"mapEmbed":{"type":"text"}}}
+{
+  "kind": "singleType",
+  "collectionName": "contact",
+  "info": {
+    "singularName": "contact",
+    "pluralName": "contacts",
+    "displayName": "Контакты",
+    "description": "Контактная информация театра"
+  },
+  "options": {},
+  "pluginOptions": {},
+  "attributes": {
+    "address": {
+      "type": "string",
+      "description": "Адрес театра"
+    },
+    "boxOffice": {
+      "type": "string",
+      "description": "Телефон кассы"
+    },
+    "admin": {
+      "type": "string",
+      "description": "Телефон администрации"
+    },
+    "press": {
+      "type": "string",
+      "description": "Телефон пресс-службы"
+    },
+    "emailBoxOffice": {
+      "type": "string",
+      "description": "Email кассы"
+    },
+    "emailAdmin": {
+      "type": "string",
+      "description": "Email администрации"
+    },
+    "emailPress": {
+      "type": "string",
+      "description": "Email пресс-службы"
+    },
+    "socialVk": {
+      "type": "string",
+      "description": "Ссылка ВКонтакте"
+    },
+    "socialTelegram": {
+      "type": "string",
+      "description": "Ссылка Telegram"
+    },
+    "socialInstagram": {
+      "type": "string",
+      "description": "Ссылка Instagram"
+    },
+    "workingHoursBoxOffice": {
+      "type": "string",
+      "description": "Часы работы кассы"
+    },
+    "workingHoursAdmin": {
+      "type": "string",
+      "description": "Часы работы администрации"
+    },
+    "mapEmbed": {
+      "type": "text",
+      "description": "Код embed карты (Яндекс/Google)"
+    },
+    "howToGetThere": {
+      "type": "text",
+      "description": "Описание как добраться"
+    }
+  }
+}

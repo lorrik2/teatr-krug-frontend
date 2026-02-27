@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "theater_galleries",
+  "info": {
+    "singularName": "theater-gallery",
+    "pluralName": "theater-galleries",
+    "displayName": "Фото галереи",
+    "description": "Фотографии театра для страницы Фотогалерея"
+  },
+  "options": { "draftAndPublish": false },
+  "pluginOptions": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "alt": {
+      "type": "string",
+      "description": "Подпись к фото для доступности"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0,
+      "description": "Порядок отображения"
+    }
+  }
+}

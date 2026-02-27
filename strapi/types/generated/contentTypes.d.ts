@@ -457,6 +457,7 @@ export interface ApiActorActor extends Struct.CollectionTypeSchema {
     role: Schema.Attribute.String;
     roles: Schema.Attribute.Component<'shared.role-item', true>;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    theaterPage: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -484,6 +485,7 @@ export interface ApiContactContact extends Struct.SingleTypeSchema {
     emailAdmin: Schema.Attribute.String;
     emailBoxOffice: Schema.Attribute.String;
     emailPress: Schema.Attribute.String;
+    howToGetThere: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -520,6 +522,7 @@ export interface ApiHeroSlideHeroSlide extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     cta: Schema.Attribute.String;
+    ctaHref: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -550,6 +553,7 @@ export interface ApiNewsItemNewsItem extends Struct.CollectionTypeSchema {
   };
   attributes: {
     category: Schema.Attribute.String;
+    content: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -618,8 +622,41 @@ export interface ApiPerformancePerformance extends Struct.CollectionTypeSchema {
     soundDesigner: Schema.Attribute.String;
     subtitle: Schema.Attribute.String;
     teaserUrl: Schema.Attribute.String;
+    ticketsUrl: Schema.Attribute.String;
     time: Schema.Attribute.String;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTheaterGalleryTheaterGallery
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'theater_galleries';
+  info: {
+    description: '\u0424\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u0438 \u0442\u0435\u0430\u0442\u0440\u0430 \u0434\u043B\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0424\u043E\u0442\u043E\u0433\u0430\u043B\u0435\u0440\u0435\u044F';
+    displayName: '\u0424\u043E\u0442\u043E \u0433\u0430\u043B\u0435\u0440\u0435\u0438';
+    pluralName: 'theater-galleries';
+    singularName: 'theater-gallery';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    alt: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::theater-gallery.theater-gallery'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1175,6 +1212,7 @@ declare module '@strapi/strapi' {
       'api::hero-slide.hero-slide': ApiHeroSlideHeroSlide;
       'api::news-item.news-item': ApiNewsItemNewsItem;
       'api::performance.performance': ApiPerformancePerformance;
+      'api::theater-gallery.theater-gallery': ApiTheaterGalleryTheaterGallery;
       'api::theater-review.theater-review': ApiTheaterReviewTheaterReview;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

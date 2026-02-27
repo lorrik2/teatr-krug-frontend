@@ -1,1 +1,1 @@
-{"collectionName":"components_shared_role_items","info":{"displayName":"Role Item","icon":"theater","description":"Роль в спектакле"},"options":{},"attributes":{"text":{"type":"string","required":true}}}
+{"collectionName":"components_shared_role_items","info":{"displayName":"Роль в спектакле","icon":"theater","description":"Роль в спектакле"},"options":{},"attributes":{"text":{"type":"string","required":true}}}
