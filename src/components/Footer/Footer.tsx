@@ -35,7 +35,7 @@ export default function Footer() {
           <div className={styles.brand}>
             <Link href="/" className={styles.logo}>
               <OptimizedImage
-                src="/logo/лого круг.png"
+                src="/logo/logoLayout.png"
                 alt="Драматический театр Круг"
                 width={140}
                 height={48}

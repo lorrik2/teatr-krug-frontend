@@ -17,7 +17,7 @@ const montserrat = Montserrat({
 });
 
 const posterama = localFont({
-  src: "../../public/fonts/PosteramaTextW07-Regular.woff2",
+  src: "../../public/fonts/86bbde51a8a09cbad16f2259b875f654.woff2",
   variable: "--font-posterama",
   display: "swap",
   preload: true,
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     "купить билеты",
     "театр СПб",
   ],
-  icons: { icon: "/logo/лого круг.png" },
+  icons: { icon: "/logo/logoLayout.png" },
   openGraph: {
     type: "website",
     locale: "ru_RU",
@@ -46,7 +46,14 @@ export const metadata: Metadata = {
     title: "Драматический театр «Круг» — Афиша, билеты, события",
     description:
       "Официальный сайт драматического театра «Круг». Афиша спектаклей, покупка билетов, труппа, события.",
-    images: [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: "Драматический театр «Круг»" }],
+    images: [
+      {
+        url: "/fon/8.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Драматический театр «Круг»",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",

@@ -7,7 +7,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { navItems, DEFAULT_TICKETS_URL, type NavItem } from "@/lib/mock-data";
 import styles from "./Header.module.css";
 
-function isDropdown(item: NavItem): item is { label: string; items: { href: string; label: string }[] } {
+function isDropdown(
+  item: NavItem,
+): item is { label: string; items: { href: string; label: string }[] } {
   return "items" in item;
 }
 
@@ -23,7 +25,11 @@ export default function Header() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (mobileOpen && headerRef.current && !headerRef.current.contains(event.target as Node)) {
+      if (
+        mobileOpen &&
+        headerRef.current &&
+        !headerRef.current.contains(event.target as Node)
+      ) {
         event.preventDefault();
         event.stopPropagation();
         setMobileOpen(false);
@@ -50,7 +56,7 @@ export default function Header() {
       <div className={styles.container}>
         <Link href="/" className={styles.logo} aria-label="На главную">
           <OptimizedImage
-            src="/logo/без фона.png"
+            src="/logo/logoNoLayout.png"
             alt="Драматический театр Круг"
             width={280}
             height={100}
@@ -78,7 +84,9 @@ export default function Header() {
                       aria-haspopup="true"
                     >
                       {item.label}
-                      <span className={styles.dropdownChevron} aria-hidden>▼</span>
+                      <span className={styles.dropdownChevron} aria-hidden>
+                        ▼
+                      </span>
                     </button>
                     <AnimatePresence>
                       {openDropdown === item.label && (
@@ -165,7 +173,12 @@ export default function Header() {
                         aria-controls={`mobile-submenu-${item.label}`}
                       >
                         {item.label}
-                        <span className={`${styles.mobileChevron} ${isExpanded ? styles.mobileChevronOpen : ""}`} aria-hidden>▼</span>
+                        <span
+                          className={`${styles.mobileChevron} ${isExpanded ? styles.mobileChevronOpen : ""}`}
+                          aria-hidden
+                        >
+                          ▼
+                        </span>
                       </button>
                       <AnimatePresence>
                         {isExpanded && (
