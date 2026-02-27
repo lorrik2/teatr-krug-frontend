@@ -62,7 +62,7 @@ export default function Header() {
             height={100}
             className={styles.logoImg}
             priority
-            effect="blur"
+            unoptimized
           />
         </Link>
 

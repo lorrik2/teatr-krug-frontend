@@ -40,7 +40,7 @@ export default function Footer() {
                 width={140}
                 height={48}
                 className={styles.logoImg}
-                effect="blur"
+                unoptimized
               />
             </Link>
             <p className={styles.tagline}>

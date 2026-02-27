@@ -100,6 +100,15 @@ pm2 logs strapi --lines 10
 - https://teatr-krug-spb.ru
 - https://api.teatr-krug-spb.ru/admin
 
+### 5. Проверка после деплоя (лого, стили)
+
+1. **Жёсткое обновление страницы**: `Ctrl+Shift+R` (Windows) / `Cmd+Shift+R` (Mac) — сброс кэша.
+2. **Логотип**: Должны отображаться логотипы в Header и Footer (`public/logo/logoNoLayout.png`, `logoLayout.png`).
+3. **Стили**: Блоки с обводкой, кнопки, сетки — если сжаты или без стилей, проверить:
+   - `git status` — нет ли незакоммиченных изменений?
+   - `ls -la public/logo/` — файлы на месте?
+   - `pm2 logs nextjs` — нет ли ошибок?
+
 ---
 
 ## Одной командой (локально)
