@@ -11,6 +11,9 @@ dist
 
 # misc
 .DS_Store
+
+# Деплой — содержит пути и инфраструктуру (не публиковать в открытом репо)
+DEPLOY.md
 *.pem
 .env*.local
 .vercel
