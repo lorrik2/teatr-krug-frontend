@@ -91,6 +91,8 @@ export interface NewsItem {
   slug: string;
   title: string;
   excerpt: string;
+  /** Полный текст (из Strapi) */
+  content?: string;
   image: string;
   date: string;
   category: string;
@@ -631,6 +633,8 @@ export const contactInfo = {
   },
   mapEmbed:
     "https://yandex.ru/map-widget/v1/?um=constructor%2Fplaceholder&lang=ru_RU",
+  howToGetThere:
+    "Метро «Волковская». Театр находится в 5 минутах от метро Волковская, в бизнес-центре. Вход — с торца здания, большая стеклянная дверь. За ней пункт охраны. Поднимитесь на лифте на 4 этаж, пройдите по коридору направо.",
 };
 
 export const heroSlides = [

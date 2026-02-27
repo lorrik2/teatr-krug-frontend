@@ -119,12 +119,8 @@ export default function Contacts({
             </div>
             <div className={`${styles.transport} ${compact ? styles.blockCompact : ""}`}>
               <h3 className={styles.blockTitle}>Как добраться</h3>
-              <p>
-                Метро «Волковская».Театр находится в 5 минутах от метро
-                Волковская, в бизнес-центре, вход в который вы найдёте с торца
-                здания - это большая стеклянная дверь. За ней будет пункт
-                охраны. Вам необходимо подняться на лифте на 4 этаж, а затем
-                пройти по коридору направо.
+              <p className={styles.howToGet}>
+                {contactInfo.howToGetThere || "Информация о проезде скоро появится."}
               </p>
             </div>
           </div>

@@ -20,6 +20,10 @@ import {
   navLinks,
   navItems,
 } from "./mock-data";
+import {
+  theaterGalleryImages,
+  GALLERY_PAGE_SIZE,
+} from "./theater-gallery";
 import type { Performance, Actor, NewsItem, Review } from "./mock-data";
 
 // Маппинг Strapi → наш формат
@@ -111,6 +115,7 @@ function mapStrapiNewsItem(d: any): NewsItem {
     slug: d.slug,
     title: d.title,
     excerpt: d.excerpt || "",
+    content: d.content || undefined,
     image,
     date: d.date || "",
     category: d.category || "",
@@ -296,6 +301,7 @@ export async function getContactInfo(): Promise<typeof contactInfo> {
           admin: (d.workingHoursAdmin as string) || "",
         },
         mapEmbed: (d.mapEmbed as string) || "",
+        howToGetThere: (d.howToGetThere as string) || "",
       };
     }
   }
@@ -314,6 +320,26 @@ export async function getTheaterReviews(): Promise<Review[]> {
   }
   return theaterReviews;
 }
+
+/** Фотогалерея театра */
+export type GalleryImage = { src: string; alt: string };
+export async function getTheaterGalleryImages(): Promise<GalleryImage[]> {
+  if (await checkStrapi()) {
+    const res = await fetchStrapi<Array<unknown>>("/theater-galleries", {
+      populate: "image",
+      sort: ["order:asc"],
+    });
+    if (res?.data && Array.isArray(res.data)) {
+      return res.data.map((d: any) => ({
+        src: d.image?.url ? getStrapiMediaUrl(d.image.url) : "",
+        alt: d.alt || "Фото театра",
+      })).filter((img) => img.src);
+    }
+  }
+  return theaterGalleryImages;
+}
+
+export { GALLERY_PAGE_SIZE };
 
 /** Премьеры — из спектаклей с isPremiere */
 export async function getPremieres() {

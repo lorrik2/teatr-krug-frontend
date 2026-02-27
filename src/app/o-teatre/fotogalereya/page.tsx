@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GalleryLightbox from "@/components/GalleryLightbox";
 import {
-  theaterGalleryImages,
+  getTheaterGalleryImages,
   GALLERY_PAGE_SIZE,
-} from "@/lib/theater-gallery";
+} from "@/lib/cms-data";
 import styles from "../../styles/Page.module.css";
 import fotogalereyaStyles from "./fotogalereya.module.css";
 
@@ -17,15 +17,14 @@ export const metadata: Metadata = {
 type Props = { searchParams: Promise<{ page?: string }> };
 
 export default async function FotogalereyaPage({ searchParams }: Props) {
+  const images = await getTheaterGalleryImages();
   const { page: pageParam } = await searchParams;
   const page = Math.max(1, parseInt(pageParam ?? "1", 10) || 1);
-  const totalPages = Math.ceil(
-    theaterGalleryImages.length / GALLERY_PAGE_SIZE
-  );
+  const totalPages = Math.ceil(images.length / GALLERY_PAGE_SIZE);
   const currentPage = Math.min(page, totalPages);
 
   const start = (currentPage - 1) * GALLERY_PAGE_SIZE;
-  const imagesOnPage = theaterGalleryImages.slice(
+  const imagesOnPage = images.slice(
     start,
     start + GALLERY_PAGE_SIZE
   );

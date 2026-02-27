@@ -64,10 +64,9 @@ export default async function EventItemPage({ params }: Props) {
         </div>
         <div className="mt-6 prose prose-graphite max-w-none">
           <p className="text-lg text-graphite-700">{item.excerpt}</p>
-          <p className="mt-4 text-graphite-700">
-            Полный текст материала будет подгружаться из Strapi CMS. Здесь —
-            заглушка для демонстрации структуры страницы события.
-          </p>
+          {item.content ? (
+            <p className="mt-4 whitespace-pre-line text-graphite-700">{item.content}</p>
+          ) : null}
         </div>
       </article>
     </div>

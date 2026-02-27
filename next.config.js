@@ -2,6 +2,11 @@
 const nextConfig = {
   images: {
     remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "api.teatr-krug-spb.ru",
+        pathname: "/uploads/**",
+      },
       { protocol: "https", hostname: "picsum.photos", pathname: "/**" },
       { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
       { protocol: "http", hostname: "localhost", pathname: "/uploads/**" },
