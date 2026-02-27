@@ -110,9 +110,10 @@ function mapStrapiActor(d: any): Actor {
 
 function mapStrapiNewsItem(d: any): NewsItem {
   const image = d.image?.url ? getStrapiMediaUrl(d.image.url) : "";
+  const slug = typeof d.slug === "string" ? d.slug : "";
   return {
     id: d.documentId || String(d.id),
-    slug: d.slug,
+    slug,
     title: d.title,
     excerpt: d.excerpt || "",
     content: d.content || undefined,

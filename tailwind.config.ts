@@ -10,7 +10,6 @@ const config: Config = {
   // Safelist: классы из @apply в CSS-модулях иногда не попадают в purge на prod
   safelist: [
     { pattern: /^(bg|border|text|ring|from|to|via)-graphite-\d+/ },
-    { pattern: /^hover:(bg|border|text)-graphite-\d+/ },
     { pattern: /^border-(b|t|l|r)-graphite-\d+/ },
   ],
   theme: {

@@ -12,7 +12,9 @@ type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
   const newsItems = await getNewsItems();
-  return newsItems.map((n) => ({ slug: n.slug }));
+  return newsItems
+    .filter((n) => typeof n.slug === "string" && n.slug.length > 0)
+    .map((n) => ({ slug: n.slug as string }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
