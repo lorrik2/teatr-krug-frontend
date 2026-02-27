@@ -28,18 +28,22 @@ import type { Performance, Actor, NewsItem, Review } from "./mock-data";
 
 // Маппинг Strapi → наш формат
 function mapStrapiPerformance(d: any): Performance {
-  const poster = d.poster?.url
-    ? getStrapiMediaUrl(d.poster.url)
+  const attrs = d.attributes ?? d;
+  const poster = (attrs.poster ?? d.poster)?.url
+    ? getStrapiMediaUrl((attrs.poster ?? d.poster).url)
     : d.poster?.url || "";
+  const galleryRaw = attrs.gallery ?? d.gallery;
   const gallery =
-    d.gallery && Array.isArray(d.gallery)
-      ? d.gallery.map((g: any) => getStrapiMediaUrl(g?.url)).filter(Boolean)
+    galleryRaw && Array.isArray(galleryRaw)
+      ? galleryRaw.map((g: any) => getStrapiMediaUrl(g?.url)).filter(Boolean)
       : undefined;
 
+  const rawSlug = attrs.slug ?? d.slug;
+  const slug = typeof rawSlug === "string" ? rawSlug : "";
   return {
-    id: d.documentId || String(d.id),
-    title: d.title,
-    slug: d.slug,
+    id: d.documentId ?? attrs.documentId ?? String(d.id),
+    title: (attrs.title ?? d.title) || "",
+    slug,
     poster,
     gallery: gallery?.length ? gallery : undefined,
     subtitle: d.subtitle,
@@ -50,11 +54,14 @@ function mapStrapiPerformance(d: any): Performance {
     lightingDesigner: d.lightingDesigner,
     soundDesigner: d.soundDesigner,
     lightSoundOperator: d.lightSoundOperator,
-    cast: d.cast?.map((c: any) => ({
-      name: c.name,
-      role: c.role,
-      actorSlug: c.actor?.slug,
-    })),
+    cast: (attrs.cast ?? d.cast)?.map((c: any) => {
+      const actorSlug = c.actor?.slug ?? c.actorSlug;
+      return {
+        name: c.name,
+        role: c.role,
+        actorSlug: typeof actorSlug === "string" ? actorSlug : "",
+      };
+    }),
     reviews: d.reviews?.map((r: any, i: number) => ({
       id: `r${i}`,
       quote: r.quote,
@@ -83,28 +90,32 @@ function mapStrapiPerformance(d: any): Performance {
 }
 
 function mapStrapiActor(d: any): Actor {
-  const photo = d.photo?.url ? getStrapiMediaUrl(d.photo?.url) : "";
+  const attrs = d.attributes ?? d;
+  const photo = attrs.photo?.url ? getStrapiMediaUrl(attrs.photo.url) : d.photo?.url ? getStrapiMediaUrl(d.photo.url) : "";
   const gallery =
-    d.gallery && Array.isArray(d.gallery)
-      ? d.gallery.map((g: any) => getStrapiMediaUrl(g?.url)).filter(Boolean)
+    (attrs.gallery ?? d.gallery) && Array.isArray(attrs.gallery ?? d.gallery)
+      ? (attrs.gallery ?? d.gallery).map((g: any) => getStrapiMediaUrl(g?.url)).filter(Boolean)
       : undefined;
 
-  const rolesList = Array.isArray(d.roles)
-    ? d.roles.map((r: any) => (typeof r === "string" ? r : r?.text)).filter(Boolean)
+  const rolesRaw = attrs.roles ?? d.roles;
+  const rolesList = Array.isArray(rolesRaw)
+    ? rolesRaw.map((r: any) => (typeof r === "string" ? r : r?.text)).filter(Boolean)
     : [];
 
-  const slug = typeof d.slug === "string" ? d.slug : "";
+  const rawSlug = attrs.slug ?? d.slug;
+  const slug = typeof rawSlug === "string" ? rawSlug : "";
+  const name = typeof (attrs.name ?? d.name) === "string" ? (attrs.name ?? d.name) : "";
   return {
-    id: d.documentId || String(d.id),
-    name: d.name,
+    id: d.documentId ?? attrs.documentId ?? String(d.id),
+    name,
     slug,
     photo,
-    role: d.role || "",
-    rank: d.rank,
-    bio: d.bio || "",
+    role: (attrs.role ?? d.role) || "",
+    rank: attrs.rank ?? d.rank,
+    bio: (attrs.bio ?? d.bio) || "",
     roles: rolesList,
     gallery,
-    theaterPage: d.theaterPage || undefined,
+    theaterPage: attrs.theaterPage ?? d.theaterPage ?? undefined,
   };
 }
 

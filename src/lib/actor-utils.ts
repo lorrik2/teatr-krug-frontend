@@ -42,10 +42,16 @@ export function getActorPerformanceRoles(
   performances: Performance[]
 ): ActorPerformanceRole[] {
   const result: ActorPerformanceRole[] = [];
+  const slugStr = typeof actorSlug === "string" ? actorSlug : "";
   for (const perf of performances) {
-    const member = perf.cast?.find((c) => c.actorSlug === actorSlug);
+    const member = perf.cast?.find((c) => (c.actorSlug ?? "") === slugStr);
     if (member) {
-      result.push({ title: perf.title, slug: perf.slug, role: member.role });
+      const perfSlug = typeof perf.slug === "string" ? perf.slug : "";
+      result.push({
+        title: typeof perf.title === "string" ? perf.title : "",
+        slug: perfSlug,
+        role: typeof member.role === "string" ? member.role : "",
+      });
     }
   }
   return result;

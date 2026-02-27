@@ -13,7 +13,7 @@ export default async function TeamPage() {
     getActors(),
     getRepertoirePerformances(),
   ]);
-  const sorted = [...actors].sort((a, b) => a.name.localeCompare(b.name));
+  const sorted = [...actors].sort((a, b) => (a.name || "").localeCompare(b.name || ""));
   return (
     <div className={styles.wrap}>
       <header className={styles.header}>

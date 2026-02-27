@@ -74,18 +74,18 @@ export default function ActorRolesModal({
             {photo ? (
               <OptimizedImage
                 src={photo}
-                alt={name}
+                alt={name || "Актёр"}
                 width={120}
                 height={120}
                 className={styles.photo}
                 effect="blur"
               />
             ) : (
-              <span className={styles.placeholder}>{name[0]}</span>
+              <span className={styles.placeholder}>{(name || "?")[0]}</span>
             )}
           </div>
           <div className={styles.info}>
-            <h3 className={styles.name}>{name}</h3>
+            <h3 className={styles.name}>{name || "Актёр"}</h3>
             {role && <p className={styles.rank}>{role}</p>}
           </div>
         </div>

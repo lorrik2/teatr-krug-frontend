@@ -41,7 +41,7 @@ export default function TeamGrid({
                 <div className={styles.photoWrap}>
                   <OptimizedImage
                     src={director.photo}
-                    alt={director.name}
+                    alt={director.name || "Актёр"}
                     width={400}
                     height={500}
                     className={styles.photo}
@@ -49,7 +49,7 @@ export default function TeamGrid({
                   />
                 </div>
                 <div className={styles.body}>
-                  <h2 className={styles.name}>{director.name}</h2>
+                  <h2 className={styles.name}>{director.name || "Актёр"}</h2>
                   {director.rank && <p className={styles.rank}>{director.rank}</p>}
                   <p className={styles.role}>{director.role}</p>
                   <span className={styles.detailBtn}>Подробнее</span>
@@ -74,7 +74,7 @@ export default function TeamGrid({
               <div className={styles.photoWrap}>
                 <OptimizedImage
                   src={actor.photo}
-                  alt={actor.name}
+                  alt={actor.name || "Актёр"}
                   width={400}
                   height={500}
                   className={styles.photo}
@@ -82,7 +82,7 @@ export default function TeamGrid({
                 />
               </div>
               <div className={styles.body}>
-                <h2 className={styles.name}>{actor.name}</h2>
+                <h2 className={styles.name}>{actor.name || "Актёр"}</h2>
                 {actor.rank && <p className={styles.rank}>{actor.rank}</p>}
                 <p className={styles.role}>{actor.role}</p>
                 {showLink && <span className={styles.detailBtn}>Подробнее</span>}
@@ -117,7 +117,7 @@ export default function TeamGrid({
                       ),
                     })
                   }
-                  aria-label={`${actor.name} — роли в спектаклях`}
+                  aria-label={`${actor.name || "Актёр"} — роли в спектаклях`}
                 >
                   {cardContent}
                 </button>
