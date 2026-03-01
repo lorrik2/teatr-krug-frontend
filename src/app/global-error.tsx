@@ -31,6 +31,7 @@ export default function GlobalError({
             >
               Попробовать снова
             </button>
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a
               href="/"
               className="px-4 py-2 border border-graphite-300 rounded hover:bg-graphite-50"
