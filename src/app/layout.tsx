@@ -17,7 +17,7 @@ const montserrat = Montserrat({
 });
 
 const posterama = localFont({
-  src: "../../public/fonts/a473f32ddaf0ac9ecbafb5cb7c0ba67e.woff2",
+  src: "../../public/fonts/font_3.woff2",
   variable: "--font-posterama",
   display: "swap",
   preload: true,
