@@ -25,3 +25,9 @@ yarn-error.log*
 
 # TypeScript
 next-env.d.ts
+
+# Strapi — генерируемые при работе, не коммитить
+strapi/.tmp/
+strapi/.cache/
+strapi/build/
+strapi/.strapi-updater.json

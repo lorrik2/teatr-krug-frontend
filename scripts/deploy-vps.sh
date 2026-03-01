@@ -12,7 +12,12 @@ echo "OK: data.db и .env в /tmp/teatr-backup/"
 
 echo ""
 echo "=== 2. Git pull ==="
+# Сбрасываем локальные изменения в файлах Strapi, чтобы pull не конфликтовал
+git checkout -- strapi/.strapi-updater.json strapi/.tmp/data.db 2>/dev/null || true
 git pull
+# Восстанавливаем production-базу после pull
+mkdir -p strapi/.tmp
+cp -a /tmp/teatr-backup/data.db strapi/.tmp/data.db 2>/dev/null || true
 
 echo ""
 echo "=== 3. Очистка кэша ==="
