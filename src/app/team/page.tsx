@@ -9,11 +9,13 @@ export const metadata: Metadata = {
 };
 
 export default async function TeamPage() {
-  const [actors, performances] = await Promise.all([
-    getActors(),
-    getRepertoirePerformances(),
+  const [actors = [], performances = []] = await Promise.all([
+    getActors().catch(() => []),
+    getRepertoirePerformances().catch(() => []),
   ]);
-  const sorted = [...actors].sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+  const sorted = [...actors].sort((a, b) =>
+    (a.name || "").localeCompare(b.name || ""),
+  );
   return (
     <div className={styles.wrap}>
       <header className={styles.header}>

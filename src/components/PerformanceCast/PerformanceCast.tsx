@@ -7,7 +7,7 @@ import ActorRolesModal from "@/components/ActorRolesModal";
 import type { CastMember, Actor, Performance } from "@/lib/mock-data";
 import {
   isDirectorOrArtisticDirector,
-  getActorPerformanceRoles,
+  getActorPerformanceRolesMerged,
 } from "@/lib/actor-utils";
 import styles from "./PerformanceCast.module.css";
 
@@ -80,8 +80,8 @@ export default function PerformanceCast({
                   onClick={() =>
                     setModalActor({
                       actor: actor!,
-                      performanceRoles: getActorPerformanceRoles(
-                        actor!.slug,
+                      performanceRoles: getActorPerformanceRolesMerged(
+                        actor!,
                         performances
                       ),
                     })

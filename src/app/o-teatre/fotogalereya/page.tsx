@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 type Props = { searchParams: Promise<{ page?: string }> };
 
 export default async function FotogalereyaPage({ searchParams }: Props) {
-  const images = await getTheaterGalleryImages();
+  const images = (await getTheaterGalleryImages().catch(() => [])) ?? [];
   const { page: pageParam } = await searchParams;
   const page = Math.max(1, parseInt(pageParam ?? "1", 10) || 1);
   const totalPages = Math.ceil(images.length / GALLERY_PAGE_SIZE);

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AfishaPage() {
-  const performances = await getPerformances();
+  const performances = (await getPerformances().catch(() => [])) ?? [];
   return (
     <div className={styles.wrap}>
       <header className={styles.header}>

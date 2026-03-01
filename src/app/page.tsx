@@ -14,6 +14,7 @@ import {
   getTheaterReviews,
   getActors,
 } from "@/lib/cms-data";
+import { contactInfo as defaultContactInfo } from "@/lib/mock-data";
 import { SITE_URL } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -24,14 +25,14 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [heroSlides, performances, newsItems, contactInfo, reviews, actors] =
+  const [heroSlides = [], performances = [], newsItems = [], contactInfo, reviews = [], actors = []] =
     await Promise.all([
-      getHeroSlides(),
-      getPerformances(),
-      getNewsItems(),
-      getContactInfo(),
-      getTheaterReviews(),
-      getActors(),
+      getHeroSlides().catch(() => []),
+      getPerformances().catch(() => []),
+      getNewsItems().catch(() => []),
+      getContactInfo().catch(() => defaultContactInfo),
+      getTheaterReviews().catch(() => []),
+      getActors().catch(() => []),
     ]);
 
   return (

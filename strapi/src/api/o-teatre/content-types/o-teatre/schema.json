@@ -1,0 +1,37 @@
+{
+  "kind": "singleType",
+  "collectionName": "o_teatre",
+  "info": {
+    "singularName": "o-teatre",
+    "pluralName": "o-teatres",
+    "displayName": "О театре",
+    "description": "Страница «О театре»: история, миссия"
+  },
+  "options": {},
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "description": "Заголовок страницы"
+    },
+    "lead": {
+      "type": "string",
+      "description": "Подзаголовок"
+    },
+    "historyText": {
+      "type": "text",
+      "description": "Текст блока «История»"
+    },
+    "missionText": {
+      "type": "text",
+      "description": "Текст блока «Миссия»"
+    },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"],
+      "description": "Фото для превью галереи"
+    }
+  }
+}

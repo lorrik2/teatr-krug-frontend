@@ -26,3 +26,35 @@
 .socialIcon {
   @apply text-graphite-600 transition-colors hover:text-graphite-950;
 }
+
+/* Блок «Спектакли и билеты» — в стиле TicketsBlock с главной */
+.partnerBlock {
+  /* Вырывается из wrap на всю ширину (как TicketsBlock) */
+  @apply mt-12 -mx-4 bg-graphite-100 py-16 sm:-mx-6 md:py-20 lg:-mx-8;
+}
+
+.partnerBlockInner {
+  @apply mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8;
+}
+
+.partnerBlockTitle {
+  @apply font-posterama text-3xl font-bold tracking-wide text-graphite-950 md:text-4xl;
+  letter-spacing: 0.04em;
+}
+
+.partnerBlockText {
+  @apply mt-2 text-lg text-graphite-600;
+}
+
+.partnerBlockCta {
+  @apply mt-8 inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all;
+  background: var(--color-graphite-950);
+}
+
+.partnerBlockCta:hover {
+  filter: brightness(1.1);
+}
+
+.partnerBlockNote {
+  @apply mt-4 text-sm text-graphite-500;
+}

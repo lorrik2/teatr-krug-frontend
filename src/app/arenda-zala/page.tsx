@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import GalleryLightbox from "@/components/GalleryLightbox";
+import { getArendaZalaPageData } from "@/lib/cms-data";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
@@ -9,16 +10,19 @@ export const metadata: Metadata = {
     "Аренда зрительного зала и помещений театра для мероприятий, концертов, показов.",
 };
 
-const galleryImages = [
-  { src: "/fon/8.jpg", alt: "Фасад театра" },
-  { src: "/fon/12.jpg", alt: "Зрительный зал" },
-  { src: "/fon/13.jpg", alt: "Фойе" },
-  { src: "/fon/22.jpg", alt: "Гримёрки" },
-  { src: "/fon/6.jpg", alt: "Зал" },
-  { src: "/fon/7.jpg", alt: "Закулисье" },
-];
-
-export default function ArendaZalaPage() {
+export default async function ArendaZalaPage() {
+  const data = await getArendaZalaPageData();
+  const galleryImages =
+    data.galleryImages.length > 0
+      ? data.galleryImages
+      : [
+          { src: "/fon/8.jpg", alt: "Фасад театра" },
+          { src: "/fon/12.jpg", alt: "Зрительный зал" },
+          { src: "/fon/13.jpg", alt: "Фойе" },
+        ];
+  const paragraphs = (data.conditionsText ?? "")
+    .split(/\n\n+/)
+    .filter((p) => p.trim());
   return (
     <div className={styles.wrap}>
       <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
@@ -28,24 +32,21 @@ export default function ArendaZalaPage() {
       </nav>
 
       <header className={styles.header}>
-        <h1 className={styles.h1}>Аренда зала</h1>
-        <p className={styles.lead}>
-          Зрительный зал и помещения театра для ваших мероприятий
-        </p>
+        <h1 className={styles.h1}>{data.title || "Аренда зала"}</h1>
+        <p className={styles.lead}>{data.lead || ""}</p>
       </header>
 
       <section className={styles.contentSection}>
         <h2 className={styles.h2}>Условия аренды</h2>
-        <p>
-          Драматический театр «Круг» предлагает в аренду зрительный зал и
-          сопутствующие помещения для проведения спектаклей, концертов,
-          презентаций, корпоративных мероприятий и творческих проектов.
-        </p>
-        <p>
-          Зал рассчитан на 120 зрителей. В наличии профессиональное
-          сценическое оборудование, световая и звуковая аппаратура. Фойе
-          подходит для фуршетов и выставок.
-        </p>
+        {paragraphs.length > 0 ? (
+          paragraphs.map((p, i) => <p key={i}>{p}</p>)
+        ) : (
+          <p>
+            Драматический театр «Круг» предлагает в аренду зрительный зал и
+            сопутствующие помещения. По вопросам аренды обращайтесь в
+            администрацию театра.
+          </p>
+        )}
       </section>
 
       <section
@@ -65,12 +66,18 @@ export default function ArendaZalaPage() {
       <section className={styles.contentSection}>
         <h2 className={styles.h2}>Как забронировать</h2>
         <p>
-          По вопросам аренды обращайтесь в администрацию театра по телефону
-          или электронной почте. Указаны на странице{" "}
-          <Link href="/kontakty" className={styles.galleryLink}>
-            Контакты
-          </Link>
-          .
+          {data.howToBookText ? (
+            data.howToBookText
+          ) : (
+            <>
+              По вопросам аренды обращайтесь в администрацию театра по
+              телефону или электронной почте. Указаны на странице{" "}
+              <Link href="/kontakty" className={styles.galleryLink}>
+                Контакты
+              </Link>
+              .
+            </>
+          )}
         </p>
       </section>
     </div>

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RepertuarPage() {
-  const repertoirePerformances = await getRepertoirePerformances();
+  const repertoirePerformances = (await getRepertoirePerformances().catch(() => [])) ?? [];
   return (
     <div className={styles.wrap}>
       <header className={styles.header}>

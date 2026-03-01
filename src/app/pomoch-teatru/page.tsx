@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import OptimizedImage from "@/components/OptimizedImage";
+import { getPomochTeatruPageData } from "@/lib/cms-data";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
@@ -8,7 +10,11 @@ export const metadata: Metadata = {
     "Поддержать театр: реквизиты для перевода, QR-код для быстрой оплаты.",
 };
 
-export default function PomochTeatruPage() {
+export default async function PomochTeatruPage() {
+  const data = await getPomochTeatruPageData();
+  const requisitesParagraphs = (data.requisitesText ?? "")
+    .split(/\n\n+/)
+    .filter((p) => p.trim());
   return (
     <div className={styles.wrap}>
       <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
@@ -18,28 +24,41 @@ export default function PomochTeatruPage() {
       </nav>
 
       <header className={styles.header}>
-        <h1 className={styles.h1}>Помочь театру</h1>
-        <p className={styles.lead}>
-          Ваша поддержка помогает нам создавать новые спектакли
-        </p>
+        <h1 className={styles.h1}>{data.title || "Помочь театру"}</h1>
+        <p className={styles.lead}>{data.lead || ""}</p>
       </header>
 
       <section className={styles.contentSection}>
         <h2 className={styles.h2}>Реквизиты для перевода</h2>
-        <div className={styles.videoPlaceholder}>
-          <p className="text-center text-graphite-600">
-            Здесь будут реквизиты для перевода
-          </p>
-        </div>
+        {requisitesParagraphs.length > 0 ? (
+          requisitesParagraphs.map((p, i) => <p key={i}>{p}</p>)
+        ) : (
+          <div className={styles.videoPlaceholder}>
+            <p className="text-center text-graphite-600">
+              Здесь будут реквизиты для перевода
+            </p>
+          </div>
+        )}
       </section>
 
       <section className={styles.contentSection}>
         <h2 className={styles.h2}>QR-код для оплаты</h2>
-        <div className={styles.videoPlaceholder}>
-          <p className="text-center text-graphite-600">
-            Здесь будет QR-код для быстрой оплаты
-          </p>
-        </div>
+        {data.qrCodeImageUrl ? (
+          <div className="flex justify-center">
+            <OptimizedImage
+              src={data.qrCodeImageUrl}
+              alt="QR-код для оплаты"
+              width={256}
+              height={256}
+            />
+          </div>
+        ) : (
+          <div className={styles.videoPlaceholder}>
+            <p className="text-center text-graphite-600">
+              Здесь будет QR-код для быстрой оплаты
+            </p>
+          </div>
+        )}
       </section>
     </div>
   );

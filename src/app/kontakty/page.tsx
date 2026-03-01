@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Contacts from "@/components/Contacts";
 import { getContactInfo } from "@/lib/cms-data";
+import { contactInfo as defaultContactInfo } from "@/lib/mock-data";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactsPage() {
-  const contactInfo = await getContactInfo();
+  const contactInfo = await getContactInfo().catch(() => defaultContactInfo);
   return (
     <div className={`${styles.wrap} ${styles.contactsWrap}`}>
       <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">

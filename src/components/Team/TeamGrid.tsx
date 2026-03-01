@@ -7,7 +7,7 @@ import ActorRolesModal from "@/components/ActorRolesModal";
 import type { Actor, Performance } from "@/lib/mock-data";
 import {
   isDirectorOrArtisticDirector,
-  getActorPerformanceRoles,
+  getActorPerformanceRolesMerged,
 } from "@/lib/actor-utils";
 import styles from "../../app/team/TeamPage.module.css";
 
@@ -111,8 +111,8 @@ export default function TeamGrid({
                   onClick={() =>
                     setModalActor({
                       actor,
-                      performanceRoles: getActorPerformanceRoles(
-                        actor.slug,
+                      performanceRoles: getActorPerformanceRolesMerged(
+                        actor,
                         performances
                       ),
                     })

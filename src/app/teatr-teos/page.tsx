@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ImageSlider from "@/components/ImageSlider";
 import GalleryLightbox from "@/components/GalleryLightbox";
+import { getTeatrTeosPageData } from "@/lib/cms-data";
 import styles from "../styles/Page.module.css";
 import teosStyles from "./teatr-teos.module.css";
 
@@ -10,19 +11,6 @@ export const metadata: Metadata = {
   description:
     "Ещё один театр Маргариты Вафиной: спектакли, контакты, соцсети.",
 };
-
-const sliderImages = [
-  { src: "/fon/4.jpg", alt: "Ещё один театр Маргариты Вафиной" },
-  { src: "/fon/6.jpg", alt: "Зрительный зал" },
-  { src: "/fon/7.jpg", alt: "Сцена" },
-];
-
-const galleryImages = [
-  { src: "/fon/8.jpg", alt: "Фасад" },
-  { src: "/fon/12.jpg", alt: "Зал" },
-  { src: "/fon/13.jpg", alt: "Фойе" },
-  { src: "/fon/22.jpg", alt: "Интерьер" },
-];
 
 const IconVK = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
@@ -36,7 +24,19 @@ const IconTelegram = () => (
   </svg>
 );
 
-export default function TeatrTeosPage() {
+export default async function TeatrTeosPage() {
+  const data = await getTeatrTeosPageData();
+  const galleryImages = (data.galleryImages ?? []).map((img) => ({
+    src: img.src,
+    alt: img.alt,
+  }));
+  const sliderImages = (data.sliderImages ?? []).length > 0
+    ? (data.sliderImages ?? [])
+    : [
+        { src: "/fon/4.jpg", alt: "Ещё один театр Маргариты Вафиной" },
+        { src: "/fon/6.jpg", alt: "Зрительный зал" },
+        { src: "/fon/7.jpg", alt: "Сцена" },
+      ];
   return (
     <>
       <ImageSlider images={sliderImages} />
@@ -49,19 +49,44 @@ export default function TeatrTeosPage() {
         </nav>
 
         <header className={styles.header}>
-          <h1 className={styles.h1}>Ещё один театр Маргариты Вафиной</h1>
-          <p className={styles.lead}>
-            Театральный проект Маргариты Вафиной
-          </p>
+        <h1 className={styles.h1}>{data.title || "Ещё один театр Маргариты Вафиной"}</h1>
+        <p className={styles.lead}>{data.lead || ""}</p>
         </header>
 
         <section className={styles.contentSection}>
           <h2 className={styles.h2}>О театре</h2>
           <p>
-            Здесь будет текст о театре Маргариты Вафиной. Добавьте описание
-            проекта, миссию, историю и ключевую информацию.
+            {data.aboutText || "Здесь будет текст о театре Маргариты Вафиной."}
           </p>
         </section>
+
+        {(data.partnerBlockText || data.partnerBlockLink) && (
+          <section
+            className={teosStyles.partnerBlock}
+            aria-labelledby="teos-partner-block-title"
+          >
+            <div className={teosStyles.partnerBlockInner}>
+              <h2 id="teos-partner-block-title" className={teosStyles.partnerBlockTitle}>
+                Спектакли и билеты
+              </h2>
+              {data.partnerBlockText && (
+                <p className={teosStyles.partnerBlockText}>
+                  {(data.partnerBlockText ?? "").trim()}
+                </p>
+              )}
+              <a
+                href={data.partnerBlockLink || "/afisha"}
+                target={data.partnerBlockLink ? "_blank" : undefined}
+                rel={data.partnerBlockLink ? "noopener noreferrer" : undefined}
+                className={teosStyles.partnerBlockCta}
+                aria-label={data.partnerBlockLink ? "Перейти к покупке билетов на сайте партнёра (внешняя ссылка)" : "Перейти к афише"}
+              >
+                {data.partnerBlockButtonLabel || "Купить билеты"}
+                <span aria-hidden>→</span>
+              </a>
+            </div>
+          </section>
+        )}
 
         <section
           id="gallery"
@@ -69,7 +94,7 @@ export default function TeatrTeosPage() {
         >
           <h2 className={styles.h2}>Фотогалерея</h2>
           <GalleryLightbox
-            images={galleryImages}
+            images={galleryImages.length > 0 ? galleryImages : [{ src: "/fon/8.jpg", alt: "Фасад" }]}
             variant="grid"
             limit={4}
             moreLabel="Смотреть ещё"
@@ -82,33 +107,41 @@ export default function TeatrTeosPage() {
           <div className={teosStyles.contactsBlock}>
             <div className={teosStyles.contactItem}>
               <span className={teosStyles.contactLabel}>Адрес</span>
-              <p>Укажите адрес театра</p>
+              <p>{data.address || "—"}</p>
             </div>
             <div className={teosStyles.contactItem}>
               <span className={teosStyles.contactLabel}>Телефон</span>
-              <a href="tel:+79216459200">+7 921 64 59 200</a>
+              {data.phone ? (
+                <a href={`tel:${data.phone.replace(/\s/g, "")}`}>{data.phone}</a>
+              ) : (
+                <span>—</span>
+              )}
             </div>
             <div className={teosStyles.contactItem}>
               <span className={teosStyles.contactLabel}>Соцсети</span>
               <div className={teosStyles.socialIcons}>
-                <a
-                  href="https://vk.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={teosStyles.socialIcon}
-                  aria-label="ВКонтакте"
-                >
-                  <IconVK />
-                </a>
-                <a
-                  href="https://t.me"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={teosStyles.socialIcon}
-                  aria-label="Telegram"
-                >
-                  <IconTelegram />
-                </a>
+                {data.socialVk && (
+                  <a
+                    href={data.socialVk}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={teosStyles.socialIcon}
+                    aria-label="ВКонтакте"
+                  >
+                    <IconVK />
+                  </a>
+                )}
+                {data.socialTelegram && (
+                  <a
+                    href={data.socialTelegram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={teosStyles.socialIcon}
+                    aria-label="Telegram"
+                  >
+                    <IconTelegram />
+                  </a>
+                )}
               </div>
             </div>
           </div>

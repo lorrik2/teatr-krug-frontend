@@ -99,3 +99,11 @@
 .rolesList {
   @apply mt-4 list-disc space-y-2 pl-5 font-sans text-base text-graphite-800 md:text-lg;
 }
+
+.roleLink {
+  @apply text-graphite-950 no-underline hover:underline;
+}
+
+.performanceTitle {
+  @apply text-graphite-600;
+}

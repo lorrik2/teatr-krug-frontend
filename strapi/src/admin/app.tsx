@@ -16,8 +16,6 @@ export default {
         'content-manager.content-types.api::actor.actor.fields.bio': 'О себе',
         'content-manager.content-types.api::actor.actor.fields.roles': 'Роли',
         'content-manager.content-types.api::actor.actor.fields.gallery': 'Галерея',
-        'content-manager.content-types.api::actor.actor.fields.theaterPage': 'Страница театра ТЕОС',
-
         // api::contact.contact — Контакты
         'content-manager.content-types.api::contact.contact.info.displayName': 'Контакты',
         'content-manager.content-types.api::contact.contact.fields.address': 'Адрес',
@@ -91,6 +89,55 @@ export default {
         'content-manager.content-types.api::theater-gallery.theater-gallery.fields.alt': 'Подпись (для доступности)',
         'content-manager.content-types.api::theater-gallery.theater-gallery.fields.order': 'Порядок',
 
+        // api::teatr-teos.teatr-teos — Театр ТЕОС
+        'content-manager.content-types.api::teatr-teos.teatr-teos.info.displayName': 'Театр ТЕОС',
+        'content-type-builder.content-types.api::teatr-teos.teatr-teos.info.displayName': 'Театр ТЕОС',
+        'content-manager.content-types.api::teatr-teos.teatr-teos.fields.title': 'Заголовок',
+        'content-manager.content-types.api::teatr-teos.teatr-teos.fields.lead': 'Подзаголовок',
+        'content-manager.content-types.api::teatr-teos.teatr-teos.fields.aboutText': 'О театре',
+        'content-manager.content-types.api::teatr-teos.teatr-teos.fields.sliderImages': 'Слайдер',
+        'content-manager.content-types.api::teatr-teos.teatr-teos.fields.galleryImages': 'Галерея',
+        'content-manager.content-types.api::teatr-teos.teatr-teos.fields.address': 'Адрес',
+        'content-manager.content-types.api::teatr-teos.teatr-teos.fields.phone': 'Телефон',
+        'content-manager.content-types.api::teatr-teos.teatr-teos.fields.socialVk': 'ВКонтакте',
+        'content-manager.content-types.api::teatr-teos.teatr-teos.fields.socialTelegram': 'Telegram',
+        'content-manager.content-types.api::teatr-teos.teatr-teos.fields.partnerBlockText': 'Текст блока «Спектакли и билеты»',
+        'content-manager.content-types.api::teatr-teos.teatr-teos.fields.partnerBlockLink': 'Ссылка на сайт партнёра',
+        'content-manager.content-types.api::teatr-teos.teatr-teos.fields.partnerBlockButtonLabel': 'Текст кнопки перехода',
+
+        // api::arenda-zala.arenda-zala — Аренда зала
+        'content-manager.content-types.api::arenda-zala.arenda-zala.info.displayName': 'Аренда зала',
+        'content-type-builder.content-types.api::arenda-zala.arenda-zala.info.displayName': 'Аренда зала',
+        'content-manager.content-types.api::arenda-zala.arenda-zala.fields.title': 'Заголовок',
+        'content-manager.content-types.api::arenda-zala.arenda-zala.fields.lead': 'Подзаголовок',
+        'content-manager.content-types.api::arenda-zala.arenda-zala.fields.conditionsText': 'Условия аренды',
+        'content-manager.content-types.api::arenda-zala.arenda-zala.fields.gallery': 'Фотогалерея',
+        'content-manager.content-types.api::arenda-zala.arenda-zala.fields.howToBookText': 'Как забронировать',
+
+        // api::pomoch-teatru.pomoch-teatru — Помочь театру
+        'content-manager.content-types.api::pomoch-teatru.pomoch-teatru.info.displayName': 'Помочь театру',
+        'content-type-builder.content-types.api::pomoch-teatru.pomoch-teatru.info.displayName': 'Помочь театру',
+        'content-manager.content-types.api::pomoch-teatru.pomoch-teatru.fields.title': 'Заголовок',
+        'content-manager.content-types.api::pomoch-teatru.pomoch-teatru.fields.lead': 'Подзаголовок',
+        'content-manager.content-types.api::pomoch-teatru.pomoch-teatru.fields.requisitesText': 'Реквизиты',
+        'content-manager.content-types.api::pomoch-teatru.pomoch-teatru.fields.qrCodeImage': 'QR-код',
+
+        // api::partners.partners — Партнёры и спонсоры
+        'content-manager.content-types.api::partners.partners.info.displayName': 'Партнёры и спонсоры',
+        'content-type-builder.content-types.api::partners.partners.info.displayName': 'Партнёры и спонсоры',
+        'content-manager.content-types.api::partners.partners.fields.title': 'Заголовок',
+        'content-manager.content-types.api::partners.partners.fields.introText': 'Вступительный текст',
+        'content-manager.content-types.api::partners.partners.fields.partners': 'Партнёры',
+
+        // api::o-teatre.o-teatre — О театре
+        'content-manager.content-types.api::o-teatre.o-teatre.info.displayName': 'О театре',
+        'content-type-builder.content-types.api::o-teatre.o-teatre.info.displayName': 'О театре',
+        'content-manager.content-types.api::o-teatre.o-teatre.fields.title': 'Заголовок',
+        'content-manager.content-types.api::o-teatre.o-teatre.fields.lead': 'Подзаголовок',
+        'content-manager.content-types.api::o-teatre.o-teatre.fields.historyText': 'История',
+        'content-manager.content-types.api::o-teatre.o-teatre.fields.missionText': 'Миссия',
+        'content-manager.content-types.api::o-teatre.o-teatre.fields.gallery': 'Галерея',
+
         // api::theater-review.theater-review — Отзыв о театре
         'content-manager.content-types.api::theater-review.theater-review.info.displayName': 'Отзывы о театре',
         'content-manager.content-types.api::theater-review.theater-review.fields.quote': 'Цитата',
@@ -101,6 +148,7 @@ export default {
         // === Content-type Builder: Components ===
         'content-type-builder.components.shared.role-item': 'Роль в спектакле',
         'content-type-builder.components.shared.role-item.attributes.text': 'Текст роли',
+        'content-type-builder.components.shared.role-item.attributes.performance': 'Спектакль',
         'content-type-builder.components.shared.cast-member': 'Актёр и роль',
         'content-type-builder.components.shared.cast-member.attributes.name': 'Имя',
         'content-type-builder.components.shared.cast-member.attributes.role': 'Роль',
@@ -123,6 +171,7 @@ export default {
         // Альтернативный формат для Content Manager (компоненты внутри контента)
         'content-manager.components.shared.role-item': 'Роль в спектакле',
         'content-manager.components.shared.role-item.attributes.text': 'Текст роли',
+        'content-manager.components.shared.role-item.attributes.performance': 'Спектакль',
         'content-manager.components.shared.cast-member': 'Актёр и роль',
         'content-manager.components.shared.cast-member.attributes.name': 'Имя',
         'content-manager.components.shared.cast-member.attributes.role': 'Роль',
@@ -141,6 +190,45 @@ export default {
         'content-manager.components.shared.festival.attributes.title': 'Название',
         'content-manager.components.shared.festival.attributes.year': 'Год',
         'content-manager.components.shared.festival.attributes.place': 'Место',
+        'content-manager.components.shared.partner-item': 'Партнёр',
+        'content-manager.components.shared.partner-item.attributes.name': 'Название',
+        'content-manager.components.shared.partner-item.attributes.logo': 'Логотип',
+        'content-manager.components.shared.partner-item.attributes.url': 'Ссылка',
+
+        // content-type-builder: поля одиночных типов
+        'content-type-builder.content-types.api::teatr-teos.teatr-teos.fields.title': 'Заголовок',
+        'content-type-builder.content-types.api::teatr-teos.teatr-teos.fields.lead': 'Подзаголовок',
+        'content-type-builder.content-types.api::teatr-teos.teatr-teos.fields.aboutText': 'О театре',
+        'content-type-builder.content-types.api::teatr-teos.teatr-teos.fields.sliderImages': 'Слайдер',
+        'content-type-builder.content-types.api::teatr-teos.teatr-teos.fields.galleryImages': 'Галерея',
+        'content-type-builder.content-types.api::teatr-teos.teatr-teos.fields.address': 'Адрес',
+        'content-type-builder.content-types.api::teatr-teos.teatr-teos.fields.phone': 'Телефон',
+        'content-type-builder.content-types.api::teatr-teos.teatr-teos.fields.socialVk': 'ВКонтакте',
+        'content-type-builder.content-types.api::teatr-teos.teatr-teos.fields.socialTelegram': 'Telegram',
+        'content-type-builder.content-types.api::teatr-teos.teatr-teos.fields.partnerBlockText': 'Текст блока «Спектакли и билеты»',
+        'content-type-builder.content-types.api::teatr-teos.teatr-teos.fields.partnerBlockLink': 'Ссылка на сайт партнёра',
+        'content-type-builder.content-types.api::teatr-teos.teatr-teos.fields.partnerBlockButtonLabel': 'Текст кнопки перехода',
+
+        'content-type-builder.content-types.api::arenda-zala.arenda-zala.fields.title': 'Заголовок',
+        'content-type-builder.content-types.api::arenda-zala.arenda-zala.fields.lead': 'Подзаголовок',
+        'content-type-builder.content-types.api::arenda-zala.arenda-zala.fields.conditionsText': 'Условия аренды',
+        'content-type-builder.content-types.api::arenda-zala.arenda-zala.fields.gallery': 'Фотогалерея',
+        'content-type-builder.content-types.api::arenda-zala.arenda-zala.fields.howToBookText': 'Как забронировать',
+
+        'content-type-builder.content-types.api::pomoch-teatru.pomoch-teatru.fields.title': 'Заголовок',
+        'content-type-builder.content-types.api::pomoch-teatru.pomoch-teatru.fields.lead': 'Подзаголовок',
+        'content-type-builder.content-types.api::pomoch-teatru.pomoch-teatru.fields.requisitesText': 'Реквизиты',
+        'content-type-builder.content-types.api::pomoch-teatru.pomoch-teatru.fields.qrCodeImage': 'QR-код',
+
+        'content-type-builder.content-types.api::partners.partners.fields.title': 'Заголовок',
+        'content-type-builder.content-types.api::partners.partners.fields.introText': 'Вступительный текст',
+        'content-type-builder.content-types.api::partners.partners.fields.partners': 'Партнёры',
+
+        'content-type-builder.content-types.api::o-teatre.o-teatre.fields.title': 'Заголовок',
+        'content-type-builder.content-types.api::o-teatre.o-teatre.fields.lead': 'Подзаголовок',
+        'content-type-builder.content-types.api::o-teatre.o-teatre.fields.historyText': 'История',
+        'content-type-builder.content-types.api::o-teatre.o-teatre.fields.missionText': 'Миссия',
+        'content-type-builder.content-types.api::o-teatre.o-teatre.fields.gallery': 'Галерея',
       },
     },
   },

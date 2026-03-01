@@ -1,0 +1,33 @@
+{
+  "kind": "singleType",
+  "collectionName": "pomoch_teatru",
+  "info": {
+    "singularName": "pomoch-teatru",
+    "pluralName": "pomoch-teatrus",
+    "displayName": "Помочь театру",
+    "description": "Страница поддержки театра: реквизиты, QR-код"
+  },
+  "options": {},
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "description": "Заголовок страницы"
+    },
+    "lead": {
+      "type": "string",
+      "description": "Подзаголовок"
+    },
+    "requisitesText": {
+      "type": "text",
+      "description": "Реквизиты для перевода"
+    },
+    "qrCodeImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"],
+      "description": "QR-код для оплаты"
+    }
+  }
+}

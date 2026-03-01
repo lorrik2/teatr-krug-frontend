@@ -434,7 +434,7 @@ export interface ApiActorActor extends Struct.CollectionTypeSchema {
   collectionName: 'actors';
   info: {
     description: '\u0410\u043A\u0442\u0451\u0440\u044B \u0438 \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u0438 \u0442\u0435\u0430\u0442\u0440\u0430';
-    displayName: '\u0410\u043A\u0442\u0451\u0440';
+    displayName: '\u0410\u043A\u0442\u0451\u0440\u044B';
     pluralName: 'actors';
     singularName: 'actor';
   };
@@ -457,7 +457,39 @@ export interface ApiActorActor extends Struct.CollectionTypeSchema {
     role: Schema.Attribute.String;
     roles: Schema.Attribute.Component<'shared.role-item', true>;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
-    theaterPage: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiArendaZalaArendaZala extends Struct.SingleTypeSchema {
+  collectionName: 'arenda_zala';
+  info: {
+    description: '\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u0430\u0440\u0435\u043D\u0434\u044B \u0437\u0430\u043B\u0430 \u0438 \u043F\u043E\u043C\u0435\u0449\u0435\u043D\u0438\u0439';
+    displayName: '\u0410\u0440\u0435\u043D\u0434\u0430 \u0437\u0430\u043B\u0430';
+    pluralName: 'arenda-zalas';
+    singularName: 'arenda-zala';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    conditionsText: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    gallery: Schema.Attribute.Media<'images', true>;
+    howToBookText: Schema.Attribute.Text;
+    lead: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::arenda-zala.arenda-zala'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -544,7 +576,7 @@ export interface ApiNewsItemNewsItem extends Struct.CollectionTypeSchema {
   collectionName: 'news_items';
   info: {
     description: '\u041D\u043E\u0432\u043E\u0441\u0442\u0438 \u0438 \u0441\u043E\u0431\u044B\u0442\u0438\u044F \u0442\u0435\u0430\u0442\u0440\u0430';
-    displayName: '\u041D\u043E\u0432\u043E\u0441\u0442\u044C / \u0421\u043E\u0431\u044B\u0442\u0438\u0435';
+    displayName: '\u041D\u043E\u0432\u043E\u0441\u0442\u0438 \u0438 \u0441\u043E\u0431\u044B\u0442\u0438\u044F';
     pluralName: 'news-items';
     singularName: 'news-item';
   };
@@ -575,11 +607,75 @@ export interface ApiNewsItemNewsItem extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiOTeatreOTeatre extends Struct.SingleTypeSchema {
+  collectionName: 'o_teatre';
+  info: {
+    description: '\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u00AB\u041E \u0442\u0435\u0430\u0442\u0440\u0435\u00BB: \u0438\u0441\u0442\u043E\u0440\u0438\u044F, \u043C\u0438\u0441\u0441\u0438\u044F';
+    displayName: '\u041E \u0442\u0435\u0430\u0442\u0440\u0435';
+    pluralName: 'o-teatres';
+    singularName: 'o-teatre';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    gallery: Schema.Attribute.Media<'images', true>;
+    historyText: Schema.Attribute.Text;
+    lead: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::o-teatre.o-teatre'
+    > &
+      Schema.Attribute.Private;
+    missionText: Schema.Attribute.Text;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPartnersPartners extends Struct.SingleTypeSchema {
+  collectionName: 'partners_sponsors';
+  info: {
+    description: '\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u043F\u0430\u0440\u0442\u043D\u0451\u0440\u043E\u0432 \u0438 \u0441\u043F\u043E\u043D\u0441\u043E\u0440\u043E\u0432 \u0442\u0435\u0430\u0442\u0440\u0430';
+    displayName: '\u041F\u0430\u0440\u0442\u043D\u0451\u0440\u044B \u0438 \u0441\u043F\u043E\u043D\u0441\u043E\u0440\u044B';
+    pluralName: 'partners-sponsors';
+    singularName: 'partners';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    introText: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::partners.partners'
+    > &
+      Schema.Attribute.Private;
+    partners: Schema.Attribute.Component<'shared.partner-item', true>;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPerformancePerformance extends Struct.CollectionTypeSchema {
   collectionName: 'performances';
   info: {
     description: '\u0421\u043F\u0435\u043A\u0442\u0430\u043A\u043B\u0438 \u0442\u0435\u0430\u0442\u0440\u0430';
-    displayName: '\u0421\u043F\u0435\u043A\u0442\u0430\u043A\u043B\u044C';
+    displayName: '\u0421\u043F\u0435\u043A\u0442\u0430\u043A\u043B\u0438';
     pluralName: 'performances';
     singularName: 'performance';
   };
@@ -631,12 +727,84 @@ export interface ApiPerformancePerformance extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiPomochTeatruPomochTeatru extends Struct.SingleTypeSchema {
+  collectionName: 'pomoch_teatru';
+  info: {
+    description: '\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u043F\u043E\u0434\u0434\u0435\u0440\u0436\u043A\u0438 \u0442\u0435\u0430\u0442\u0440\u0430: \u0440\u0435\u043A\u0432\u0438\u0437\u0438\u0442\u044B, QR-\u043A\u043E\u0434';
+    displayName: '\u041F\u043E\u043C\u043E\u0447\u044C \u0442\u0435\u0430\u0442\u0440\u0443';
+    pluralName: 'pomoch-teatrus';
+    singularName: 'pomoch-teatru';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    lead: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pomoch-teatru.pomoch-teatru'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    qrCodeImage: Schema.Attribute.Media<'images'>;
+    requisitesText: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTeatrTeosTeatrTeos extends Struct.SingleTypeSchema {
+  collectionName: 'teatr_teos';
+  info: {
+    description: '\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u00AB\u0422\u0435\u0430\u0442\u0440 \u0422\u0415\u041E\u0421\u00BB \u2014 \u0435\u0449\u0451 \u043E\u0434\u0438\u043D \u0442\u0435\u0430\u0442\u0440 \u041C\u0430\u0440\u0433\u0430\u0440\u0438\u0442\u044B \u0412\u0430\u0444\u0438\u043D\u043E\u0439';
+    displayName: '\u0422\u0435\u0430\u0442\u0440 \u0422\u0415\u041E\u0421';
+    pluralName: 'teatr-teos-pages';
+    singularName: 'teatr-teos';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    aboutText: Schema.Attribute.Text;
+    address: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    galleryImages: Schema.Attribute.Media<'images', true>;
+    lead: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::teatr-teos.teatr-teos'
+    > &
+      Schema.Attribute.Private;
+    partnerBlockButtonLabel: Schema.Attribute.String;
+    partnerBlockLink: Schema.Attribute.String;
+    partnerBlockText: Schema.Attribute.Text;
+    phone: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    sliderImages: Schema.Attribute.Media<'images', true>;
+    socialTelegram: Schema.Attribute.String;
+    socialVk: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiTheaterGalleryTheaterGallery
   extends Struct.CollectionTypeSchema {
   collectionName: 'theater_galleries';
   info: {
     description: '\u0424\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u0438 \u0442\u0435\u0430\u0442\u0440\u0430 \u0434\u043B\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0424\u043E\u0442\u043E\u0433\u0430\u043B\u0435\u0440\u0435\u044F';
-    displayName: '\u0424\u043E\u0442\u043E \u0433\u0430\u043B\u0435\u0440\u0435\u0438';
+    displayName: '\u041E\u0431\u0449\u0430\u044F \u0444\u043E\u0442\u043E\u0433\u0430\u043B\u0435\u0440\u0435\u044F';
     pluralName: 'theater-galleries';
     singularName: 'theater-gallery';
   };
@@ -668,7 +836,7 @@ export interface ApiTheaterReviewTheaterReview
   collectionName: 'theater_reviews';
   info: {
     description: '\u041E\u0442\u0437\u044B\u0432\u044B \u0437\u0440\u0438\u0442\u0435\u043B\u0435\u0439 \u043E \u0442\u0435\u0430\u0442\u0440\u0435 (\u0434\u043B\u044F \u0433\u043B\u0430\u0432\u043D\u043E\u0439 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B)';
-    displayName: '\u041E\u0442\u0437\u044B\u0432 \u043E \u0442\u0435\u0430\u0442\u0440\u0435';
+    displayName: '\u041E\u0442\u0437\u044B\u0432\u044B \u043E \u0442\u0435\u0430\u0442\u0440\u0435';
     pluralName: 'theater-reviews';
     singularName: 'theater-review';
   };
@@ -1208,10 +1376,15 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::actor.actor': ApiActorActor;
+      'api::arenda-zala.arenda-zala': ApiArendaZalaArendaZala;
       'api::contact.contact': ApiContactContact;
       'api::hero-slide.hero-slide': ApiHeroSlideHeroSlide;
       'api::news-item.news-item': ApiNewsItemNewsItem;
+      'api::o-teatre.o-teatre': ApiOTeatreOTeatre;
+      'api::partners.partners': ApiPartnersPartners;
       'api::performance.performance': ApiPerformancePerformance;
+      'api::pomoch-teatru.pomoch-teatru': ApiPomochTeatruPomochTeatru;
+      'api::teatr-teos.teatr-teos': ApiTeatrTeosTeatrTeos;
       'api::theater-gallery.theater-gallery': ApiTheaterGalleryTheaterGallery;
       'api::theater-review.theater-review': ApiTheaterReviewTheaterReview;
       'plugin::content-releases.release': PluginContentReleasesRelease;

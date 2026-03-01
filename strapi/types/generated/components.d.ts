@@ -41,6 +41,20 @@ export interface SharedFestival extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedPartnerItem extends Struct.ComponentSchema {
+  collectionName: 'components_shared_partner_items';
+  info: {
+    description: '\u041B\u043E\u0433\u043E\u0442\u0438\u043F \u0438 \u0441\u0441\u044B\u043B\u043A\u0430 \u043F\u0430\u0440\u0442\u043D\u0451\u0440\u0430/\u0441\u043F\u043E\u043D\u0441\u043E\u0440\u0430';
+    displayName: '\u041F\u0430\u0440\u0442\u043D\u0451\u0440';
+    icon: 'briefcase';
+  };
+  attributes: {
+    logo: Schema.Attribute.Media<'images'>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    url: Schema.Attribute.String;
+  };
+}
+
 export interface SharedReview extends Struct.ComponentSchema {
   collectionName: 'components_shared_reviews';
   info: {
@@ -63,6 +77,10 @@ export interface SharedRoleItem extends Struct.ComponentSchema {
     icon: 'theater';
   };
   attributes: {
+    performance: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::performance.performance'
+    >;
     text: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -86,6 +104,7 @@ declare module '@strapi/strapi' {
       'shared.award': SharedAward;
       'shared.cast-member': SharedCastMember;
       'shared.festival': SharedFestival;
+      'shared.partner-item': SharedPartnerItem;
       'shared.review': SharedReview;
       'shared.role-item': SharedRoleItem;
       'shared.schedule-item': SharedScheduleItem;

@@ -1,1 +1,18 @@
-{"kind":"collectionType","collectionName":"theater_reviews","info":{"singularName":"theater-review","pluralName":"theater-reviews","displayName":"Отзыв о театре","description":"Отзывы зрителей о театре (для главной страницы)"},"options":{"draftAndPublish":false},"pluginOptions":{},"attributes":{"quote":{"type":"text","required":true},"author":{"type":"string","required":true},"vkUrl":{"type":"string"},"order":{"type":"integer","default":0}}}
+{
+  "kind": "collectionType",
+  "collectionName": "theater_reviews",
+  "info": {
+    "singularName": "theater-review",
+    "pluralName": "theater-reviews",
+    "displayName": "Отзывы о театре",
+    "description": "Отзывы зрителей о театре (для главной страницы)"
+  },
+  "options": { "draftAndPublish": false },
+  "pluginOptions": {},
+  "attributes": {
+    "quote": { "type": "text", "required": true },
+    "author": { "type": "string", "required": true },
+    "vkUrl": { "type": "string" },
+    "order": { "type": "integer", "default": 0 }
+  }
+}

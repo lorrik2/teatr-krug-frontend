@@ -1,1 +1,18 @@
-{"collectionName":"components_shared_role_items","info":{"displayName":"Роль в спектакле","icon":"theater","description":"Роль в спектакле"},"options":{},"attributes":{"text":{"type":"string","required":true}}}
+{
+  "collectionName": "components_shared_role_items",
+  "info": {
+    "displayName": "Роль в спектакле",
+    "icon": "theater",
+    "description": "Роль в спектакле"
+  },
+  "options": {},
+  "attributes": {
+    "text": { "type": "string", "required": true },
+    "performance": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::performance.performance",
+      "description": "Спектакль, в котором играет эта роль"
+    }
+  }
+}

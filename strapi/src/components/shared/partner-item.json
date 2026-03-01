@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_shared_partner_items",
+  "info": {
+    "displayName": "Партнёр",
+    "icon": "briefcase",
+    "description": "Логотип и ссылка партнёра/спонсора"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "description": "Название партнёра"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"],
+      "description": "Логотип"
+    },
+    "url": {
+      "type": "string",
+      "description": "Ссылка на сайт партнёра"
+    }
+  }
+}

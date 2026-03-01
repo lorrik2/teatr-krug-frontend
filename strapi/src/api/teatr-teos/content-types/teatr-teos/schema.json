@@ -1,0 +1,68 @@
+{
+  "kind": "singleType",
+  "collectionName": "teatr_teos",
+  "info": {
+    "singularName": "teatr-teos",
+    "pluralName": "teatr-teos-pages",
+    "displayName": "Театр ТЕОС",
+    "description": "Страница «Театр ТЕОС» — ещё один театр Маргариты Вафиной"
+  },
+  "options": {},
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "description": "Заголовок страницы"
+    },
+    "lead": {
+      "type": "string",
+      "description": "Подзаголовок"
+    },
+    "aboutText": {
+      "type": "text",
+      "description": "Текст блока «О театре»"
+    },
+    "sliderImages": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"],
+      "description": "Фото для слайдера"
+    },
+    "galleryImages": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"],
+      "description": "Фотогалерея"
+    },
+    "address": {
+      "type": "string",
+      "description": "Адрес"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Телефон"
+    },
+    "socialVk": {
+      "type": "string",
+      "description": "Ссылка ВКонтакте"
+    },
+    "socialTelegram": {
+      "type": "string",
+      "description": "Ссылка Telegram"
+    },
+    "partnerBlockText": {
+      "type": "text",
+      "description": "Текст блока о спектаклях и билетах у партнёра"
+    },
+    "partnerBlockLink": {
+      "type": "string",
+      "description": "Ссылка на сайт партнёра (билеты, спектакли)"
+    },
+    "partnerBlockButtonLabel": {
+      "type": "string",
+      "description": "Текст кнопки перехода"
+    }
+  }
+}

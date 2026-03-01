@@ -1,4 +1,4 @@
-import type { Actor, Performance } from "./mock-data";
+import type { Actor, CastMember, Performance } from "./mock-data";
 
 /**
  * Проверяет, есть ли у актёра контент для отображения на странице карточки.
@@ -6,9 +6,14 @@ import type { Actor, Performance } from "./mock-data";
  */
 export function hasActorCardContent(actor: Actor): boolean {
   if (actor.bio?.trim()) return true;
-  if (actor.roles?.length && actor.roles.some((r) => r?.trim())) return true;
+  if (actor.roles?.length) {
+    const hasContent = actor.roles.some((r) => {
+      const text = typeof r === "string" ? r : r?.role;
+      return text?.trim();
+    });
+    if (hasContent) return true;
+  }
   if (actor.gallery && actor.gallery.length > 1) return true;
-  if (actor.theaterPage?.trim()) return true;
   return false;
 }
 
@@ -34,8 +39,7 @@ export interface ActorPerformanceRole {
 
 /**
  * Собирает роли актёра во всех спектаклях по actorSlug.
- * Данные берутся автоматически из cast спектаклей — при добавлении спектакля
- * и указании в нём актёров (actorSlug) роли автоматически появятся в модальном окне.
+ * Данные берутся из cast спектаклей (Performance → Актёрский состав).
  */
 export function getActorPerformanceRoles(
   actorSlug: string,
@@ -55,4 +59,77 @@ export function getActorPerformanceRoles(
     }
   }
   return result;
+}
+
+/**
+ * Объединяет роли из двух источников:
+ * 1) cast спектаклей (Performance → Актёрский состав)
+ * 2) roles актёра с привязкой к спектаклю (Actor → Роли в спектаклях)
+ * Используется в модалке «Роли в спектаклях».
+ */
+export function getActorPerformanceRolesMerged(
+  actor: Actor,
+  performances: Performance[]
+): ActorPerformanceRole[] {
+  const fromCast = getActorPerformanceRoles(actor.slug, performances);
+  const fromActorRoles: ActorPerformanceRole[] = [];
+
+  for (const r of actor.roles ?? []) {
+    if (typeof r === "object" && r?.performanceSlug) {
+      fromActorRoles.push({
+        role: r.role || "",
+        slug: r.performanceSlug,
+        title: r.performanceTitle || "",
+      });
+    }
+  }
+
+  // Объединяем, убираем дубли (одинаковые slug+role)
+  const seen = new Set<string>();
+  const merged: ActorPerformanceRole[] = [];
+  for (const item of [...fromActorRoles, ...fromCast]) {
+    const key = `${item.slug}::${item.role}`;
+    if (item.slug && item.role && !seen.has(key)) {
+      seen.add(key);
+      merged.push(item);
+    }
+  }
+  return merged;
+}
+
+/**
+ * Объединяет состав спектакля из двух источников:
+ * 1) cast спектакля (Performance → Актёрский состав)
+ * 2) актёры, у которых в карточке указана роль в этом спектакле (Actor → Роли в спектаклях)
+ */
+export function getMergedCast(
+  performance: Performance,
+  actors: Actor[]
+): CastMember[] {
+  const fromPerformance = performance.cast ?? [];
+  const existingSlugs = new Set(
+    fromPerformance.map((c) => c.actorSlug).filter(Boolean)
+  );
+
+  const fromActorRoles: CastMember[] = [];
+  for (const actor of actors) {
+    if (existingSlugs.has(actor.slug)) continue;
+
+    for (const r of actor.roles ?? []) {
+      if (
+        typeof r === "object" &&
+        r?.performanceSlug === performance.slug &&
+        r?.role?.trim()
+      ) {
+        fromActorRoles.push({
+          name: actor.name,
+          role: r.role,
+          actorSlug: actor.slug,
+        });
+        existingSlugs.add(actor.slug);
+      }
+    }
+  }
+
+  return [...fromPerformance, ...fromActorRoles];
 }

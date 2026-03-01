@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function EventsPage() {
-  const newsItems = await getNewsItems();
+  const newsItems = (await getNewsItems().catch(() => [])) ?? [];
   return (
     <div className={styles.wrap}>
       <header className={styles.header}>

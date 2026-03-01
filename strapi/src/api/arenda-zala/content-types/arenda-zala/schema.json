@@ -1,0 +1,37 @@
+{
+  "kind": "singleType",
+  "collectionName": "arenda_zala",
+  "info": {
+    "singularName": "arenda-zala",
+    "pluralName": "arenda-zalas",
+    "displayName": "Аренда зала",
+    "description": "Страница аренды зала и помещений"
+  },
+  "options": {},
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "description": "Заголовок страницы"
+    },
+    "lead": {
+      "type": "string",
+      "description": "Подзаголовок"
+    },
+    "conditionsText": {
+      "type": "text",
+      "description": "Текст блока «Условия аренды»"
+    },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"],
+      "description": "Фото зала и помещений"
+    },
+    "howToBookText": {
+      "type": "text",
+      "description": "Текст блока «Как забронировать»"
+    }
+  }
+}

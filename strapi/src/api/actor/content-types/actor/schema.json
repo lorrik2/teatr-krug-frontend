@@ -4,7 +4,7 @@
   "info": {
     "singularName": "actor",
     "pluralName": "actors",
-    "displayName": "Актёр",
+    "displayName": "Актёры",
     "description": "Актёры и сотрудники театра"
   },
   "options": {
@@ -54,11 +54,6 @@
       "required": false,
       "allowedTypes": ["images"],
       "description": "Фотографии"
-    },
-    "theaterPage": {
-      "type": "string",
-      "required": false,
-      "description": "Ссылка на страницу «Театр ТЕОС» (например /teatr-teos)"
     }
   }
 }

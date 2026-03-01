@@ -44,10 +44,19 @@ cd strapi && rm -rf node_modules && yarn install
 
 ## Настройка прав доступа
 
-1. Зайдите в **Settings → Users & Permissions → Roles**
+Чтобы данные отображались на сайте, нужен доступ к API:
+
+**Вариант A — Public (без токена):**
+1. **Settings** → **Users & Permissions** → **Roles**
 2. Выберите **Public**
-3. Для каждого content type включите **find** и **findOne**
-4. Сохраните
+3. В блоке **Actor** (Актёры) отметьте **find** и **findOne**
+4. Аналогично для **Performance**, **News-item** и других типов
+5. **Save**
+
+**Вариант B — API Token (с STRAPI_API_TOKEN в .env):**
+1. **Settings** → **API Tokens** → создайте или отредактируйте токен
+2. В **Permissions** выберите **Content API** для нужных content types (Actor, Performance и т.д.)
+3. Включите **find** и **findOne** для каждого типа
 
 ## Загрузка медиа
 

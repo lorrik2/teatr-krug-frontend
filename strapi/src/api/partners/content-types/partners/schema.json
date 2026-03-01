@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "partners_sponsors",
+  "info": {
+    "singularName": "partners",
+    "pluralName": "partners-sponsors",
+    "displayName": "Партнёры и спонсоры",
+    "description": "Страница партнёров и спонсоров театра"
+  },
+  "options": {},
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "description": "Заголовок страницы"
+    },
+    "introText": {
+      "type": "text",
+      "description": "Вступительный текст"
+    },
+    "partners": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.partner-item",
+      "description": "Список партнёров и спонсоров"
+    }
+  }
+}

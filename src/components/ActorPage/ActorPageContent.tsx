@@ -87,21 +87,27 @@ export default function ActorPageContent({ actor }: ActorPageContentProps) {
             <section className={styles.rolesSection}>
               <h2 className={styles.rolesTitle}>Роли в театре</h2>
               <ul className={styles.rolesList}>
-                {actor.roles.map((r, i) => (
-                  <li key={i}>{r}</li>
-                ))}
+                {actor.roles.map((r, i) => {
+                  const roleText = typeof r === "string" ? r : r.role;
+                  const perfSlug = typeof r === "object" ? r.performanceSlug : undefined;
+                  const perfTitle = typeof r === "object" ? r.performanceTitle : undefined;
+                  return (
+                    <li key={i}>
+                      {perfSlug ? (
+                        <Link href={`/repertuar/${perfSlug}`} className={styles.roleLink}>
+                          {roleText}
+                          {perfTitle && (
+                            <span className={styles.performanceTitle}> — «{perfTitle}»</span>
+                          )}
+                        </Link>
+                      ) : (
+                        roleText
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </section>
-            {actor.theaterPage && (
-              <div className="mt-8 pt-8 border-t border-graphite-200">
-                <Link
-                  href={actor.theaterPage}
-                  className="inline-flex items-center font-medium text-graphite-950 no-underline hover:underline"
-                >
-                  Театр ТЕОС →
-                </Link>
-              </div>
-            )}
           </div>
         </div>
       </article>

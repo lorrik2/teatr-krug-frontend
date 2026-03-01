@@ -71,6 +71,9 @@ export interface Premiere {
   time: string;
 }
 
+/** Роль актёра: строка (текст) или объект со ссылкой на спектакль */
+export type ActorRole = string | { role: string; performanceSlug?: string; performanceTitle?: string };
+
 export interface Actor {
   id: string;
   name: string;
@@ -79,11 +82,9 @@ export interface Actor {
   role: string;
   rank?: string;
   bio: string;
-  roles: string[];
+  roles: ActorRole[];
   /** Галерея фото — при отсутствии используется [photo] */
   gallery?: string[];
-  /** Ссылка на страницу «Ещё один театр» (для Маргариты Вафиной) */
-  theaterPage?: string;
 }
 
 export interface NewsItem {
@@ -529,7 +530,6 @@ export const actors: Actor[] = [
     role: "Актриса, режиссёр",
     bio: "Маргарита Вафина — актриса и режиссёр. Основательница театрального проекта «Театр ТЕОС».",
     roles: [],
-    theaterPage: "/teatr-teos",
   },
 ];
 

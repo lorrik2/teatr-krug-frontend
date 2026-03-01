@@ -21,7 +21,6 @@ const CONTENT_TYPE_LABELS = {
     bio: 'О себе',
     roles: 'Роли',
     gallery: 'Галерея',
-    theaterPage: 'Страница театра ТЕОС',
   },
   'api::contact.contact': {
     address: 'Адрес',
@@ -97,15 +96,55 @@ const CONTENT_TYPE_LABELS = {
     vkUrl: 'Ссылка ВКонтакте',
     order: 'Порядок',
   },
+  'api::teatr-teos.teatr-teos': {
+    title: 'Заголовок',
+    lead: 'Подзаголовок',
+    aboutText: 'О театре',
+    sliderImages: 'Слайдер',
+    galleryImages: 'Галерея',
+    address: 'Адрес',
+    phone: 'Телефон',
+    socialVk: 'ВКонтакте',
+    socialTelegram: 'Telegram',
+    partnerBlockText: 'Текст блока «Спектакли и билеты»',
+    partnerBlockLink: 'Ссылка на сайт партнёра',
+    partnerBlockButtonLabel: 'Текст кнопки перехода',
+  },
+  'api::arenda-zala.arenda-zala': {
+    title: 'Заголовок',
+    lead: 'Подзаголовок',
+    conditionsText: 'Условия аренды',
+    gallery: 'Фотогалерея',
+    howToBookText: 'Как забронировать',
+  },
+  'api::pomoch-teatru.pomoch-teatru': {
+    title: 'Заголовок',
+    lead: 'Подзаголовок',
+    requisitesText: 'Реквизиты',
+    qrCodeImage: 'QR-код',
+  },
+  'api::partners.partners': {
+    title: 'Заголовок',
+    introText: 'Вступительный текст',
+    partners: 'Партнёры',
+  },
+  'api::o-teatre.o-teatre': {
+    title: 'Заголовок',
+    lead: 'Подзаголовок',
+    historyText: 'История',
+    missionText: 'Миссия',
+    gallery: 'Галерея',
+  },
 };
 
 const COMPONENT_LABELS = {
-  'shared.role-item': { text: 'Текст роли' },
+  'shared.role-item': { text: 'Текст роли', performance: 'Спектакль' },
   'shared.cast-member': { name: 'Имя', role: 'Роль', actor: 'Ссылка на актёра' },
   'shared.schedule-item': { date: 'Дата', time: 'Время' },
   'shared.review': { quote: 'Цитата', author: 'Автор', vkUrl: 'Ссылка ВКонтакте' },
   'shared.award': { title: 'Название', year: 'Год' },
   'shared.festival': { title: 'Название', year: 'Год', place: 'Место' },
+  'shared.partner-item': { name: 'Название', logo: 'Логотип', url: 'Ссылка' },
 };
 
 function applyLabels(metadatas, labels) {

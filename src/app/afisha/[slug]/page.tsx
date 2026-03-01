@@ -7,7 +7,10 @@ import {
   getActors,
 } from "@/lib/cms-data";
 import { SITE_URL } from "@/lib/site-config";
-import { isDirectorOrArtisticDirector } from "@/lib/actor-utils";
+import {
+  isDirectorOrArtisticDirector,
+  getMergedCast,
+} from "@/lib/actor-utils";
 import { DEFAULT_TICKETS_URL } from "@/lib/mock-data";
 import PerformanceHero from "@/components/PerformanceHero";
 import PerformanceEventJsonLd from "@/components/seo/PerformanceEventJsonLd";
@@ -25,10 +28,14 @@ export const dynamic = "force-dynamic";
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const performances = await getRepertoirePerformances();
-  return performances
-    .filter((p) => p.inAfisha)
-    .map((p) => ({ slug: p.slug }));
+  try {
+    const performances = await getRepertoirePerformances();
+    return performances
+      .filter((p) => p.inAfisha)
+      .map((p) => ({ slug: p.slug }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -67,7 +74,8 @@ export default async function PerformancePage({ params }: Props) {
     play.lightingDesigner ||
     play.soundDesigner ||
     play.lightSoundOperator;
-  const hasCast = play.cast && play.cast.length > 0;
+  const mergedCast = getMergedCast(play, actors);
+  const hasCast = mergedCast.length > 0;
   const hasReviews = play.reviews && play.reviews.length > 0;
   return (
     <>
@@ -254,7 +262,7 @@ export default async function PerformancePage({ params }: Props) {
               В спектакле участвуют
             </h2>
             <PerformanceCast
-              cast={play.cast!}
+              cast={mergedCast}
               actors={actors}
               performances={performances}
             />
