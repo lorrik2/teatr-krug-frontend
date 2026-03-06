@@ -132,7 +132,7 @@ export default function OptimizedImage({
           effect={effect}
           threshold={150}
           useIntersectionObserver
-          afterLoad={() => setLoaded(true)}
+          onLoad={() => setLoaded(true)}
         />
       </div>
     );
@@ -154,7 +154,7 @@ export default function OptimizedImage({
         effect={effect}
         threshold={150}
         useIntersectionObserver
-        afterLoad={skipShimmer ? undefined : () => setLoaded(true)}
+        onLoad={skipShimmer ? undefined : () => setLoaded(true)}
         wrapperProps={{ style: fillStyle }}
         style={{
           width: "100%",
