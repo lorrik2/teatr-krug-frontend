@@ -355,7 +355,7 @@ export async function getPerformanceBySlug(
 export async function getActors(): Promise<Actor[]> {
   try {
     const res = await fetchStrapi<Array<unknown>>("/actors", {
-      populate: "roles.performance",
+      populate: "*",
       sort: ["name:asc"],
       pagination: { pageSize: 100 },
     });
@@ -375,7 +375,7 @@ export async function getActors(): Promise<Actor[]> {
 export async function getActorBySlug(slug: string): Promise<Actor | null> {
   try {
     const res = await fetchStrapi<Array<unknown>>("/actors", {
-      populate: "roles.performance",
+      populate: "*",
       sort: ["name:asc"],
       pagination: { pageSize: 100 },
     });
@@ -458,7 +458,9 @@ export async function getHeroSlides(): Promise<
 /** Контакты */
 export async function getContactInfo(): Promise<typeof contactInfo> {
   try {
-    const res = await fetchStrapi<Record<string, unknown>>("/contact");
+    const res = await fetchStrapi<Record<string, unknown>>("/contact", {
+      populate: "*",
+    });
     const d = res?.data as Record<string, unknown> | undefined;
     if (d) {
       const attrs = (d.attributes as Record<string, unknown>) ?? d;
@@ -496,6 +498,7 @@ export async function getContactInfo(): Promise<typeof contactInfo> {
 export async function getTheaterReviews(): Promise<Review[]> {
   try {
     const res = await fetchStrapi<Array<unknown>>("/theater-reviews", {
+      populate: "*",
       sort: ["order:asc"],
     });
     if (res?.data && Array.isArray(res.data)) {
