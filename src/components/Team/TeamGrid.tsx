@@ -45,7 +45,8 @@ export default function TeamGrid({
                     width={400}
                     height={500}
                     className={styles.photo}
-                    effect="blur"
+                    priority
+                    skipShimmer
                   />
                 </div>
                 <div className={styles.body}>
@@ -64,7 +65,7 @@ export default function TeamGrid({
         <>
           <h2 className={styles.actorsTitle}>Актеры и режиссёры театра</h2>
           <ul className={styles.teamGrid}>
-        {otherActors.map((actor) => {
+        {otherActors.map((actor, index) => {
           const isDirector = isDirectorOrArtisticDirector(actor);
           const showLink = isDirector;
           const showModal = !showLink;
@@ -78,7 +79,8 @@ export default function TeamGrid({
                   width={400}
                   height={500}
                   className={styles.photo}
-                  effect="blur"
+                  priority
+                  skipShimmer
                 />
               </div>
               <div className={styles.body}>

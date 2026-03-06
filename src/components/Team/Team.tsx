@@ -76,7 +76,8 @@ export default function Team({ actors }: { actors: Actor[] }) {
                       width={400}
                       height={500}
                       className={styles.photo}
-                      effect="blur"
+                      priority
+                      skipShimmer
                     />
                   </div>
                   <div className={styles.body}>
@@ -95,7 +96,8 @@ export default function Team({ actors }: { actors: Actor[] }) {
                       width={400}
                       height={500}
                       className={styles.photo}
-                      effect="blur"
+                      priority
+                      skipShimmer
                     />
                   </div>
                   <div className={styles.body}>
