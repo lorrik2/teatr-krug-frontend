@@ -73,7 +73,9 @@ export async function fetchStrapi<T>(
       );
   }
 
-  const headers: Record<string, string> = {};
+  const headers: Record<string, string> = {
+    "Strapi-Response-Format": "v4",
+  };
   if (process.env.STRAPI_API_TOKEN) {
     headers.Authorization = `Bearer ${process.env.STRAPI_API_TOKEN}`;
   }
@@ -105,10 +107,15 @@ export async function fetchStrapi<T>(
   }
 }
 
-/** Проверяет, доступен ли Strapi (реальный endpoint, не /api) */
+/** Проверяет, доступен ли Strapi (реальный endpoint) */
 export async function isStrapiAvailable(): Promise<boolean> {
+  if (process.env.USE_STRAPI === "1" || process.env.NEXT_PUBLIC_USE_STRAPI === "1") {
+    return true;
+  }
   try {
-    const headers: Record<string, string> = {};
+    const headers: Record<string, string> = {
+      "Strapi-Response-Format": "v4",
+    };
     if (process.env.STRAPI_API_TOKEN) {
       headers.Authorization = `Bearer ${process.env.STRAPI_API_TOKEN}`;
     }

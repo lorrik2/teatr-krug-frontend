@@ -49,7 +49,13 @@ yarn build
 
 echo ""
 echo "=== 7. Перезапуск PM2 ==="
-pm2 restart all
+if [ -f ecosystem.config.js ]; then
+  pm2 delete nextjs strapi 2>/dev/null || true
+  pm2 start ecosystem.config.js
+  pm2 save
+else
+  pm2 restart all
+fi
 
 echo ""
 echo "=== Deploy complete ==="
