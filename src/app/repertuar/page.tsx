@@ -39,11 +39,15 @@ export default async function RepertuarPage() {
         </p>
       </header>
 
+      {repertoirePerformances.length === 0 ? (
+        <p className={styles.emptyMessage}>Нет спектаклей в репертуаре на данный момент.</p>
+      ) : (
       <ul className={styles.cardsGrid}>
         {repertoirePerformances.map((play) => (
           <PerformanceCard key={play.id} play={play} variant="repertuar" />
         ))}
       </ul>
+      )}
     </div>
   );
 }

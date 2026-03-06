@@ -5,8 +5,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-import { getContactInfo } from "@/lib/cms-data";
-import { contactInfo as defaultContactInfo } from "@/lib/mock-data";
+import { getContactInfo, EMPTY_CONTACT } from "@/lib/cms-data";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import { SITE_URL } from "@/lib/site-config";
 
@@ -69,7 +68,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const contactInfo = await getContactInfo().catch(() => defaultContactInfo);
+  const contactInfo = await getContactInfo().catch(() => EMPTY_CONTACT);
   return (
     <html
       lang="ru"

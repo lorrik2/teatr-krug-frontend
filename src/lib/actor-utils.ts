@@ -101,19 +101,22 @@ export function getActorPerformanceRolesMerged(
  * Объединяет состав спектакля из двух источников:
  * 1) cast спектакля (Performance → Актёрский состав)
  * 2) актёры, у которых в карточке указана роль в этом спектакле (Actor → Роли в спектаклях)
+ *
+ * Дедупликация: если один актёр добавлен из обоих мест — оставляем одну запись,
+ * предпочитая ту, у которой есть actorSlug (кликабельная ссылка на страницу актёра).
  */
 export function getMergedCast(
   performance: Performance,
   actors: Actor[]
 ): CastMember[] {
   const fromPerformance = performance.cast ?? [];
-  const existingSlugs = new Set(
+  const fromActorRoles: CastMember[] = [];
+  const slugsInPerformance = new Set(
     fromPerformance.map((c) => c.actorSlug).filter(Boolean)
   );
 
-  const fromActorRoles: CastMember[] = [];
   for (const actor of actors) {
-    if (existingSlugs.has(actor.slug)) continue;
+    if (slugsInPerformance.has(actor.slug)) continue;
 
     for (const r of actor.roles ?? []) {
       if (
@@ -126,10 +129,26 @@ export function getMergedCast(
           role: r.role,
           actorSlug: actor.slug,
         });
-        existingSlugs.add(actor.slug);
+        slugsInPerformance.add(actor.slug);
       }
     }
   }
 
-  return [...fromPerformance, ...fromActorRoles];
+  // Дедупликация: один актёр может быть в обоих источниках.
+  // Ключ — name::role (одна роль в спектакле = один человек).
+  // При дубликате оставляем запись с actorSlug (кликабельная ссылка).
+  const byKey = new Map<string, CastMember>();
+  const keyFor = (m: CastMember) =>
+    `${(m.name ?? "").trim()}::${(m.role ?? "").trim()}`;
+
+  for (const m of [...fromActorRoles, ...fromPerformance]) {
+    const k = keyFor(m);
+    if (!k) continue;
+    const existing = byKey.get(k);
+    const preferThis =
+      !existing || (!!m.actorSlug && !existing.actorSlug);
+    if (preferThis) byKey.set(k, m);
+  }
+
+  return Array.from(byKey.values());
 }

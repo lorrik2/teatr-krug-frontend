@@ -13,8 +13,8 @@ import {
   getContactInfo,
   getTheaterReviews,
   getActors,
+  EMPTY_CONTACT,
 } from "@/lib/cms-data";
-import { contactInfo as defaultContactInfo } from "@/lib/mock-data";
 import { canonicalUrl } from "@/lib/site-config";
 import TheaterReviewsJsonLd from "@/components/seo/TheaterReviewsJsonLd";
 
@@ -55,7 +55,7 @@ export default async function HomePage() {
       getHeroSlides().catch(() => []),
       getPerformances().catch(() => []),
       getNewsItems().catch(() => []),
-      getContactInfo().catch(() => defaultContactInfo),
+      getContactInfo().catch(() => EMPTY_CONTACT),
       getTheaterReviews().catch(() => []),
       getActors().catch(() => []),
     ]);

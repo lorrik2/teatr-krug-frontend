@@ -40,6 +40,24 @@ export default function OptimizedImage({
   effect,
   ...imageProps
 }: OptimizedImageProps) {
+  const srcStr =
+    typeof imageProps.src === "string"
+      ? imageProps.src
+      : getSrcString(imageProps.src);
+  if (!srcStr || srcStr.trim() === "") {
+    return (
+      <div
+        className={imageProps.className as string}
+        style={{
+          ...(imageProps.fill ? fillStyle : {}),
+          ...(typeof imageProps.style === "object" ? imageProps.style : {}),
+          backgroundColor: "var(--graphite-200, #e5e7eb)",
+        }}
+        aria-hidden
+      />
+    );
+  }
+
   if (priority) {
     return <Image {...imageProps} alt={imageProps.alt ?? ""} priority />;
   }

@@ -43,6 +43,8 @@ export default function Reviews({
   variant = "dark",
   id = "otzyvy",
 }: ReviewsProps) {
+  if (!reviews?.length) return null;
+
   const sectionClass =
     variant === "light" ? styles.sectionLight : styles.section;
   const titleClass = variant === "light" ? styles.titleLight : styles.title;

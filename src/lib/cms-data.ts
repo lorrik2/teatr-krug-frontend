@@ -3,25 +3,30 @@
  * Использует Strapi, когда он доступен; иначе — локальные мок-данные
  */
 
-import {
-  fetchStrapi,
-  getStrapiMediaUrl,
-  isStrapiAvailable,
-  type StrapiResponse,
-} from "./strapi";
-import {
-  performances,
-  repertoirePerformances,
-  actors,
-  newsItems,
-  heroSlides,
-  contactInfo,
-  theaterReviews,
-  navLinks,
-  navItems,
-} from "./mock-data";
-import { theaterGalleryImages, GALLERY_PAGE_SIZE } from "./theater-gallery";
+import { fetchStrapi, getStrapiMediaUrl } from "./strapi";
+import { contactInfo, navLinks, navItems } from "./mock-data";
+import { GALLERY_PAGE_SIZE } from "./theater-gallery";
 import type { Performance, Actor, NewsItem, Review } from "./mock-data";
+
+/** Пустая структура контактов — когда Strapi не вернул данные */
+const EMPTY_CONTACT: typeof contactInfo = {
+  address: "",
+  boxOffice: "",
+  admin: "",
+  press: "",
+  emailBoxOffice: "",
+  emailAdmin: "",
+  emailPress: "",
+  social: { vk: "", telegram: "", instagram: "" },
+  workingHours: { boxOffice: "", admin: "" },
+  mapEmbed: "",
+  howToGetThere: "",
+  footerTagline: "",
+  footerContactsTitle: "",
+  footerCopyright: "",
+};
+
+export { EMPTY_CONTACT };
 import { getPerformanceSlug, getActorSlug, getNewsSlug } from "./slug-utils";
 
 /** Безопасно извлекает URL из медиа-поля Strapi (поддержка data.attributes.url и прямого url) */
@@ -81,61 +86,84 @@ function mapStrapiPerformance(d: any): Performance | null {
           .filter((m: { name: string }) => m.name)
       : undefined;
 
+    const reviewsRaw = attrs.reviews ?? d.reviews;
+    const scheduleRaw = attrs.schedule ?? d.schedule;
+    const awardsRaw = attrs.awards ?? d.awards;
+    const festivalsRaw = attrs.festivals ?? d.festivals;
+
     return {
       id: d.documentId ?? attrs.documentId ?? String(d.id ?? ""),
       title,
       slug,
       poster,
       gallery: gallery?.length ? gallery : undefined,
-      subtitle: d.subtitle,
-      author: d.author,
-      director: d.director,
-      directorQuote: d.directorQuote,
-      designer: d.designer,
-      lightingDesigner: d.lightingDesigner,
-      soundDesigner: d.soundDesigner,
-      lightSoundOperator: d.lightSoundOperator,
+      subtitle: (attrs.subtitle ?? d.subtitle) ?? undefined,
+      author: (attrs.author ?? d.author) ?? undefined,
+      director: (attrs.director ?? d.director) ?? undefined,
+      directorQuote: (attrs.directorQuote ?? d.directorQuote) ?? undefined,
+      designer: (attrs.designer ?? d.designer) ?? undefined,
+      lightingDesigner: (attrs.lightingDesigner ?? d.lightingDesigner) ?? undefined,
+      soundDesigner: (attrs.soundDesigner ?? d.soundDesigner) ?? undefined,
+      lightSoundOperator: (attrs.lightSoundOperator ?? d.lightSoundOperator) ?? undefined,
       cast: cast?.length ? cast : undefined,
-      reviews: Array.isArray(d.reviews)
-        ? d.reviews
+      reviews: Array.isArray(reviewsRaw)
+        ? reviewsRaw
             .filter((r: unknown) => r && typeof r === "object")
-            .map((r: any, i: number) => ({
-              id: `r${i}`,
-              quote: r.quote ?? "",
-              author: r.author ?? "",
-              vkUrl: r.vkUrl,
-            }))
+            .map((r: any, i: number) => {
+              const rAttrs = (r as any).attributes ?? r;
+              return {
+                id: `r${i}`,
+                quote: (rAttrs.quote ?? r.quote) ?? "",
+                author: (rAttrs.author ?? r.author) ?? "",
+                vkUrl: (rAttrs.vkUrl ?? r.vkUrl) ?? undefined,
+              };
+            })
         : undefined,
-      teaserUrl: d.teaserUrl,
-      date: d.date || "",
-      time: d.time || "",
-      ageRating: d.ageRating || "",
-      genre: d.genre || "",
-      description: d.description || "",
-      duration: d.duration,
-      intermissions: d.intermissions,
-      isPremiere: d.isPremiere ?? false,
-      inAfisha: d.inAfisha !== false,
-      schedule: Array.isArray(d.schedule)
-        ? d.schedule
+      teaserUrl: (attrs.teaserUrl ?? d.teaserUrl) ?? undefined,
+      date: (attrs.date ?? d.date) || "",
+      time: (attrs.time ?? d.time) || "",
+      ageRating: (attrs.ageRating ?? d.ageRating) || "",
+      genre: (attrs.genre ?? d.genre) || "",
+      description: (attrs.description ?? d.description) || "",
+      duration: (attrs.duration ?? d.duration) ?? undefined,
+      intermissions: (attrs.intermissions ?? d.intermissions) ?? undefined,
+      isPremiere: (attrs.isPremiere ?? d.isPremiere) ?? false,
+      inAfisha: (attrs.inAfisha ?? d.inAfisha) !== false,
+      schedule: Array.isArray(scheduleRaw)
+        ? scheduleRaw
             .filter((s: unknown) => s && typeof s === "object")
-            .map((s: any) => ({ date: s.date ?? "", time: s.time ?? "" }))
+            .map((s: any) => {
+              const sAttrs = (s as any).attributes ?? s;
+              return {
+                date: (sAttrs.date ?? s.date) ?? "",
+                time: (sAttrs.time ?? s.time) ?? "",
+              };
+            })
         : undefined,
-      awards: Array.isArray(d.awards)
-        ? d.awards
+      awards: Array.isArray(awardsRaw)
+        ? awardsRaw
             .filter((a: unknown) => a && typeof a === "object")
-            .map((a: any) => ({ title: a.title ?? "", year: a.year ?? "" }))
+            .map((a: any) => {
+              const aAttrs = (a as any).attributes ?? a;
+              return {
+                title: (aAttrs.title ?? a.title) ?? "",
+                year: (aAttrs.year ?? a.year) ?? "",
+              };
+            })
         : undefined,
-      festivals: Array.isArray(d.festivals)
-        ? d.festivals
+      festivals: Array.isArray(festivalsRaw)
+        ? festivalsRaw
             .filter((f: unknown) => f && typeof f === "object")
-            .map((f: any) => ({
-              title: f.title ?? "",
-              year: f.year ?? "",
-              place: f.place ?? "",
-            }))
+            .map((f: any) => {
+              const fAttrs = (f as any).attributes ?? f;
+              return {
+                title: (fAttrs.title ?? f.title) ?? "",
+                year: (fAttrs.year ?? f.year) ?? "",
+                place: (fAttrs.place ?? f.place) ?? "",
+              };
+            })
         : undefined,
-      ticketsUrl: d.ticketsUrl || undefined,
+      ticketsUrl: (attrs.ticketsUrl ?? d.ticketsUrl) || undefined,
     };
   } catch (err) {
     console.warn("mapStrapiPerformance error:", err);
@@ -213,97 +241,92 @@ function mapStrapiActor(d: any): Actor | null {
 }
 
 function mapStrapiNewsItem(d: any): NewsItem {
-  const image = d.image?.url ? getStrapiMediaUrl(d.image.url) : "";
-  const rawSlug = d.attributes?.slug ?? d.slug;
+  const attrs = d.attributes ?? d;
+  const image = getMediaUrl(attrs.image ?? d.image) || "";
+  const rawSlug = attrs.slug ?? d.slug;
   const slugStr =
     typeof rawSlug === "string"
       ? rawSlug
       : typeof rawSlug === "object" && rawSlug !== null
         ? (rawSlug.default ?? rawSlug.en ?? rawSlug.ru ?? "")
         : "";
-  const title = d.title || "";
+  const title = (attrs.title ?? d.title) || "";
   const slug = getNewsSlug({ title, slug: slugStr });
   return {
-    id: d.documentId || String(d.id),
+    id: d.documentId ?? attrs.documentId ?? String(d.id ?? ""),
     slug,
-    title: d.title,
-    excerpt: d.excerpt || "",
-    content: d.content || undefined,
+    title,
+    excerpt: (attrs.excerpt ?? d.excerpt) || "",
+    content: (attrs.content ?? d.content) as string | undefined,
     image,
-    date: d.date || "",
-    category: d.category || "",
+    date: (attrs.date ?? d.date) || "",
+    category: (attrs.category ?? d.category) || "",
   };
 }
 
 function mapStrapiHeroSlide(d: any) {
-  const image = d.image?.url ? getStrapiMediaUrl(d.image.url) : "";
+  const attrs = d.attributes ?? d;
+  const image = getMediaUrl(attrs.image ?? d.image) || "";
   return {
-    id: d.documentId || String(d.id),
-    title: d.title,
-    subtitle: d.subtitle,
+    id: d.documentId ?? attrs.documentId ?? String(d.id ?? ""),
+    title: (attrs.title ?? d.title) ?? "",
+    subtitle: (attrs.subtitle ?? d.subtitle) ?? "",
     image,
-    cta: d.cta,
-    ctaHref: d.ctaHref,
-    order: d.order ?? 0,
+    cta: (attrs.cta ?? d.cta) ?? "",
+    ctaHref: (attrs.ctaHref ?? d.ctaHref) ?? "",
+    order: (attrs.order ?? d.order) ?? 0,
   };
 }
 
 function mapStrapiReview(d: any): Review {
+  const attrs = d.attributes ?? d;
   return {
-    id: d.documentId || String(d.id),
-    quote: d.quote,
-    author: d.author,
-    vkUrl: d.vkUrl,
-    yandexMapsUrl: d.yandexMapsUrl,
-    twoGisUrl: d.twoGisUrl,
+    id: d.documentId ?? attrs.documentId ?? String(d.id ?? ""),
+    quote: (attrs.quote ?? d.quote) ?? "",
+    author: (attrs.author ?? d.author) ?? "",
+    vkUrl: (attrs.vkUrl ?? d.vkUrl) ?? undefined,
+    yandexMapsUrl: (attrs.yandexMapsUrl ?? d.yandexMapsUrl) ?? undefined,
+    twoGisUrl: (attrs.twoGisUrl ?? d.twoGisUrl) ?? undefined,
   };
-}
-
-async function checkStrapi(): Promise<boolean> {
-  return isStrapiAvailable();
 }
 
 /** Спектакли для афиши (inAfisha) */
 export async function getPerformances(): Promise<Performance[]> {
   try {
-    if (await checkStrapi()) {
-      const res = await fetchStrapi<Array<unknown>>("/performances", {
-        populate: "*",
-        filters: { inAfisha: true },
-        sort: ["date:asc"],
-      });
-      if (res?.data && Array.isArray(res.data)) {
-        const mapped = res.data
-          .map((d: any) => mapStrapiPerformance(d))
-          .filter((p): p is Performance => p != null);
-        if (mapped.length > 0) return mapped;
-      }
+    const res = await fetchStrapi<Array<unknown>>("/performances", {
+      populate: "*",
+      filters: { inAfisha: true },
+      sort: ["date:asc"],
+    });
+    if (res?.data && Array.isArray(res.data)) {
+      const mapped = res.data
+        .map((d: any) => mapStrapiPerformance(d))
+        .filter((p): p is Performance => p != null);
+      if (mapped.length > 0) return mapped;
     }
   } catch (err) {
     console.warn("getPerformances error:", err);
   }
-  return performances;
+  return [];
 }
 
 /** Полный репертуар */
 export async function getRepertoirePerformances(): Promise<Performance[]> {
   try {
-    if (await checkStrapi()) {
-      const res = await fetchStrapi<Array<unknown>>("/performances", {
-        populate: "*",
-        sort: ["title:asc"],
-      });
-      if (res?.data && Array.isArray(res.data)) {
-        const mapped = res.data
-          .map((d: any) => mapStrapiPerformance(d))
-          .filter((p): p is Performance => p != null);
-        if (mapped.length > 0) return mapped;
-      }
+    const res = await fetchStrapi<Array<unknown>>("/performances", {
+      populate: "*",
+      sort: ["title:asc"],
+    });
+    if (res?.data && Array.isArray(res.data)) {
+      const mapped = res.data
+        .map((d: any) => mapStrapiPerformance(d))
+        .filter((p): p is Performance => p != null);
+      if (mapped.length > 0) return mapped;
     }
   } catch (err) {
     console.warn("getRepertoirePerformances error:", err);
   }
-  return repertoirePerformances;
+  return [];
 }
 
 /** Спектакль по slug */
@@ -311,74 +334,67 @@ export async function getPerformanceBySlug(
   slug: string,
 ): Promise<Performance | null> {
   try {
-    if (await checkStrapi()) {
-      // Strapi может возвращать slug="performance" — ищем по всему репертуару
-      const res = await fetchStrapi<Array<unknown>>("/performances", {
-        populate: "*",
-        sort: ["title:asc"],
-      });
-      const data = res?.data;
-      if (Array.isArray(data)) {
-        for (const d of data) {
-          const play = mapStrapiPerformance(d);
-          if (play && play.slug === slug) return play;
-        }
+    const res = await fetchStrapi<Array<unknown>>("/performances", {
+      populate: "*",
+      sort: ["title:asc"],
+    });
+    const data = res?.data;
+    if (Array.isArray(data)) {
+      for (const d of data) {
+        const play = mapStrapiPerformance(d);
+        if (play && play.slug === slug) return play;
       }
     }
   } catch (err) {
     console.warn("getPerformanceBySlug error:", err);
   }
-  return repertoirePerformances.find((p) => p.slug === slug) ?? null;
+  return null;
 }
 
 /** Актёры */
 export async function getActors(): Promise<Actor[]> {
   try {
-    if (await checkStrapi()) {
-      const res = await fetchStrapi<Array<unknown>>("/actors", {
-        populate: "roles.performance",
-        sort: ["name:asc"],
-        pagination: { pageSize: 100 },
-      });
-      if (res?.data && Array.isArray(res.data)) {
-        const mapped = res.data
-          .map((d: any) => mapStrapiActor(d))
-          .filter((a): a is Actor => a != null);
-        if (mapped.length > 0) return mapped;
-      }
+    const res = await fetchStrapi<Array<unknown>>("/actors", {
+      populate: "roles.performance",
+      sort: ["name:asc"],
+      pagination: { pageSize: 100 },
+    });
+    if (res?.data && Array.isArray(res.data)) {
+      const mapped = res.data
+        .map((d: any) => mapStrapiActor(d))
+        .filter((a): a is Actor => a != null);
+      if (mapped.length > 0) return mapped;
     }
   } catch (err) {
     console.warn("getActors error:", err);
   }
-  return actors;
+  return [];
 }
 
 /** Актёр по slug */
 export async function getActorBySlug(slug: string): Promise<Actor | null> {
   try {
-    if (await checkStrapi()) {
-      const res = await fetchStrapi<Array<unknown>>("/actors", {
-        populate: "roles.performance",
-        sort: ["name:asc"],
-        pagination: { pageSize: 100 },
-      });
-      const data = res?.data;
-      if (Array.isArray(data)) {
-        for (const d of data) {
-          const actor = mapStrapiActor(d);
-          if (actor && actor.slug === slug) return actor;
-        }
+    const res = await fetchStrapi<Array<unknown>>("/actors", {
+      populate: "roles.performance",
+      sort: ["name:asc"],
+      pagination: { pageSize: 100 },
+    });
+    const data = res?.data;
+    if (Array.isArray(data)) {
+      for (const d of data) {
+        const actor = mapStrapiActor(d);
+        if (actor && actor.slug === slug) return actor;
       }
     }
   } catch (err) {
     console.warn("getActorBySlug error:", err);
   }
-  return actors.find((a) => a.slug === slug) ?? null;
+  return null;
 }
 
 /** Новости / события */
 export async function getNewsItems(): Promise<NewsItem[]> {
-  if (await checkStrapi()) {
+  try {
     const res = await fetchStrapi<Array<unknown>>("/news-items", {
       populate: "*",
       sort: ["date:desc"],
@@ -386,8 +402,10 @@ export async function getNewsItems(): Promise<NewsItem[]> {
     if (res?.data && Array.isArray(res.data)) {
       return res.data.map((d: any) => mapStrapiNewsItem(d));
     }
+  } catch (err) {
+    console.warn("getNewsItems error:", err);
   }
-  return newsItems;
+  return [];
 }
 
 /** Новость по slug */
@@ -395,23 +413,21 @@ export async function getNewsItemBySlug(
   slug: string,
 ): Promise<NewsItem | null> {
   try {
-    if (await checkStrapi()) {
-      const res = await fetchStrapi<Array<unknown>>("/news-items", {
-        populate: "*",
-        sort: ["date:desc"],
-      });
-      const data = res?.data;
-      if (Array.isArray(data)) {
-        for (const d of data) {
-          const item = mapStrapiNewsItem(d);
-          if (item.slug === slug) return item;
-        }
+    const res = await fetchStrapi<Array<unknown>>("/news-items", {
+      populate: "*",
+      sort: ["date:desc"],
+    });
+    const data = res?.data;
+    if (Array.isArray(data)) {
+      for (const d of data) {
+        const item = mapStrapiNewsItem(d);
+        if (item.slug === slug) return item;
       }
     }
   } catch (err) {
     console.warn("getNewsItemBySlug error:", err);
   }
-  return newsItems.find((n) => n.slug === slug) ?? null;
+  return null;
 }
 
 /** Слайды героя */
@@ -425,7 +441,7 @@ export async function getHeroSlides(): Promise<
     ctaHref?: string;
   }>
 > {
-  if (await checkStrapi()) {
+  try {
     const res = await fetchStrapi<Array<unknown>>("/hero-slides", {
       populate: "*",
       sort: ["order:asc"],
@@ -433,75 +449,86 @@ export async function getHeroSlides(): Promise<
     if (res?.data && Array.isArray(res.data)) {
       return res.data.map((d: any) => mapStrapiHeroSlide(d));
     }
+  } catch (err) {
+    console.warn("getHeroSlides error:", err);
   }
-  return heroSlides;
+  return [];
 }
 
 /** Контакты */
 export async function getContactInfo(): Promise<typeof contactInfo> {
-  if (await checkStrapi()) {
+  try {
     const res = await fetchStrapi<Record<string, unknown>>("/contact");
     const d = res?.data as Record<string, unknown> | undefined;
     if (d) {
+      const attrs = (d.attributes as Record<string, unknown>) ?? d;
       return {
-        address: (d.address as string) || "",
-        boxOffice: (d.boxOffice as string) || "",
-        admin: (d.admin as string) || "",
-        press: (d.press as string) || "",
-        emailBoxOffice: (d.emailBoxOffice as string) || "",
-        emailAdmin: (d.emailAdmin as string) || "",
-        emailPress: (d.emailPress as string) || "",
+        address: (attrs.address as string) || "",
+        boxOffice: (attrs.boxOffice as string) || "",
+        admin: (attrs.admin as string) || "",
+        press: (attrs.press as string) || "",
+        emailBoxOffice: (attrs.emailBoxOffice as string) || "",
+        emailAdmin: (attrs.emailAdmin as string) || "",
+        emailPress: (attrs.emailPress as string) || "",
         social: {
-          vk: (d.socialVk as string) || "",
-          telegram: (d.socialTelegram as string) || "",
-          instagram: (d.socialInstagram as string) || "",
+          vk: (attrs.socialVk as string) || "",
+          telegram: (attrs.socialTelegram as string) || "",
+          instagram: (attrs.socialInstagram as string) || "",
         },
         workingHours: {
-          boxOffice: (d.workingHoursBoxOffice as string) || "",
-          admin: (d.workingHoursAdmin as string) || "",
+          boxOffice: (attrs.workingHoursBoxOffice as string) || "",
+          admin: (attrs.workingHoursAdmin as string) || "",
         },
-        mapEmbed: (d.mapEmbed as string) || "",
-        howToGetThere: (d.howToGetThere as string) || "",
-        footerTagline: (d.footerTagline as string)?.trim() || contactInfo.footerTagline,
-        footerContactsTitle: (d.footerContactsTitle as string)?.trim() || contactInfo.footerContactsTitle,
-        footerCopyright: (d.footerCopyright as string)?.trim() || contactInfo.footerCopyright,
+        mapEmbed: (attrs.mapEmbed as string) || "",
+        howToGetThere: (attrs.howToGetThere as string) || "",
+        footerTagline: (attrs.footerTagline as string)?.trim() || "",
+        footerContactsTitle: (attrs.footerContactsTitle as string)?.trim() || "",
+        footerCopyright: (attrs.footerCopyright as string)?.trim() || "",
       };
     }
+  } catch (err) {
+    console.warn("getContactInfo error:", err);
   }
-  return contactInfo;
+  return EMPTY_CONTACT;
 }
 
 /** Отзывы о театре */
 export async function getTheaterReviews(): Promise<Review[]> {
-  if (await checkStrapi()) {
+  try {
     const res = await fetchStrapi<Array<unknown>>("/theater-reviews", {
       sort: ["order:asc"],
     });
     if (res?.data && Array.isArray(res.data)) {
       return res.data.map((d: any) => mapStrapiReview(d));
     }
+  } catch (err) {
+    console.warn("getTheaterReviews error:", err);
   }
-  return theaterReviews;
+  return [];
 }
 
 /** Фотогалерея театра */
 export type GalleryImage = { src: string; alt: string };
 export async function getTheaterGalleryImages(): Promise<GalleryImage[]> {
-  if (await checkStrapi()) {
+  try {
     const res = await fetchStrapi<Array<unknown>>("/theater-galleries", {
       populate: "image",
       sort: ["order:asc"],
     });
     if (res?.data && Array.isArray(res.data)) {
       return res.data
-        .map((d: any) => ({
-          src: d.image?.url ? getStrapiMediaUrl(d.image.url) : "",
-          alt: d.alt || "Фото театра",
-        }))
+        .map((d: any) => {
+          const attrs = d.attributes ?? d;
+          const src = getMediaUrl(attrs.image ?? d.image) || "";
+          const alt = (attrs.alt ?? d.alt) || "Фото театра";
+          return { src, alt };
+        })
         .filter((img) => img.src);
     }
+  } catch (err) {
+    console.warn("getTheaterGalleryImages error:", err);
   }
-  return theaterGalleryImages;
+  return [];
 }
 
 export { GALLERY_PAGE_SIZE };
@@ -609,7 +636,7 @@ export async function getTeatrTeosPageData(): Promise<TeatrTeosPageData> {
     partnerBlockLink: "",
     partnerBlockButtonLabel: "Перейти на сайт партнёра",
   };
-  if (await checkStrapi()) {
+  try {
     const res = await fetchStrapi<Record<string, unknown>>("/teatr-teos", {
       populate: "*",
     });
@@ -645,6 +672,8 @@ export async function getTeatrTeosPageData(): Promise<TeatrTeosPageData> {
         partnerBlockButtonLabel: (attrs.partnerBlockButtonLabel as string) || defaults.partnerBlockButtonLabel,
       };
     }
+  } catch (err) {
+    console.warn("getTeatrTeosPageData error:", err);
   }
   return defaults;
 }
@@ -668,7 +697,7 @@ export async function getArendaZalaPageData(): Promise<ArendaZalaPageData> {
     howToBookText:
       "По вопросам аренды обращайтесь в администрацию театра по телефону или электронной почте. Указаны на странице Контакты (ссылка добавляется автоматически на сайте).",
   };
-  if (await checkStrapi()) {
+  try {
     const res = await fetchStrapi<Record<string, unknown>>("/arenda-zala", {
       populate: "*",
     });
@@ -690,6 +719,8 @@ export async function getArendaZalaPageData(): Promise<ArendaZalaPageData> {
         howToBookText: (attrs.howToBookText as string) || defaults.howToBookText,
       };
     }
+  } catch (err) {
+    console.warn("getArendaZalaPageData error:", err);
   }
   return defaults;
 }
@@ -702,7 +733,7 @@ export async function getPomochTeatruPageData(): Promise<PomochTeatruPageData> {
     requisitesText: "",
     qrCodeImageUrl: "",
   };
-  if (await checkStrapi()) {
+  try {
     const res = await fetchStrapi<Record<string, unknown>>("/pomoch-teatru", {
       populate: "*",
     });
@@ -719,6 +750,8 @@ export async function getPomochTeatruPageData(): Promise<PomochTeatruPageData> {
         qrCodeImageUrl: qrUrl || defaults.qrCodeImageUrl,
       };
     }
+  } catch (err) {
+    console.warn("getPomochTeatruPageData error:", err);
   }
   return defaults;
 }
@@ -731,7 +764,7 @@ export async function getPartnersPageData(): Promise<PartnersPageData> {
       "Раздел в разработке. Здесь будут размещены логотипы и ссылки на партнёров и спонсоров театра.",
     partners: [],
   };
-  if (await checkStrapi()) {
+  try {
     const res = await fetchStrapi<Record<string, unknown>>("/partners", {
       populate: "*",
     });
@@ -757,6 +790,8 @@ export async function getPartnersPageData(): Promise<PartnersPageData> {
         partners: partners.length > 0 ? partners : defaults.partners,
       };
     }
+  } catch (err) {
+    console.warn("getPartnersPageData error:", err);
   }
   return defaults;
 }
@@ -777,7 +812,7 @@ export async function getOTeatrePageData(): Promise<OTeatrePageData> {
       { src: "/fon/22.jpg", alt: "Гримёрки" },
     ],
   };
-  if (await checkStrapi()) {
+  try {
     const res = await fetchStrapi<Record<string, unknown>>("/o-teatre", {
       populate: "*",
     });
@@ -795,10 +830,12 @@ export async function getOTeatrePageData(): Promise<OTeatrePageData> {
         missionText: (attrs.missionText as string) || defaults.missionText,
         galleryImages:
           mapGalleryImages(galleryArr, "Фото").length > 0
-            ? mapGalleryImages(galleryArr, "Фото")
+            ?             mapGalleryImages(galleryArr, "Фото")
             : defaults.galleryImages,
       };
     }
+  } catch (err) {
+    console.warn("getOTeatrePageData error:", err);
   }
   return defaults;
 }

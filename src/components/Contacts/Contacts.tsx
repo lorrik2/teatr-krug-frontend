@@ -1,6 +1,4 @@
-import { contactInfo as defaultContactInfo } from "@/lib/mock-data";
-
-type ContactInfo = typeof defaultContactInfo;
+type ContactInfo = Awaited<ReturnType<typeof import("@/lib/cms-data").getContactInfo>>;
 import styles from "./Contacts.module.css";
 
 const IconVK = () => (
@@ -44,6 +42,10 @@ export default function Contacts({
   showTitle = true,
   compact = false,
 }: ContactsProps) {
+  const hasContactData =
+    contactInfo.address || contactInfo.boxOffice || contactInfo.emailAdmin;
+  if (!hasContactData) return null;
+
   const mapSrc = contactInfo.mapEmbed || DEFAULT_MAP_EMBED;
   return (
     <section

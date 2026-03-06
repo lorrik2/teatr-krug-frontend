@@ -860,10 +860,12 @@ export interface ApiTheaterReviewTheaterReview
     order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     publishedAt: Schema.Attribute.DateTime;
     quote: Schema.Attribute.Text & Schema.Attribute.Required;
+    twoGisUrl: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     vkUrl: Schema.Attribute.String;
+    yandexMapsUrl: Schema.Attribute.String;
   };
 }
 

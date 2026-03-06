@@ -14,7 +14,32 @@ export default function Team({ actors }: { actors: Actor[] }) {
       (a.rank && a.rank.includes("Художественный руководитель")),
   );
   const director = leadership[0];
-  if (!director) return null;
+  if (!director) {
+    return (
+      <section className={styles.section} id="team" aria-labelledby="team-title">
+        <div className={styles.container}>
+          <motion.div
+            className={styles.header}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 id="team-title" className={styles.title}>
+              Художественный руководитель и режиссёр
+            </h2>
+          </motion.div>
+          <p className={styles.emptyMessage}>
+            Информация о художественном руководителе скоро появится.
+          </p>
+          <div className={styles.moreWrap}>
+            <Link href="/team" className={styles.moreLink}>
+              Вся команда →
+            </Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={styles.section} id="team" aria-labelledby="team-title">

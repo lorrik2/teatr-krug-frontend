@@ -39,6 +39,10 @@
   @apply mt-8;
 }
 
+.emptyMessage {
+  @apply py-8 text-center text-graphite-600;
+}
+
 .contentSection {
   @apply mt-12 max-w-3xl;
 }

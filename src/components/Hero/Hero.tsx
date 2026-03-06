@@ -89,7 +89,7 @@ export default function Hero({
                   rel: "noopener noreferrer",
                 })}
               >
-                {slide.cta}
+                {slide.cta ?? "Афиша"}
               </Link>
             </div>
           </SwiperSlide>

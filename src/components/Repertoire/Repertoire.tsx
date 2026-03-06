@@ -43,6 +43,9 @@ export default function Repertoire({
         </motion.div>
 
         <div className={styles.cardsWrap}>
+          {nearestInAfisha.length === 0 ? (
+            <p className={styles.emptyMessage}>Нет спектаклей в афише на данный момент.</p>
+          ) : (
           <motion.ul
             className={styles.cardsGrid}
             variants={container}
@@ -61,6 +64,7 @@ export default function Repertoire({
               />
             ))}
           </motion.ul>
+          )}
         </div>
 
         <motion.div

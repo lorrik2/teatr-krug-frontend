@@ -8,6 +8,8 @@ import styles from "./News.module.css";
 const NEWS_ON_MAIN_LIMIT = 5;
 
 export default function News({ newsItems }: { newsItems: NewsItem[] }) {
+  if (!newsItems?.length) return null;
+
   const items = newsItems.slice(0, NEWS_ON_MAIN_LIMIT);
 
   return (

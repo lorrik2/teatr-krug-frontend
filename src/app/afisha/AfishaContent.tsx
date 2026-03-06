@@ -94,6 +94,14 @@ export default function AfishaContent({
   const afishaPerformances = performances.filter((p) => p.inAfisha !== false);
   const byMonth = groupByMonth(afishaPerformances);
 
+  if (afishaPerformances.length === 0) {
+    return (
+      <section className={styles.section}>
+        <p className={styles.emptyMessage}>Нет спектаклей в афише на данный момент.</p>
+      </section>
+    );
+  }
+
   const sortedEntries = Array.from(byMonth.entries()).sort(([a], [b]) => {
     if (a === "no-date") return 1;
     if (b === "no-date") return -1;

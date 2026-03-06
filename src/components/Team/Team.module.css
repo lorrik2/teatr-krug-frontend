@@ -83,6 +83,10 @@
   @apply mt-12 text-center;
 }
 
+.emptyMessage {
+  @apply text-center text-graphite-600;
+}
+
 .moreLink {
   @apply font-medium text-graphite-950 no-underline hover:underline;
 }
