@@ -32,7 +32,9 @@ export default function TheaterReviewsJsonLd({ reviews }: Props) {
       "@type": "Person",
       name: r.author?.trim() || "Зритель",
     },
-    ...(r.vkUrl && { url: r.vkUrl }),
+    ...((r.vkUrl || r.yandexMapsUrl || r.twoGisUrl) && {
+      url: r.vkUrl || r.yandexMapsUrl || r.twoGisUrl,
+    }),
   }));
 
   const schema = {

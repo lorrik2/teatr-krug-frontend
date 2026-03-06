@@ -12,7 +12,18 @@
   "attributes": {
     "quote": { "type": "text", "required": true },
     "author": { "type": "string", "required": true },
-    "vkUrl": { "type": "string" },
+    "vkUrl": {
+      "type": "string",
+      "description": "Ссылка на отзыв ВКонтакте"
+    },
+    "yandexMapsUrl": {
+      "type": "string",
+      "description": "Ссылка на отзыв в Яндекс Картах"
+    },
+    "twoGisUrl": {
+      "type": "string",
+      "description": "Ссылка на отзыв в 2ГИС"
+    },
     "order": { "type": "integer", "default": 0 }
   }
 }

@@ -3,7 +3,10 @@
  * Подключается к http://localhost:1337 при разработке
  */
 
-const STRAPI_URL = process.env.STRAPI_URL || process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+const STRAPI_URL =
+  process.env.STRAPI_URL ||
+  process.env.NEXT_PUBLIC_STRAPI_URL ||
+  "http://localhost:1337";
 
 export function getStrapiUrl(path = "") {
   return `${STRAPI_URL.replace(/\/+$/, "")}${path}`;
@@ -35,7 +38,7 @@ export async function fetchStrapi<T>(
     sort?: string | string[];
     locale?: string;
     pagination?: { page?: number; pageSize?: number };
-  }
+  },
 ): Promise<StrapiResponse<T> | null> {
   const url = new URL(getStrapiUrl(`/api${path}`));
 
@@ -47,7 +50,7 @@ export async function fetchStrapi<T>(
       "populate",
       typeof options.populate === "string"
         ? options.populate
-        : JSON.stringify(options.populate)
+        : JSON.stringify(options.populate),
     );
   }
   if (options?.filters) {
@@ -60,8 +63,13 @@ export async function fetchStrapi<T>(
     url.searchParams.set("sort", sortArr.join(","));
   }
   if (options?.pagination) {
-    if (options.pagination.page != null) url.searchParams.set("pagination[page]", String(options.pagination.page));
-    if (options.pagination.pageSize != null) url.searchParams.set("pagination[pageSize]", String(options.pagination.pageSize));
+    if (options.pagination.page != null)
+      url.searchParams.set("pagination[page]", String(options.pagination.page));
+    if (options.pagination.pageSize != null)
+      url.searchParams.set(
+        "pagination[pageSize]",
+        String(options.pagination.pageSize),
+      );
   }
 
   const headers: Record<string, string> = {};
@@ -98,19 +106,18 @@ export async function fetchStrapi<T>(
 
 /** Проверяет, доступен ли Strapi (реальный endpoint, не /api) */
 export async function isStrapiAvailable(): Promise<boolean> {
-  // Принудительно использовать Strapi (для локальной разработки)
-  if (process.env.USE_STRAPI === "1" || process.env.NEXT_PUBLIC_USE_STRAPI === "1") {
-    return true;
-  }
   try {
     const headers: Record<string, string> = {};
     if (process.env.STRAPI_API_TOKEN) {
       headers.Authorization = `Bearer ${process.env.STRAPI_API_TOKEN}`;
     }
-    const res = await fetch(getStrapiUrl("/api/actors?pagination[pageSize]=1"), {
-      cache: "no-store",
-      headers,
-    });
+    const res = await fetch(
+      getStrapiUrl("/api/actors?pagination[pageSize]=1"),
+      {
+        cache: "no-store",
+        headers,
+      },
+    );
     return res.ok;
   } catch {
     return false;

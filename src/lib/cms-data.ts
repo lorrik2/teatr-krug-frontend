@@ -254,6 +254,8 @@ function mapStrapiReview(d: any): Review {
     quote: d.quote,
     author: d.author,
     vkUrl: d.vkUrl,
+    yandexMapsUrl: d.yandexMapsUrl,
+    twoGisUrl: d.twoGisUrl,
   };
 }
 
@@ -334,7 +336,7 @@ export async function getActors(): Promise<Actor[]> {
   try {
     if (await checkStrapi()) {
       const res = await fetchStrapi<Array<unknown>>("/actors", {
-        populate: "roles.performance",
+        populate: ["photo", "gallery", "roles.performance"],
         sort: ["name:asc"],
         pagination: { pageSize: 100 },
       });
@@ -356,7 +358,7 @@ export async function getActorBySlug(slug: string): Promise<Actor | null> {
   try {
     if (await checkStrapi()) {
       const res = await fetchStrapi<Array<unknown>>("/actors", {
-        populate: "roles.performance",
+        populate: ["photo", "gallery", "roles.performance"],
         sort: ["name:asc"],
         pagination: { pageSize: 100 },
       });

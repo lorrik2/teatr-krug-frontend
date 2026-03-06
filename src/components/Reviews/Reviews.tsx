@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import type { SVGProps } from "react";
 
 function VkIcon(props: SVGProps<SVGSVGElement>) {
@@ -44,12 +45,10 @@ export default function Reviews({
 }: ReviewsProps) {
   const sectionClass =
     variant === "light" ? styles.sectionLight : styles.section;
-  const titleClass =
-    variant === "light" ? styles.titleLight : styles.title;
+  const titleClass = variant === "light" ? styles.titleLight : styles.title;
   const subtitleClass =
     variant === "light" ? styles.subtitleLight : styles.subtitle;
-  const quoteClass =
-    variant === "light" ? styles.quoteLight : styles.quote;
+  const quoteClass = variant === "light" ? styles.quoteLight : styles.quote;
   const quoteMarkClass =
     variant === "light" ? styles.quoteMarkLight : styles.quoteMark;
   const quoteTextClass =
@@ -58,11 +57,7 @@ export default function Reviews({
     variant === "light" ? styles.attributionLight : styles.attribution;
 
   return (
-    <section
-      className={sectionClass}
-      id={id}
-      aria-labelledby="reviews-title"
-    >
+    <section className={sectionClass} id={id} aria-labelledby="reviews-title">
       <div className={styles.container}>
         <motion.div
           className={styles.header}
@@ -73,9 +68,7 @@ export default function Reviews({
           <h2 id="reviews-title" className={titleClass}>
             {title}
           </h2>
-          {subtitle && (
-            <p className={subtitleClass}>{subtitle}</p>
-          )}
+          {subtitle && <p className={subtitleClass}>{subtitle}</p>}
         </motion.div>
 
         <motion.div
@@ -115,11 +108,47 @@ export default function Reviews({
                           href={review.vkUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={styles.vkLink}
+                          className={styles.reviewLink}
                           aria-label="Отзыв ВКонтакте"
                           title="Открыть отзыв ВКонтакте"
                         >
-                          <VkIcon className={styles.vkIcon} />
+                          <VkIcon className={styles.reviewIcon} />
+                        </a>
+                      )}
+                      {review.yandexMapsUrl && (
+                        <a
+                          href={review.yandexMapsUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.reviewLink}
+                          aria-label="Отзыв в Яндекс Картах"
+                          title="Открыть отзыв в Яндекс Картах"
+                        >
+                          <Image
+                            src="/logo/logo_yandx.svg"
+                            alt=""
+                            width={20}
+                            height={20}
+                            className={styles.reviewIcon}
+                          />
+                        </a>
+                      )}
+                      {review.twoGisUrl && (
+                        <a
+                          href={review.twoGisUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.reviewLink}
+                          aria-label="Отзыв в 2ГИС"
+                          title="Открыть отзыв в 2ГИС"
+                        >
+                          <Image
+                            src="/logo/2gis_logo.png"
+                            alt=""
+                            width={20}
+                            height={20}
+                            className={styles.reviewIcon}
+                          />
                         </a>
                       )}
                     </span>

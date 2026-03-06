@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Color/icon_color</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Maps" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Color/icon_color">
+            <g id="maps" transform="translate(56.000000, 56.000000)">
+                <g id="Group-2" transform="translate(74.400000, 0.000000)">
+                    <path d="M176.74023,162.518585 L250.609717,128.855184 C250.609717,187.78935 209.903644,248.680606 173.790307,306.686224 L111.884792,398.583809 L138.969794,230.795362 L176.74023,162.518585 Z" id="Fill-1" fill="#E00000"></path>
+                    <circle id="Oval" fill="#FF3333" cx="126.051092" cy="124.996714" r="124.996714"></circle>
+                    <circle id="Oval" fill="#FFFFFF" cx="126.051092" cy="124.996714" r="49.8033784"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

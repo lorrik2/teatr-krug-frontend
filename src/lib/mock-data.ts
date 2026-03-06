@@ -105,6 +105,10 @@ export interface Review {
   author: string;
   /** Ссылка на отзыв во ВКонтакте */
   vkUrl?: string;
+  /** Ссылка на отзыв в Яндекс Картах */
+  yandexMapsUrl?: string;
+  /** Ссылка на отзыв в 2ГИС */
+  twoGisUrl?: string;
 }
 
 /** Пункт меню — ссылка или группа с подпунктами */

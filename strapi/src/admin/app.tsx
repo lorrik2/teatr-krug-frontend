@@ -146,6 +146,8 @@ export default {
         'content-manager.content-types.api::theater-review.theater-review.fields.quote': 'Цитата',
         'content-manager.content-types.api::theater-review.theater-review.fields.author': 'Автор',
         'content-manager.content-types.api::theater-review.theater-review.fields.vkUrl': 'Ссылка ВКонтакте',
+        'content-manager.content-types.api::theater-review.theater-review.fields.yandexMapsUrl': 'Ссылка в Яндекс Картах',
+        'content-manager.content-types.api::theater-review.theater-review.fields.twoGisUrl': 'Ссылка в 2ГИС',
         'content-manager.content-types.api::theater-review.theater-review.fields.order': 'Порядок',
 
         // === Content-type Builder: Components ===

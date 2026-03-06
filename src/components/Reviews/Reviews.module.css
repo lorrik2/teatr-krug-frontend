@@ -90,24 +90,24 @@
   @apply inline-flex items-center gap-2;
 }
 
-.vkLink {
-  @apply inline-flex shrink-0 transition-colors;
+.reviewLink {
+  @apply inline-flex shrink-0 transition-opacity;
 }
 
-.section .vkLink {
-  @apply text-graphite-400;
+.section .reviewLink {
+  @apply opacity-80;
 }
 
-.sectionLight .vkLink {
-  @apply text-graphite-500;
+.sectionLight .reviewLink {
+  @apply opacity-75;
 }
 
-.vkLink:hover {
-  color: #0077ff;
+.reviewLink:hover {
+  @apply opacity-100;
 }
 
-.vkIcon {
-  @apply h-5 w-5;
+.reviewIcon {
+  @apply h-5 w-5 object-contain;
 }
 
 /* Swiper pagination */
