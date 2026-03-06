@@ -45,6 +45,7 @@ export default function TeamGrid({
                     width={400}
                     height={500}
                     className={styles.photo}
+                    style={{ objectFit: "contain", objectPosition: "top" }}
                     priority
                     skipShimmer
                   />
@@ -79,6 +80,7 @@ export default function TeamGrid({
                   width={400}
                   height={500}
                   className={styles.photo}
+                  style={{ objectFit: "contain", objectPosition: "top" }}
                   priority
                   skipShimmer
                 />

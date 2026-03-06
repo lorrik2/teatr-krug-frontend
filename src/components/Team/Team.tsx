@@ -76,6 +76,7 @@ export default function Team({ actors }: { actors: Actor[] }) {
                       width={400}
                       height={500}
                       className={styles.photo}
+                      style={{ objectFit: "contain", objectPosition: "top" }}
                       priority
                       skipShimmer
                     />
@@ -96,6 +97,7 @@ export default function Team({ actors }: { actors: Actor[] }) {
                       width={400}
                       height={500}
                       className={styles.photo}
+                      style={{ objectFit: "contain", objectPosition: "top" }}
                       priority
                       skipShimmer
                     />
