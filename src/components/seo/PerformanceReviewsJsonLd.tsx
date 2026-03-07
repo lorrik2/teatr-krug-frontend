@@ -1,7 +1,7 @@
 "use client";
 
 import { SITE_URL } from "@/lib/site-config";
-import type { Performance, Review } from "@/lib/mock-data";
+import type { Performance, Review } from "@/lib/types";
 
 type Props = { play: Performance; basePath: "afisha" | "repertuar" };
 

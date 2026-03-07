@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import * as Accordion from "@radix-ui/react-accordion";
-import type { Performance } from "@/lib/mock-data";
+import type { Performance } from "@/lib/types";
 import { PerformanceCard } from "@/components/PerformanceCard";
 import styles from "../styles/Page.module.css";
 

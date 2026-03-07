@@ -2,24 +2,31 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import OptimizedImage from "@/components/OptimizedImage";
 import { getNewsItems } from "@/lib/cms-data";
-import { canonicalUrl } from "@/lib/site-config";
+import { canonicalUrl, OG_LOGO } from "@/lib/site-config";
 import styles from "../styles/Page.module.css";
 
-export const metadata: Metadata = {
-  title: "События — Драматический театр «Круг»",
-  description: "Анонсы творческих вечеров, рецензии, экскурсии по театру, блог.",
-  alternates: { canonical: canonicalUrl("/sobytiya") },
-  openGraph: {
-    type: "website",
-    locale: "ru_RU",
-    url: canonicalUrl("/sobytiya"),
-    siteName: "Драматический театр «Круг»",
+export async function generateMetadata(): Promise<Metadata> {
+  const newsItems = await getNewsItems().catch(() => []);
+  const firstWithImage = newsItems.find((n) => n.image);
+  const ogImage = firstWithImage?.image
+    ? { url: firstWithImage.image, width: 1200, height: 630, alt: firstWithImage.title || "События театра Круг" }
+    : { ...OG_LOGO, alt: "События театра Круг" };
+  return {
     title: "События — Драматический театр «Круг»",
     description: "Анонсы творческих вечеров, рецензии, экскурсии по театру, блог.",
-    images: [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: "События театра Круг" }],
-  },
-  twitter: { card: "summary_large_image", title: "События — Драматический театр «Круг»" },
-};
+    alternates: { canonical: canonicalUrl("/sobytiya") },
+    openGraph: {
+      type: "website",
+      locale: "ru_RU",
+      url: canonicalUrl("/sobytiya"),
+      siteName: "Драматический театр «Круг»",
+      title: "События — Драматический театр «Круг»",
+      description: "Анонсы творческих вечеров, рецензии, экскурсии по театру, блог.",
+      images: [ogImage],
+    },
+    twitter: { card: "summary_large_image", title: "События — Драматический театр «Круг»" },
+  };
+}
 
 export default async function EventsPage() {
   const newsItems = (await getNewsItems().catch(() => [])) ?? [];
@@ -32,9 +39,6 @@ export default async function EventsPage() {
       </nav>
       <header className={styles.header}>
         <h1 className={styles.h1}>События</h1>
-        <p className={styles.lead}>
-          Анонсы, рецензии, встречи с актерами и экскурсии
-        </p>
       </header>
 
       <section className={styles.section}>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import type { Performance } from "@/lib/mock-data";
+import type { Performance } from "@/lib/types";
 import { PerformanceCard } from "@/components/PerformanceCard";
 import styles from "./Repertoire.module.css";
 

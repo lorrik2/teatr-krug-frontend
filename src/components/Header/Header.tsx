@@ -4,7 +4,8 @@ import Link from "next/link";
 import OptimizedImage from "@/components/OptimizedImage";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { navItems, DEFAULT_TICKETS_URL, type NavItem } from "@/lib/mock-data";
+import { navItems, DEFAULT_TICKETS_URL } from "@/lib/site-config";
+import type { NavItem } from "@/lib/types";
 import styles from "./Header.module.css";
 
 function isDropdown(

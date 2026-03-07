@@ -12,23 +12,27 @@ import type { OTeatrePageData } from "@/lib/cms-data";
 import "swiper/css";
 import "swiper/css/pagination";
 
-const defaultGallery = [
-  { src: "/fon/8.jpg", alt: "Фасад театра" },
-  { src: "/fon/12.jpg", alt: "Зрительный зал" },
-  { src: "/fon/13.jpg", alt: "Фойе" },
-  { src: "/fon/14.jpg", alt: "Закулисье" },
-];
-
 function textToParagraphs(text: string): string[] {
   return text.split(/\n\n+/).filter((p) => p.trim());
 }
 
 export default function About({ data }: { data?: OTeatrePageData | null }) {
-  const paragraphs = data?.lead ? textToParagraphs(data.lead).slice(0, 3) : [];
-  const gallery = data?.galleryImages?.length
-    ? data.galleryImages
-    : defaultGallery;
   const [fancyboxRef] = useFancybox();
+
+  if (!data?.showOnMainPage) return null;
+
+  const title = data.mainPageTitle?.trim() || "О театре";
+  const leadParagraphs = data.mainPageShowLead && data.lead
+    ? textToParagraphs(data.lead)
+    : [];
+  const missionParagraphs = data.mainPageShowMission && data.missionText
+    ? textToParagraphs(data.missionText)
+    : [];
+  const gallery = data.galleryImages?.length ? data.galleryImages : [];
+
+  const allParagraphs = [...leadParagraphs, ...missionParagraphs];
+  const hasContent = allParagraphs.length > 0 || gallery.length > 0;
+  if (!hasContent) return null;
 
   return (
     <section
@@ -44,77 +48,68 @@ export default function About({ data }: { data?: OTeatrePageData | null }) {
           viewport={{ once: true }}
         >
           <h2 id="about-title" className={styles.title}>
-            О театре
+            {title}
           </h2>
-          <p className={styles.subtitle}>
-            История здания и труппы, миссия и атмосфера
-          </p>
         </motion.div>
 
         <div className={styles.content}>
-          <motion.div
-            className={styles.text}
-            initial={{ opacity: 0, x: -12 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            {paragraphs.length > 0 ? (
-              <>
-                {paragraphs.map((p, i) => (
-                  <p key={i} className={i === 0 ? styles.lead : undefined}>
-                    {p}
-                  </p>
-                ))}
-              </>
-            ) : (
-              <>
-                <p className={styles.lead}>
-                  Драматический театр «Круг» основан в 2010 году.
-                </p>
-              </>
-            )}
-            <Link href="/o-teatre" className={styles.link}>
-              Подробнее об истории и миссии →
-            </Link>
-          </motion.div>
-
-          <div ref={fancyboxRef} className={styles.sliderWrap}>
-            <Swiper
-              modules={[Pagination, Autoplay]}
-              spaceBetween={0}
-              slidesPerView={1}
-              loop
-              autoplay={{
-                delay: 4000,
-                disableOnInteraction: false,
-              }}
-              pagination={{ clickable: true }}
-              className={styles.slider}
+          {allParagraphs.length > 0 && (
+            <motion.div
+              className={styles.text}
+              initial={{ opacity: 0, x: -12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
             >
-              {gallery.map((img, i) => (
-                <SwiperSlide key={i} className={styles.slide}>
-                  <a
-                    href={img.src}
-                    data-fancybox="about-gallery"
-                    data-caption={`${img.alt} (${i + 1}/${gallery.length})`}
-                    className={styles.slideBtn}
-                    aria-label={`Открыть фото: ${img.alt}`}
-                  >
-                    <div className={styles.slideInner}>
-                      <OptimizedImage
-                        src={img.src}
-                        alt={img.alt}
-                        fill
-                        className={styles.slideImg}
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        effect="blur"
-                      />
-                    </div>
-                  </a>
-                </SwiperSlide>
+              {allParagraphs.map((p, i) => (
+                <p key={i} className={i === 0 ? styles.lead : undefined}>
+                  {p}
+                </p>
               ))}
-            </Swiper>
-          </div>
+              <Link href="/o-teatre" className={styles.link}>
+                Подробнее об истории и миссии →
+              </Link>
+            </motion.div>
+          )}
+
+          {gallery.length > 0 && (
+            <div ref={fancyboxRef} className={styles.sliderWrap}>
+              <Swiper
+                modules={[Pagination, Autoplay]}
+                spaceBetween={0}
+                slidesPerView={1}
+                loop
+                autoplay={{
+                  delay: 4000,
+                  disableOnInteraction: false,
+                }}
+                pagination={{ clickable: true }}
+                className={styles.slider}
+              >
+                {gallery.map((img, i) => (
+                  <SwiperSlide key={i} className={styles.slide}>
+                    <a
+                      href={img.src}
+                      data-fancybox="about-gallery"
+                      data-caption={`${img.alt} (${i + 1}/${gallery.length})`}
+                      className={styles.slideBtn}
+                      aria-label={`Открыть фото: ${img.alt}`}
+                    >
+                      <div className={styles.slideInner}>
+                        <OptimizedImage
+                          src={img.src}
+                          alt={img.alt}
+                          fill
+                          className={styles.slideImg}
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          effect="blur"
+                        />
+                      </div>
+                    </a>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          )}
         </div>
       </div>
     </section>

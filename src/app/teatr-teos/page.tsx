@@ -3,25 +3,31 @@ import Link from "next/link";
 import ImageSlider from "@/components/ImageSlider";
 import GalleryLightbox from "@/components/GalleryLightbox";
 import { getTeatrTeosPageData } from "@/lib/cms-data";
-import { canonicalUrl } from "@/lib/site-config";
+import { canonicalUrl, OG_LOGO } from "@/lib/site-config";
 import styles from "../styles/Page.module.css";
 import teosStyles from "./teatr-teos.module.css";
 
-export const metadata: Metadata = {
-  title: "Ещё один театр Маргариты Вафиной — Драматический театр «Круг»",
-  description: "Ещё один театр Маргариты Вафиной: спектакли, контакты, соцсети.",
-  alternates: { canonical: canonicalUrl("/teatr-teos") },
-  openGraph: {
-    type: "website",
-    locale: "ru_RU",
-    url: canonicalUrl("/teatr-teos"),
-    siteName: "Драматический театр «Круг»",
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getTeatrTeosPageData();
+  const ogImage = data.sliderImages?.[0]?.src
+    ? { url: data.sliderImages[0].src, width: 1200, height: 630, alt: "Театр Теос" }
+    : { ...OG_LOGO, alt: "Театр Теос" };
+  return {
     title: "Ещё один театр Маргариты Вафиной — Драматический театр «Круг»",
     description: "Ещё один театр Маргариты Вафиной: спектакли, контакты, соцсети.",
-    images: [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: "Театр Теос" }],
-  },
-  twitter: { card: "summary_large_image", title: "Ещё один театр Маргариты Вафиной — Драматический театр «Круг»" },
-};
+    alternates: { canonical: canonicalUrl("/teatr-teos") },
+    openGraph: {
+      type: "website",
+      locale: "ru_RU",
+      url: canonicalUrl("/teatr-teos"),
+      siteName: "Драматический театр «Круг»",
+      title: "Ещё один театр Маргариты Вафиной — Драматический театр «Круг»",
+      description: "Ещё один театр Маргариты Вафиной: спектакли, контакты, соцсети.",
+      images: [ogImage],
+    },
+    twitter: { card: "summary_large_image", title: "Ещё один театр Маргариты Вафиной — Драматический театр «Круг»" },
+  };
+}
 
 const IconVK = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
@@ -41,13 +47,7 @@ export default async function TeatrTeosPage() {
     src: img.src,
     alt: img.alt,
   }));
-  const sliderImages = (data.sliderImages ?? []).length > 0
-    ? (data.sliderImages ?? [])
-    : [
-        { src: "/fon/4.jpg", alt: "Ещё один театр Маргариты Вафиной" },
-        { src: "/fon/6.jpg", alt: "Зрительный зал" },
-        { src: "/fon/7.jpg", alt: "Сцена" },
-      ];
+  const sliderImages = data.sliderImages ?? [];
   return (
     <>
       <ImageSlider images={sliderImages} />
@@ -99,19 +99,21 @@ export default async function TeatrTeosPage() {
           </section>
         )}
 
-        <section
-          id="gallery"
-          className={`${styles.contentSection} ${styles.contentSectionWide}`}
-        >
-          <h2 className={styles.h2}>Фотогалерея</h2>
-          <GalleryLightbox
-            images={galleryImages.length > 0 ? galleryImages : [{ src: "/fon/8.jpg", alt: "Фасад" }]}
-            variant="grid"
-            limit={4}
-            moreLabel="Смотреть ещё"
-            galleryId="teatr-teos-photos"
-          />
-        </section>
+        {galleryImages.length > 0 && (
+          <section
+            id="gallery"
+            className={`${styles.contentSection} ${styles.contentSectionWide}`}
+          >
+            <h2 className={styles.h2}>Фотогалерея</h2>
+            <GalleryLightbox
+              images={galleryImages}
+              variant="grid"
+              limit={4}
+              moreLabel="Смотреть ещё"
+              galleryId="teatr-teos-photos"
+            />
+          </section>
+        )}
 
         <section className={styles.contentSection}>
           <h2 className={styles.h2}>Контакты и соцсети</h2>

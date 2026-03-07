@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Драматический театр «Круг»",
     title: "Помочь театру — Драматический театр «Круг»",
     description: "Поддержать театр: реквизиты для перевода, QR-код для быстрой оплаты.",
-    images: [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: "Помочь театру Круг" }],
+    images: [{ url: "/logo/logoLayout.png", width: 1200, height: 630, alt: "Помочь театру Круг" }],
   },
   twitter: { card: "summary_large_image", title: "Помочь театру — Драматический театр «Круг»" },
 };
@@ -38,6 +38,17 @@ export default async function PomochTeatruPage() {
         <h1 className={styles.h1}>{data.title || "Помочь театру"}</h1>
         <p className={styles.lead}>{data.lead || ""}</p>
       </header>
+
+      {data.introText?.trim() && (
+        <section className={styles.contentSection}>
+          {data.introText
+            .split(/\n\n+/)
+            .filter((p) => p.trim())
+            .map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+        </section>
+      )}
 
       <section className={styles.contentSection}>
         <h2 className={styles.h2}>Реквизиты для перевода</h2>

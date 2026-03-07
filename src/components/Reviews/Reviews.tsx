@@ -41,7 +41,7 @@ function LinkIcon(props: SVGProps<SVGSVGElement>) {
 }
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
-import type { Review } from "@/lib/mock-data";
+import type { Review } from "@/lib/types";
 import styles from "./Reviews.module.css";
 
 import "swiper/css";

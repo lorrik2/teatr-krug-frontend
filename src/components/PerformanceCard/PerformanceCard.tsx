@@ -3,8 +3,8 @@
 import Link from "next/link";
 import OptimizedImage from "@/components/OptimizedImage";
 import { motion, type Variants } from "framer-motion";
-import type { Performance } from "@/lib/mock-data";
-import { DEFAULT_TICKETS_URL } from "@/lib/mock-data";
+import type { Performance } from "@/lib/types";
+import { DEFAULT_TICKETS_URL } from "@/lib/site-config";
 import styles from "./PerformanceCard.module.css";
 
 type CardVariant = "afisha" | "repertuar";

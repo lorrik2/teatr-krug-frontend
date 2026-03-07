@@ -1,3 +1,5 @@
+import type { NavItem } from "./types";
+
 /**
  * Базовый URL сайта для SEO (metadataBase, sitemap, canonical).
  * В production задайте NEXT_PUBLIC_SITE_URL в .env (например https://teatrkrug.ru)
@@ -19,6 +21,13 @@ export const SITE_URL = (() => {
   return u;
 })();
 
+/** Fallback-изображение для OpenGraph/SEO (логотип) */
+export const OG_LOGO = {
+  url: "/logo/logoLayout.png",
+  width: 1200,
+  height: 630,
+};
+
 /**
  * Единая точка формирования canonical URL. Используется во всех страницах
  * для консистентности и исключения дубликатов.
@@ -31,3 +40,44 @@ export function canonicalUrl(path: string): string {
   const normalized = p.replace(/\/+$/, ""); // убираем trailing slash
   return `${SITE_URL}${normalized}`;
 }
+
+/** URL по умолчанию для покупки билетов (афиша на quicktickets.ru) */
+export const DEFAULT_TICKETS_URL =
+  "https://quicktickets.ru/spb-teatr-krug/s44";
+
+/** Меню с группами и выпадающими списками */
+export const navItems: NavItem[] = [
+  {
+    label: "Спектакли",
+    items: [
+      { href: "/afisha", label: "Афиша" },
+      { href: "/repertuar", label: "Репертуар" },
+    ],
+  },
+  {
+    label: "О нас",
+    items: [
+      { href: "/o-teatre", label: "О театре: история, ценности" },
+      { href: "/team", label: "Команда" },
+      { href: "/o-teatre/fotogalereya", label: "Фотогалерея" },
+      { href: "/sobytiya", label: "События" },
+      { href: "/kontakty", label: "Контакты" },
+    ],
+  },
+  {
+    label: "Сотрудничество",
+    items: [
+      { href: "/arenda-zala", label: "Аренда зала" },
+      { href: "/pomoch-teatru", label: "Помочь театру" },
+    ],
+  },
+  {
+    href: "/teatr-teos",
+    label: "Театр ТеОс",
+  },
+];
+
+/** Плоский список ссылок (для Footer, breadcrumbs и т.д.) */
+export const navLinks = navItems.flatMap((item) =>
+  "items" in item ? item.items : [{ href: item.href, label: item.label }],
+);

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import type { NewsItem } from "@/lib/mock-data";
+import type { NewsItem } from "@/lib/types";
 import styles from "./News.module.css";
 
 const NEWS_ON_MAIN_LIMIT = 5;
@@ -24,9 +24,6 @@ export default function News({ newsItems }: { newsItems: NewsItem[] }) {
           <h2 id="news-title" className={styles.title}>
             События
           </h2>
-          <p className={styles.subtitle}>
-            Анонсы, рецензии, творческие вечера и экскурсии
-          </p>
         </motion.div>
 
         <ul className={styles.eventList}>

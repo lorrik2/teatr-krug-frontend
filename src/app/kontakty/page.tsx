@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Драматический театр «Круг»",
     title: "Контакты и схема проезда — Драматический театр «Круг»",
     description: "Адрес, телефоны кассы и администрации, схема проезда, режим работы, соцсети.",
-    images: [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: "Контакты театра Круг" }],
+    images: [{ url: "/logo/logoLayout.png", width: 1200, height: 630, alt: "Контакты театра Круг" }],
   },
   twitter: { card: "summary_large_image", title: "Контакты — Драматический театр «Круг»" },
 };

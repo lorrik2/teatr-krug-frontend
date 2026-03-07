@@ -5,25 +5,31 @@ import {
   getTheaterGalleryImages,
   GALLERY_PAGE_SIZE,
 } from "@/lib/cms-data";
-import { canonicalUrl } from "@/lib/site-config";
+import { canonicalUrl, OG_LOGO } from "@/lib/site-config";
 import styles from "../../styles/Page.module.css";
 import fotogalereyaStyles from "./fotogalereya.module.css";
 
-export const metadata: Metadata = {
-  title: "Фотогалерея — О театре — Драматический театр «Круг»",
-  description: "Фотографии театра: фасад, зрительный зал, фойе, гримёрки, закулисье.",
-  alternates: { canonical: canonicalUrl("/o-teatre/fotogalereya") },
-  openGraph: {
-    type: "website",
-    locale: "ru_RU",
-    url: canonicalUrl("/o-teatre/fotogalereya"),
-    siteName: "Драматический театр «Круг»",
+export async function generateMetadata(): Promise<Metadata> {
+  const images = await getTheaterGalleryImages().catch(() => []);
+  const ogImage = images[0]?.src
+    ? { url: images[0].src, width: 1200, height: 630, alt: images[0].alt || "Фотогалерея театра Круг" }
+    : { ...OG_LOGO, alt: "Фотогалерея театра Круг" };
+  return {
     title: "Фотогалерея — О театре — Драматический театр «Круг»",
     description: "Фотографии театра: фасад, зрительный зал, фойе, гримёрки, закулисье.",
-    images: [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: "Фотогалерея театра Круг" }],
-  },
-  twitter: { card: "summary_large_image", title: "Фотогалерея — Драматический театр «Круг»" },
-};
+    alternates: { canonical: canonicalUrl("/o-teatre/fotogalereya") },
+    openGraph: {
+      type: "website",
+      locale: "ru_RU",
+      url: canonicalUrl("/o-teatre/fotogalereya"),
+      siteName: "Драматический театр «Круг»",
+      title: "Фотогалерея — О театре — Драматический театр «Круг»",
+      description: "Фотографии театра: фасад, зрительный зал, фойе, гримёрки, закулисье.",
+      images: [ogImage],
+    },
+    twitter: { card: "summary_large_image", title: "Фотогалерея — Драматический театр «Круг»" },
+  };
+}
 
 type Props = { searchParams: Promise<{ page?: string }> };
 

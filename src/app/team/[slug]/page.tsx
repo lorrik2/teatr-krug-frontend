@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getActorBySlug, getActors } from "@/lib/cms-data";
-import { canonicalUrl } from "@/lib/site-config";
+import { canonicalUrl, OG_LOGO } from "@/lib/site-config";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { ActorPageContent } from "@/components/ActorPage";
 
@@ -11,11 +11,12 @@ export async function generateStaticParams() {
   try {
     const actors = await getActors();
     return actors
-    .map((a) => {
-      const slug = typeof a.slug === "string" ? a.slug : String(a?.slug ?? "");
-      return { slug };
-    })
-    .filter((p) => p.slug.length > 0);
+      .map((a) => {
+        const slug =
+          typeof a.slug === "string" ? a.slug : String(a?.slug ?? "");
+        return { slug };
+      })
+      .filter((p) => p.slug.length > 0);
   } catch {
     return [];
   }
@@ -42,7 +43,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: desc,
       images: actor.photo
         ? [{ url: actor.photo, width: 1200, height: 630, alt: actor.name }]
-        : [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: actor.name }],
+        : [
+            {
+              url: "/logo/logoLayout.png",
+              width: 1200,
+              height: 630,
+              alt: actor.name,
+            },
+          ],
     },
     twitter: {
       card: "summary_large_image",

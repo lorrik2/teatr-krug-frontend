@@ -3,7 +3,7 @@
 import { ArticleJsonLd } from "next-seo";
 import { SITE_URL } from "@/lib/site-config";
 import { toIsoDate } from "@/lib/date-utils";
-import type { NewsItem } from "@/lib/mock-data";
+import type { NewsItem } from "@/lib/types";
 
 type Props = { item: NewsItem };
 

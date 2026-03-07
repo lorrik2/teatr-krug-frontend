@@ -3,7 +3,7 @@
 import OptimizedImage from "@/components/OptimizedImage";
 import Link from "next/link";
 import useFancybox from "@/hooks/useFancybox";
-import type { Actor } from "@/lib/mock-data";
+import type { Actor } from "@/lib/types";
 import styles from "./ActorPage.module.css";
 
 interface ActorPageContentProps {

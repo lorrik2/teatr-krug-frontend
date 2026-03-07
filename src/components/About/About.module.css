@@ -36,6 +36,18 @@
   @apply text-lg font-medium text-graphite-100;
 }
 
+.subblockTitle {
+  @apply mt-6 text-base font-semibold text-graphite-100;
+}
+
+.subblockTitle {
+  @apply mt-6 font-posterama text-xl font-semibold text-white first:mt-0;
+}
+
+.subblockTitle {
+  @apply mt-6 text-xl font-semibold text-white first:mt-0;
+}
+
 .link {
   @apply mt-4 inline-block font-medium text-white no-underline hover:text-graphite-200 hover:underline;
 }

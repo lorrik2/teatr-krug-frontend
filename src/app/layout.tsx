@@ -49,7 +49,7 @@ export const metadata: Metadata = {
       "Официальный сайт драматического театра «Круг». Афиша спектаклей, покупка билетов, труппа, события.",
     images: [
       {
-        url: "/fon/8.jpg",
+        url: "/logo/logoLayout.png",
         width: 1200,
         height: 630,
         alt: "Драматический театр «Круг»",

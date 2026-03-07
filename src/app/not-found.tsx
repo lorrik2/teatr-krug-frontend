@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     siteName: "Драматический театр «Круг»",
     title: "Страница не найдена — Драматический театр «Круг»",
     description: "Запрашиваемая страница не найдена. Вернитесь на главную или в афишу театра Круг.",
-    images: [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: "Драматический театр «Круг»" }],
+    images: [{ url: "/logo/logoLayout.png", width: 1200, height: 630, alt: "Драматический театр «Круг»" }],
   },
 };
 

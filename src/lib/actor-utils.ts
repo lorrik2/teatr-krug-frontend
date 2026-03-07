@@ -1,4 +1,4 @@
-import type { Actor, CastMember, Performance } from "./mock-data";
+import type { Actor, CastMember, Performance } from "./types";
 
 /**
  * Проверяет, есть ли у актёра контент для отображения на странице карточки.
@@ -25,8 +25,8 @@ export function isDirectorOrArtisticDirector(actor: Actor): boolean {
   const role = (actor.role || "").toLowerCase();
   const rank = (actor.rank || "").toLowerCase();
   return (
-    role.includes("режиссёр") ||
-    role.includes("режиссер") ||
+    role.includes("режиссёр-постановщик") ||
+    role.includes("режиссер-постановщик") ||
     rank.includes("художественный руководитель")
   );
 }
@@ -43,7 +43,7 @@ export interface ActorPerformanceRole {
  */
 export function getActorPerformanceRoles(
   actorSlug: string,
-  performances: Performance[]
+  performances: Performance[],
 ): ActorPerformanceRole[] {
   const result: ActorPerformanceRole[] = [];
   const slugStr = typeof actorSlug === "string" ? actorSlug : "";
@@ -69,7 +69,7 @@ export function getActorPerformanceRoles(
  */
 export function getActorPerformanceRolesMerged(
   actor: Actor,
-  performances: Performance[]
+  performances: Performance[],
 ): ActorPerformanceRole[] {
   const fromCast = getActorPerformanceRoles(actor.slug, performances);
   const fromActorRoles: ActorPerformanceRole[] = [];
@@ -107,12 +107,12 @@ export function getActorPerformanceRolesMerged(
  */
 export function getMergedCast(
   performance: Performance,
-  actors: Actor[]
+  actors: Actor[],
 ): CastMember[] {
   const fromPerformance = performance.cast ?? [];
   const fromActorRoles: CastMember[] = [];
   const slugsInPerformance = new Set(
-    fromPerformance.map((c) => c.actorSlug).filter(Boolean)
+    fromPerformance.map((c) => c.actorSlug).filter(Boolean),
   );
 
   for (const actor of actors) {
@@ -145,8 +145,7 @@ export function getMergedCast(
     const k = keyFor(m);
     if (!k) continue;
     const existing = byKey.get(k);
-    const preferThis =
-      !existing || (!!m.actorSlug && !existing.actorSlug);
+    const preferThis = !existing || (!!m.actorSlug && !existing.actorSlug);
     if (preferThis) byKey.set(k, m);
   }
 

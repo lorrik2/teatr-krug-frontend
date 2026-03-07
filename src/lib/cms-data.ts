@@ -1,15 +1,21 @@
 /**
- * Слой данных: Strapi CMS с fallback на mock-data
- * Использует Strapi, когда он доступен; иначе — локальные мок-данные
+ * Слой данных: Strapi CMS.
+ * Использует Strapi, когда он доступен; иначе возвращает пустые данные.
  */
 
 import { fetchStrapi, getStrapiMediaUrl } from "./strapi";
-import { contactInfo, navLinks, navItems } from "./mock-data";
+import { navLinks, navItems } from "./site-config";
 import { GALLERY_PAGE_SIZE } from "./theater-gallery";
-import type { Performance, Actor, NewsItem, Review } from "./mock-data";
+import type {
+  Performance,
+  Actor,
+  NewsItem,
+  Review,
+  ContactInfo,
+} from "./types";
 
 /** Пустая структура контактов — когда Strapi не вернул данные */
-const EMPTY_CONTACT: typeof contactInfo = {
+const EMPTY_CONTACT: ContactInfo = {
   address: "",
   boxOffice: "",
   admin: "",
@@ -501,7 +507,7 @@ export async function getHeroSlides(): Promise<
 }
 
 /** Контакты */
-export async function getContactInfo(): Promise<typeof contactInfo> {
+export async function getContactInfo(): Promise<ContactInfo> {
   try {
     const res = await fetchStrapi<Record<string, unknown>>("/contact", {
       populate: "*",
@@ -630,6 +636,7 @@ export interface ArendaZalaPageData {
 export interface PomochTeatruPageData {
   title: string;
   lead: string;
+  introText: string;
   requisitesText: string;
   qrCodeImageUrl: string;
 }
@@ -655,6 +662,11 @@ export interface OTeatrePageData {
   historyText: string;
   missionText: string;
   galleryImages: { src: string; alt: string }[];
+  /** Настройки блока на главной */
+  showOnMainPage: boolean;
+  mainPageTitle: string;
+  mainPageShowLead: boolean;
+  mainPageShowMission: boolean;
 }
 
 /** Театр ТЕОС */
@@ -664,17 +676,8 @@ export async function getTeatrTeosPageData(): Promise<TeatrTeosPageData> {
     lead: "Театральный проект Маргариты Вафиной",
     aboutText:
       "Здесь будет текст о театре Маргариты Вафиной. Добавьте описание проекта, миссию, историю и ключевую информацию.",
-    sliderImages: [
-      { src: "/fon/4.jpg", alt: "Ещё один театр Маргариты Вафиной" },
-      { src: "/fon/6.jpg", alt: "Зрительный зал" },
-      { src: "/fon/7.jpg", alt: "Сцена" },
-    ],
-    galleryImages: [
-      { src: "/fon/8.jpg", alt: "Фасад" },
-      { src: "/fon/12.jpg", alt: "Зал" },
-      { src: "/fon/13.jpg", alt: "Фойе" },
-      { src: "/fon/22.jpg", alt: "Интерьер" },
-    ],
+    sliderImages: [],
+    galleryImages: [],
     address: "Укажите адрес театра",
     phone: "+7 921 64 59 200",
     socialVk: "https://vk.com",
@@ -734,14 +737,7 @@ export async function getArendaZalaPageData(): Promise<ArendaZalaPageData> {
     conditionsText: `Драматический театр «Круг» предлагает в аренду зрительный зал и сопутствующие помещения для проведения спектаклей, концертов, презентаций, корпоративных мероприятий и творческих проектов.
 
 Зал рассчитан на 120 зрителей. В наличии профессиональное сценическое оборудование, световая и звуковая аппаратура. Фойе подходит для фуршетов и выставок.`,
-    galleryImages: [
-      { src: "/fon/8.jpg", alt: "Фасад театра" },
-      { src: "/fon/12.jpg", alt: "Зрительный зал" },
-      { src: "/fon/13.jpg", alt: "Фойе" },
-      { src: "/fon/22.jpg", alt: "Гримёрки" },
-      { src: "/fon/6.jpg", alt: "Зал" },
-      { src: "/fon/7.jpg", alt: "Закулисье" },
-    ],
+    galleryImages: [],
     howToBookText:
       "По вопросам аренды обращайтесь в администрацию театра по телефону или электронной почте. Указаны на странице Контакты (ссылка добавляется автоматически на сайте).",
   };
@@ -778,6 +774,7 @@ export async function getPomochTeatruPageData(): Promise<PomochTeatruPageData> {
   const defaults: PomochTeatruPageData = {
     title: "Помочь театру",
     lead: "Ваша поддержка помогает нам создавать новые спектакли",
+    introText: "",
     requisitesText: "",
     qrCodeImageUrl: "",
   };
@@ -794,6 +791,7 @@ export async function getPomochTeatruPageData(): Promise<PomochTeatruPageData> {
       return {
         title: (attrs.title as string) || defaults.title,
         lead: (attrs.lead as string) || defaults.lead,
+        introText: (attrs.introText as string) || defaults.introText,
         requisitesText: (attrs.requisitesText as string) || defaults.requisitesText,
         qrCodeImageUrl: qrUrl || defaults.qrCodeImageUrl,
       };
@@ -847,18 +845,15 @@ export async function getPartnersPageData(): Promise<PartnersPageData> {
 /** О театре */
 export async function getOTeatrePageData(): Promise<OTeatrePageData> {
   const defaults: OTeatrePageData = {
-    title: "О театре",
-    lead: "История, миссия, атмосфера и люди",
-    historyText: `Драматический театр «Круг» основан в 2010 году. Здание — бывший особняк XIX века в центре города — было передано под театр и реконструировано с сохранением исторического облика. Сцена рассчитана на камерные постановки: до 120 зрителей, что создаёт особый контакт между залом и сценой.
-
-За годы существования театр сформировал постоянную труппу, открыл малую сцену для экспериментов и детские проекты. Художественный руководитель — Андрей Волков, режиссёр и педагог, лауреат национальных театральных премий.`,
-    missionText: `Мы верим, что театр — это живое искусство, которое говорит с каждым зрителем на его языке. Наша миссия — сохранять русскую театральную традицию и открывать классику новым поколениям через честные, современные постановки. В репертуаре — русская и мировая классика, современная драматургия и авторские проекты.`,
-    galleryImages: [
-      { src: "/fon/8.jpg", alt: "Фасад театра" },
-      { src: "/fon/12.jpg", alt: "Зрительный зал" },
-      { src: "/fon/13.jpg", alt: "Фойе" },
-      { src: "/fon/22.jpg", alt: "Гримёрки" },
-    ],
+    title: "",
+    lead: "",
+    historyText: "",
+    missionText: "",
+    galleryImages: [],
+    showOnMainPage: false,
+    mainPageTitle: "",
+    mainPageShowLead: true,
+    mainPageShowMission: false,
   };
   try {
     const res = await fetchStrapi<Record<string, unknown>>("/o-teatre", {
@@ -880,6 +875,10 @@ export async function getOTeatrePageData(): Promise<OTeatrePageData> {
           mapGalleryImages(galleryArr, "Фото").length > 0
             ? mapGalleryImages(galleryArr, "Фото")
             : defaults.galleryImages,
+        showOnMainPage: attrs.showOnMainPage === true,
+        mainPageTitle: typeof attrs.mainPageTitle === "string" ? attrs.mainPageTitle : "",
+        mainPageShowLead: attrs.mainPageShowLead !== false,
+        mainPageShowMission: attrs.mainPageShowMission === true,
       };
     }
   } catch (err) {
@@ -901,7 +900,7 @@ export async function getPremieres() {
       poster: p.poster,
       description: p.description,
       director: p.director,
-      cast: p.cast?.map((c) => c.name) ?? [],
+      cast: p.cast?.map((c: { name: string }) => c.name) ?? [],
       date: p.date,
       time: p.time,
     }));

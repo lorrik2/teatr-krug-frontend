@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     siteName: "Драматический театр «Круг»",
     title: "Афиша — Драматический театр «Круг»",
     description: "Репертуар спектаклей текущего сезона. Даты, время, возрастной рейтинг. Купить билеты онлайн.",
-    images: [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: "Афиша театра Круг" }],
+    images: [{ url: "/logo/logoLayout.png", width: 1200, height: 630, alt: "Афиша театра Круг" }],
   },
   twitter: { card: "summary_large_image", title: "Афиша — Драматический театр «Круг»" },
 };

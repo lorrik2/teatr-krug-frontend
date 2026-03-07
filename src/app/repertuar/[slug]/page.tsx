@@ -6,12 +6,12 @@ import {
   getRepertoirePerformances,
   getActors,
 } from "@/lib/cms-data";
-import { canonicalUrl } from "@/lib/site-config";
+import { canonicalUrl, OG_LOGO } from "@/lib/site-config";
 import {
   isDirectorOrArtisticDirector,
   getMergedCast,
 } from "@/lib/actor-utils";
-import { DEFAULT_TICKETS_URL } from "@/lib/mock-data";
+import { DEFAULT_TICKETS_URL } from "@/lib/site-config";
 import PerformanceHero from "@/components/PerformanceHero";
 import PerformanceEventJsonLd from "@/components/seo/PerformanceEventJsonLd";
 import PerformanceReviewsJsonLd from "@/components/seo/PerformanceReviewsJsonLd";
@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: desc,
       images: play.poster
         ? [{ url: play.poster, width: 1200, height: 630, alt: play.title }]
-        : [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: play.title }],
+        : [{ ...OG_LOGO, alt: play.title }],
     },
     twitter: {
       card: "summary_large_image",

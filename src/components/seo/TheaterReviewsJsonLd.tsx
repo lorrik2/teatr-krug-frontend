@@ -1,7 +1,7 @@
 "use client";
 
 import { SITE_URL } from "@/lib/site-config";
-import type { Review } from "@/lib/mock-data";
+import type { Review } from "@/lib/types";
 
 type Props = { reviews: Review[] };
 

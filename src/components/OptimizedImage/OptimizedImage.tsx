@@ -139,12 +139,18 @@ export default function OptimizedImage({
   }
 
   if (effect && fill) {
-    const objectFit =
+    /* objectFit не задаём — пусть CSS (Hero/PerformanceHero) управляет через media queries */
+    const imgStyle: React.CSSProperties = {
+      width: "100%",
+      height: "100%",
+    };
+    const explicitObjectFit =
       typeof imageProps.style === "object" &&
       imageProps.style &&
-      "objectFit" in imageProps.style
-        ? imageProps.style.objectFit
-        : "cover";
+      "objectFit" in imageProps.style;
+    if (explicitObjectFit) {
+      imgStyle.objectFit = imageProps.style!.objectFit as React.CSSProperties["objectFit"];
+    }
     const lazyFill = (
       <LazyLoadImage
         src={getSrcString(imageProps.src)}
@@ -156,11 +162,7 @@ export default function OptimizedImage({
         useIntersectionObserver
         onLoad={skipShimmer ? undefined : () => setLoaded(true)}
         wrapperProps={{ style: fillStyle }}
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: objectFit as React.CSSProperties["objectFit"],
-        }}
+        style={imgStyle}
       />
     );
     if (skipShimmer) {

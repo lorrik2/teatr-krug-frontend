@@ -5,7 +5,7 @@ import OptimizedImage from "@/components/OptimizedImage";
 import NewsArticleJsonLd from "@/components/seo/NewsArticleJsonLd";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { getNewsItemBySlug, getNewsItems } from "@/lib/cms-data";
-import { canonicalUrl } from "@/lib/site-config";
+import { canonicalUrl, OG_LOGO } from "@/lib/site-config";
 import styles from "../../styles/Page.module.css";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: desc,
       images: item.image
         ? [{ url: item.image, width: 1200, height: 630, alt: item.title }]
-        : [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: item.title }],
+        : [{ ...OG_LOGO, alt: item.title }],
     },
     twitter: {
       card: "summary_large_image",

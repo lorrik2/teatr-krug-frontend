@@ -16,32 +16,37 @@ import {
   getOTeatrePageData,
   EMPTY_CONTACT,
 } from "@/lib/cms-data";
-import { canonicalUrl } from "@/lib/site-config";
+import { canonicalUrl, OG_LOGO } from "@/lib/site-config";
 import TheaterReviewsJsonLd from "@/components/seo/TheaterReviewsJsonLd";
 
-export const metadata: Metadata = {
-  title: "Драматический театр «Круг» — Афиша, билеты, события",
-  description:
-    "Официальный сайт драматического театра «Круг». Афиша спектаклей, покупка билетов, труппа, отзывы зрителей, события и контакты.",
-  keywords: [
-    "театр Круг",
-    "драматический театр",
-    "Санкт-Петербург",
-    "афиша спектаклей",
-    "отзывы о театре",
-    "купить билеты",
-    "театр СПб",
-  ],
-  alternates: { canonical: canonicalUrl("/") },
-  openGraph: {
-    type: "website",
-    locale: "ru_RU",
-    url: canonicalUrl("/"),
-    siteName: "Драматический театр «Круг»",
+export async function generateMetadata(): Promise<Metadata> {
+  const heroSlides = await getHeroSlides().catch(() => []);
+  const ogImage = heroSlides[0]?.image
+    ? { url: heroSlides[0].image, width: 1200, height: 630, alt: "Драматический театр «Круг»" }
+    : { ...OG_LOGO, alt: "Драматический театр «Круг»" };
+  return {
     title: "Драматический театр «Круг» — Афиша, билеты, события",
     description:
-      "Официальный сайт драматического театра «Круг». Афиша спектаклей, покупка билетов, труппа, события и контакты.",
-    images: [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: "Драматический театр «Круг»" }],
+      "Официальный сайт драматического театра «Круг». Афиша спектаклей, покупка билетов, труппа, отзывы зрителей, события и контакты.",
+    keywords: [
+      "театр Круг",
+      "драматический театр",
+      "Санкт-Петербург",
+      "афиша спектаклей",
+      "отзывы о театре",
+      "купить билеты",
+      "театр СПб",
+    ],
+    alternates: { canonical: canonicalUrl("/") },
+    openGraph: {
+      type: "website",
+      locale: "ru_RU",
+      url: canonicalUrl("/"),
+      siteName: "Драматический театр «Круг»",
+      title: "Драматический театр «Круг» — Афиша, билеты, события",
+      description:
+        "Официальный сайт драматического театра «Круг». Афиша спектаклей, покупка билетов, труппа, события и контакты.",
+    images: [ogImage],
   },
   twitter: {
     card: "summary_large_image",
@@ -49,6 +54,7 @@ export const metadata: Metadata = {
     description: "Официальный сайт театра. Афиша спектаклей, покупка билетов, труппа, события.",
   },
 };
+}
 
 export default async function HomePage() {
   const [

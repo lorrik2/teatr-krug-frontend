@@ -3,7 +3,7 @@
 import { EventJsonLd, CreativeWorkJsonLd } from "next-seo";
 import { SITE_URL } from "@/lib/site-config";
 import { toIsoDateTime } from "@/lib/date-utils";
-import type { Performance } from "@/lib/mock-data";
+import type { Performance } from "@/lib/types";
 
 type Props = {
   play: Performance;

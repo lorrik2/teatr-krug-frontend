@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     siteName: "Драматический театр «Круг»",
     title: "Репертуар — Драматический театр «Круг»",
     description: "Полный репертуар театра: все спектакли с фото и описанием. Классика и современные постановки.",
-    images: [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: "Репертуар театра Круг" }],
+    images: [{ url: "/logo/logoLayout.png", width: 1200, height: 630, alt: "Репертуар театра Круг" }],
   },
   twitter: { card: "summary_large_image", title: "Репертуар — Драматический театр «Круг»" },
 };
