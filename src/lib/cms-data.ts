@@ -875,7 +875,12 @@ export async function getOTeatrePageData(): Promise<OTeatrePageData> {
           mapGalleryImages(galleryArr, "Фото").length > 0
             ? mapGalleryImages(galleryArr, "Фото")
             : defaults.galleryImages,
-        showOnMainPage: attrs.showOnMainPage === true,
+        // showOnMainPage: по умолчанию true, если есть контент (lead или галерея)
+        showOnMainPage:
+          attrs.showOnMainPage === true ||
+          (attrs.showOnMainPage == null &&
+            (!!(typeof attrs.lead === "string" && attrs.lead.trim()) ||
+              mapGalleryImages(galleryArr, "Фото").length > 0)),
         mainPageTitle: typeof attrs.mainPageTitle === "string" ? attrs.mainPageTitle : "",
         mainPageShowLead: attrs.mainPageShowLead !== false,
         mainPageShowMission: attrs.mainPageShowMission === true,
