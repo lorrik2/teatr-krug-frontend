@@ -5,8 +5,7 @@ import type { NavItem } from "./types";
  * В production задайте NEXT_PUBLIC_SITE_URL в .env (например https://teatrkrug.ru)
  * Всегда https и без завершающей косой черты.
  */
-const rawUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://teatr-krug-spb.ru";
+const rawUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://teatr-krug-spb.ru";
 
 export const SITE_URL = (() => {
   let u = rawUrl.replace(/\/+$/, "");
@@ -42,8 +41,7 @@ export function canonicalUrl(path: string): string {
 }
 
 /** URL по умолчанию для покупки билетов (афиша на quicktickets.ru) */
-export const DEFAULT_TICKETS_URL =
-  "https://quicktickets.ru/spb-teatr-krug/s44";
+export const DEFAULT_TICKETS_URL = "https://quicktickets.ru/spb-teatr-krug/s44";
 
 /** Меню с группами и выпадающими списками */
 export const navItems: NavItem[] = [
