@@ -1,6 +1,27 @@
-/* mbronnaya style — слайдер на всю ширину */
+/* mbronnaya style — слайдер на всю ширину, фиксированная высота по адаптивам, object-fit: cover */
 .section {
-  @apply relative h-[55vh] min-h-[360px] w-full overflow-hidden md:h-[60vh] md:min-h-[420px];
+  @apply relative w-full overflow-hidden;
+  height: 340px;
+}
+@media (min-width: 640px) {
+  .section {
+    height: 380px;
+  }
+}
+@media (min-width: 768px) {
+  .section {
+    height: 420px;
+  }
+}
+@media (min-width: 1024px) {
+  .section {
+    height: 480px;
+  }
+}
+@media (min-width: 1280px) {
+  .section {
+    height: 520px;
+  }
 }
 
 .slider {
@@ -15,8 +36,27 @@
   @apply absolute inset-0;
 }
 
+/* Мобильные/планшет: cover — заполнение без пустот */
 .image {
-  @apply object-cover transition-transform duration-500 ease-in-out;
+  @apply object-cover object-center transition-transform duration-500 ease-in-out;
+}
+
+/* Десктоп: contain — фото целиком, без обрезки и растягивания, нейтральный тёмный фон */
+@media (min-width: 1024px) {
+  .imageWrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1a1a1a;
+  }
+  .image,
+  .imageWrap img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: contain !important;
+    object-position: center;
+  }
 }
 
 .slideBtn:hover .image {

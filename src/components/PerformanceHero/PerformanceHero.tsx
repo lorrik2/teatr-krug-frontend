@@ -1,6 +1,7 @@
 "use client";
 
 import OptimizedImage from "@/components/OptimizedImage";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import useFancybox from "@/hooks/useFancybox";
@@ -19,6 +20,7 @@ export default function PerformanceHero({
   images,
 }: PerformanceHeroProps) {
   const [fancyboxRef] = useFancybox();
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
   const slides = images.length > 0 ? images : [""];
   const hasMultipleSlides = slides.length > 1;
 
@@ -66,6 +68,7 @@ export default function PerformanceHero({
                     sizes="100vw"
                     priority={index === 0}
                     effect="blur"
+                    style={{ objectFit: isDesktop ? "contain" : "cover" }}
                   />
                 </div>
               </a>

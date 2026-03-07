@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import OptimizedImage from "@/components/OptimizedImage";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Scrollbar } from "swiper/modules";
 import styles from "./Hero.module.css";
@@ -25,6 +26,7 @@ export default function Hero({
 }: {
   slides: HeroSlide[];
 }) {
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
   if (!slides?.length) return null;
 
   return (
@@ -67,6 +69,7 @@ export default function Hero({
                 sizes="100vw"
                 priority={index === 0}
                 effect="blur"
+                style={{ objectFit: isDesktop ? "contain" : "cover" }}
               />
               <div className={styles.overlay} aria-hidden />
             </div>
