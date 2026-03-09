@@ -40,6 +40,27 @@ export function formatDisplayDate(dateStr: string): string {
 }
 
 /**
+ * Преобразует "28 марта"/"15 февраля 2025" в ISO дату (YYYY-MM-DD).
+ * Без года — текущий год.
+ */
+export function toIsoDate(dateStr: string): string {
+  if (!dateStr || dateStr === "—") return "";
+  const match = dateStr.match(
+    /(\d+)\s+(января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря)(?:\s+(\d{4}))?/,
+  );
+  if (!match) return "";
+  const [, day, monthName, year] = match;
+  const month = MONTH_NAMES[monthName];
+  if (!month) return "";
+  const yr = year ? Number(year) : new Date().getFullYear();
+  const d = new Date(yr, month - 1, Number(day));
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${dd}`;
+}
+
+/**
  * Преобразует "28 марта"/"15 февраля 2025" + "19:00" в ISO 8601 (YYYY-MM-DDTHH:mm:00).
  * Без года — текущий год. Без времени — 00:00.
  */
