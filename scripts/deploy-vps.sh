@@ -51,7 +51,8 @@ else
     echo ""
   fi
   cd strapi
-  NODE_OPTIONS="--max-old-space-size=2048" yarn build
+  # 1536 MB — меньше нагрузка на RAM, может помочь при OOM (137) на 1–2 GB VPS
+  NODE_OPTIONS="--max-old-space-size=1536" yarn build
   cd ..
 fi
 
