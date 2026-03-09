@@ -78,6 +78,15 @@ export default async function RepertuarSlugPage({ params }: Props) {
     getActors().catch(() => []),
     getRepertoirePerformances().catch(() => []),
   ]);
+  const heroImages = (
+    play.heroSlider?.length
+      ? play.heroSlider
+      : play.gallery?.length
+        ? play.gallery.slice(0, 5)
+        : play.poster
+          ? [play.poster]
+          : []
+  ).filter((s): s is string => !!s);
   const galleryImages = (play.gallery ?? (play.poster ? [play.poster] : []))
     .filter((s): s is string => !!s);
   const hasCreators =
@@ -107,7 +116,7 @@ export default async function RepertuarSlugPage({ params }: Props) {
           { name: play.title },
         ]}
       />
-      <PerformanceHero title={play.title} images={galleryImages} />
+      <PerformanceHero title={play.title} images={heroImages} />
       <div className={styles.wrap}>
         <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
           <Link href="/">Главная</Link>

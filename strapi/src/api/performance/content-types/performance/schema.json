@@ -18,11 +18,19 @@
       "required": false,
       "allowedTypes": ["images"]
     },
+    "heroSlider": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"],
+      "description": "Фото для слайдера наверху страницы спектакля. Если пусто — используются фото из галереи."
+    },
     "gallery": {
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images"],
+      "description": "Фотогалерея (ниже на странице). Отдельно от слайдера."
     },
     "subtitle": { "type": "string" },
     "author": { "type": "string" },
@@ -32,11 +40,11 @@
     "lightingDesigner": { "type": "string" },
     "soundDesigner": { "type": "string" },
     "lightSoundOperator": { "type": "string" },
-    "cast": {
+    "invitedCast": {
       "type": "component",
       "repeatable": true,
       "component": "shared.cast-member",
-      "description": "Только участники не из команды (музыканты и т.д.). Актёров добавляйте в карточке актёра — Роли в спектаклях."
+      "description": "Внешний состав — приглашённые артисты, музыканты и др. Только люди не из команды. Актёров из команды добавляйте в карточке актёра (Роли в спектаклях)."
     },
     "reviews": {
       "type": "component",

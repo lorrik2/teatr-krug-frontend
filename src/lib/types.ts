@@ -17,7 +17,9 @@ export interface Performance {
   title: string;
   slug: string;
   poster: string;
-  /** Галерея фото для карусели на странице спектакля (если не задано — используется poster) */
+  /** Фото для слайдера наверху страницы. Если пусто — используется gallery или poster */
+  heroSlider?: string[];
+  /** Фотогалерея (ниже на странице). Отдельно от heroSlider */
   gallery?: string[];
   /** Подзаголовок: «спектакль X по пьесе Y. редакция Z | 18+» */
   subtitle?: string;

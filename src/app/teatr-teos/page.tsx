@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import ImageSlider from "@/components/ImageSlider";
-import GalleryLightbox from "@/components/GalleryLightbox";
+import OptimizedImage from "@/components/OptimizedImage";
 import { getTeatrTeosPageData } from "@/lib/cms-data";
 import { canonicalUrl, OG_LOGO } from "@/lib/site-config";
 import styles from "../styles/Page.module.css";
@@ -9,8 +8,8 @@ import teosStyles from "./teatr-teos.module.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getTeatrTeosPageData();
-  const ogImage = data.sliderImages?.[0]?.src
-    ? { url: data.sliderImages[0].src, width: 1200, height: 630, alt: "Театр Теос" }
+  const ogImage = data.logo?.src
+    ? { url: data.logo.src, width: 1200, height: 630, alt: "Театр Теос" }
     : { ...OG_LOGO, alt: "Театр Теос" };
   return {
     title: "Ещё один театр Маргариты Вафиной — Драматический театр «Круг»",
@@ -43,16 +42,8 @@ const IconTelegram = () => (
 
 export default async function TeatrTeosPage() {
   const data = await getTeatrTeosPageData();
-  const galleryImages = (data.galleryImages ?? []).map((img) => ({
-    src: img.src,
-    alt: img.alt,
-  }));
-  const sliderImages = data.sliderImages ?? [];
   return (
-    <>
-      <ImageSlider images={sliderImages} />
-
-      <div className={styles.wrap}>
+    <div className={styles.wrap}>
         <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
           <Link href="/">Главная</Link>
           <span className={styles.breadcrumbsSep}>→</span>
@@ -64,11 +55,27 @@ export default async function TeatrTeosPage() {
         <p className={styles.lead}>{data.lead || ""}</p>
         </header>
 
-        <section className={styles.contentSection}>
+        <section className={`${styles.contentSection} ${styles.contentSectionWide}`}>
           <h2 className={styles.h2}>О театре</h2>
-          <p>
-            {data.aboutText || "Здесь будет текст о театре Маргариты Вафиной."}
-          </p>
+          <div className={teosStyles.aboutBlock}>
+            <div className={teosStyles.aboutText}>
+              <p>
+                {data.aboutText || "Здесь будет текст о театре Маргариты Вафиной."}
+              </p>
+            </div>
+            {data.logo && (
+              <div className={teosStyles.aboutLogo}>
+                <OptimizedImage
+                  src={data.logo.src}
+                  alt={data.logo.alt}
+                  width={240}
+                  height={240}
+                  className={teosStyles.logoImage}
+                  skipShimmer
+                />
+              </div>
+            )}
+          </div>
         </section>
 
         {(data.partnerBlockText || data.partnerBlockLink) && (
@@ -99,19 +106,12 @@ export default async function TeatrTeosPage() {
           </section>
         )}
 
-        {galleryImages.length > 0 && (
-          <section
-            id="gallery"
-            className={`${styles.contentSection} ${styles.contentSectionWide}`}
-          >
-            <h2 className={styles.h2}>Фотогалерея</h2>
-            <GalleryLightbox
-              images={galleryImages}
-              variant="grid"
-              limit={4}
-              moreLabel="Смотреть ещё"
-              galleryId="teatr-teos-photos"
-            />
+        {data.howToGetThere && (
+          <section className={styles.contentSection} aria-labelledby="teos-how-to-get-title">
+            <h2 id="teos-how-to-get-title" className={styles.h2}>Как добраться</h2>
+            <div className={teosStyles.howToGetBlock}>
+              <p>{data.howToGetThere.trim()}</p>
+            </div>
           </section>
         )}
 
@@ -160,6 +160,5 @@ export default async function TeatrTeosPage() {
           </div>
         </section>
       </div>
-    </>
   );
 }

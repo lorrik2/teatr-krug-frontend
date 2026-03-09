@@ -40,6 +40,9 @@ function getMediaUrl(field: unknown): string {
   if (!field || typeof field !== "object") return "";
   const f = field as Record<string, unknown>;
   if (typeof f.url === "string") return getStrapiMediaUrl(f.url);
+  const attrs = f.attributes as Record<string, unknown> | undefined;
+  if (attrs && typeof attrs === "object" && typeof attrs.url === "string")
+    return getStrapiMediaUrl(attrs.url);
   const data = f.data as Record<string, unknown> | undefined;
   if (!data || typeof data !== "object") return "";
   if (data?.attributes && typeof data.attributes === "object") {
@@ -51,15 +54,25 @@ function getMediaUrl(field: unknown): string {
 }
 
 const MONTH_NAMES: Record<string, number> = {
-  января: 1, февраля: 2, марта: 3, апреля: 4, мая: 5, июня: 6,
-  июля: 7, августа: 8, сентября: 9, октября: 10, ноября: 11, декабря: 12,
+  января: 1,
+  февраля: 2,
+  марта: 3,
+  апреля: 4,
+  мая: 5,
+  июня: 6,
+  июля: 7,
+  августа: 8,
+  сентября: 9,
+  октября: 10,
+  ноября: 11,
+  декабря: 12,
 };
 
 /** Парсит дату "28 марта" или "15 февраля 2025" в timestamp для сортировки. Без года — текущий год. */
 function parseDisplayDate(dateStr: string): number {
   if (!dateStr || dateStr === "—") return Infinity;
   const match = dateStr.match(
-    /(\d+)\s+(января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря)(?:\s+(\d{4}))?/
+    /(\d+)\s+(января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря)(?:\s+(\d{4}))?/,
   );
   if (!match) return Infinity;
   const [, day, monthName, year] = match;
@@ -80,8 +93,11 @@ function parseTime(timeStr: string): number {
 
 /** Минимальная дата спектакля (из schedule или date) для сортировки. */
 function getEarliestSortKey(p: Performance): { ts: number; timeMins: number } {
-  const dates: { date: string; time: string }[] =
-    p.schedule?.length ? p.schedule : p.date ? [{ date: p.date, time: p.time || "" }] : [];
+  const dates: { date: string; time: string }[] = p.schedule?.length
+    ? p.schedule
+    : p.date
+      ? [{ date: p.date, time: p.time || "" }]
+      : [];
   if (dates.length === 0) return { ts: Infinity, timeMins: 0 };
   let min = { ts: Infinity, timeMins: 0 };
   for (const { date, time } of dates) {
@@ -95,7 +111,9 @@ function getEarliestSortKey(p: Performance): { ts: number; timeMins: number } {
 }
 
 /** Сортирует спектакли по хронологии: по ближайшей дате показа. Без даты — в конец. */
-export function sortPerformancesChronologically(performances: Performance[]): Performance[] {
+export function sortPerformancesChronologically(
+  performances: Performance[],
+): Performance[] {
   return [...performances].sort((a, b) => {
     const ka = getEarliestSortKey(a);
     const kb = getEarliestSortKey(b);
@@ -111,6 +129,17 @@ function mapGalleryItem(g: unknown): string {
   return getMediaUrl(f) || getStrapiMediaUrl(f.url as string) || "";
 }
 
+/** Извлекает массив медиа из поля Strapi (поддержка { data: [...] } и прямого массива) */
+function extractMediaArray(raw: unknown): unknown[] {
+  if (!raw) return [];
+  if (Array.isArray(raw)) return raw;
+  const obj = raw as Record<string, unknown>;
+  const data = obj.data;
+  if (Array.isArray(data)) return data;
+  if (data && typeof data === "object" && !Array.isArray(data)) return [data];
+  return [];
+}
+
 // Маппинг Strapi → наш формат (с защитой от неполных/битых данных)
 function mapStrapiPerformance(d: any): Performance | null {
   try {
@@ -118,11 +147,13 @@ function mapStrapiPerformance(d: any): Performance | null {
     const attrs = d.attributes ?? d;
     const poster =
       getMediaUrl(attrs.poster ?? d.poster) || getMediaUrl(d.poster) || "";
-    const galleryRaw = attrs.gallery ?? d.gallery;
+    const galleryArr = extractMediaArray(attrs.gallery ?? d.gallery);
     const gallery =
-      galleryRaw && Array.isArray(galleryRaw)
-        ? galleryRaw.map(mapGalleryItem).filter(Boolean)
-        : undefined;
+      galleryArr.length > 0 ? galleryArr.map(mapGalleryItem).filter(Boolean) : undefined;
+
+    const heroSliderArr = extractMediaArray(attrs.heroSlider ?? d.heroSlider);
+    const heroSlider =
+      heroSliderArr.length > 0 ? heroSliderArr.map(mapGalleryItem).filter(Boolean) : undefined;
 
     const rawSlug = attrs.slug ?? d.slug;
     const title = (attrs.title ?? d.title) || "";
@@ -130,7 +161,7 @@ function mapStrapiPerformance(d: any): Performance | null {
     // Strapi может вернуть "performance" — подменяем на slug из title
     const slug = getPerformanceSlug({ title, slug: rawSlug });
 
-    const castRaw = attrs.cast ?? d.cast;
+    const castRaw = attrs.invitedCast ?? attrs.cast ?? d.invitedCast ?? d.cast;
     const cast = Array.isArray(castRaw)
       ? castRaw
           .filter((c: unknown) => c && typeof c === "object")
@@ -139,7 +170,8 @@ function mapStrapiPerformance(d: any): Performance | null {
             return {
               name: typeof c.name === "string" ? c.name : "",
               role: typeof c.role === "string" ? c.role : "",
-              photo: typeof photoUrl === "string" && photoUrl ? photoUrl : undefined,
+              photo:
+                typeof photoUrl === "string" && photoUrl ? photoUrl : undefined,
             };
           })
           .filter((m: { name: string }) => m.name)
@@ -155,15 +187,18 @@ function mapStrapiPerformance(d: any): Performance | null {
       title,
       slug,
       poster,
+      heroSlider: heroSlider?.length ? heroSlider : undefined,
       gallery: gallery?.length ? gallery : undefined,
-      subtitle: (attrs.subtitle ?? d.subtitle) ?? undefined,
-      author: (attrs.author ?? d.author) ?? undefined,
-      director: (attrs.director ?? d.director) ?? undefined,
-      directorQuote: (attrs.directorQuote ?? d.directorQuote) ?? undefined,
-      designer: (attrs.designer ?? d.designer) ?? undefined,
-      lightingDesigner: (attrs.lightingDesigner ?? d.lightingDesigner) ?? undefined,
-      soundDesigner: (attrs.soundDesigner ?? d.soundDesigner) ?? undefined,
-      lightSoundOperator: (attrs.lightSoundOperator ?? d.lightSoundOperator) ?? undefined,
+      subtitle: attrs.subtitle ?? d.subtitle ?? undefined,
+      author: attrs.author ?? d.author ?? undefined,
+      director: attrs.director ?? d.director ?? undefined,
+      directorQuote: attrs.directorQuote ?? d.directorQuote ?? undefined,
+      designer: attrs.designer ?? d.designer ?? undefined,
+      lightingDesigner:
+        attrs.lightingDesigner ?? d.lightingDesigner ?? undefined,
+      soundDesigner: attrs.soundDesigner ?? d.soundDesigner ?? undefined,
+      lightSoundOperator:
+        attrs.lightSoundOperator ?? d.lightSoundOperator ?? undefined,
       cast: cast?.length ? cast : undefined,
       reviews: Array.isArray(reviewsRaw)
         ? reviewsRaw
@@ -172,21 +207,21 @@ function mapStrapiPerformance(d: any): Performance | null {
               const rAttrs = (r as any).attributes ?? r;
               return {
                 id: `r${i}`,
-                quote: (rAttrs.quote ?? r.quote) ?? "",
-                author: (rAttrs.author ?? r.author) ?? "",
-                vkUrl: (rAttrs.vkUrl ?? r.vkUrl) ?? undefined,
+                quote: rAttrs.quote ?? r.quote ?? "",
+                author: rAttrs.author ?? r.author ?? "",
+                vkUrl: rAttrs.vkUrl ?? r.vkUrl ?? undefined,
               };
             })
         : undefined,
-      teaserUrl: (attrs.teaserUrl ?? d.teaserUrl) ?? undefined,
+      teaserUrl: attrs.teaserUrl ?? d.teaserUrl ?? undefined,
       date: (attrs.date ?? d.date) || "",
       time: (attrs.time ?? d.time) || "",
       ageRating: (attrs.ageRating ?? d.ageRating) || "",
       genre: (attrs.genre ?? d.genre) || "",
       description: (attrs.description ?? d.description) || "",
-      duration: (attrs.duration ?? d.duration) ?? undefined,
-      intermissions: (attrs.intermissions ?? d.intermissions) ?? undefined,
-      isPremiere: (attrs.isPremiere ?? d.isPremiere) ?? false,
+      duration: attrs.duration ?? d.duration ?? undefined,
+      intermissions: attrs.intermissions ?? d.intermissions ?? undefined,
+      isPremiere: attrs.isPremiere ?? d.isPremiere ?? false,
       inAfisha: (attrs.inAfisha ?? d.inAfisha) !== false,
       schedule: Array.isArray(scheduleRaw)
         ? scheduleRaw
@@ -194,8 +229,8 @@ function mapStrapiPerformance(d: any): Performance | null {
             .map((s: any) => {
               const sAttrs = (s as any).attributes ?? s;
               return {
-                date: (sAttrs.date ?? s.date) ?? "",
-                time: (sAttrs.time ?? s.time) ?? "",
+                date: sAttrs.date ?? s.date ?? "",
+                time: sAttrs.time ?? s.time ?? "",
               };
             })
         : undefined,
@@ -205,8 +240,8 @@ function mapStrapiPerformance(d: any): Performance | null {
             .map((a: any) => {
               const aAttrs = (a as any).attributes ?? a;
               return {
-                title: (aAttrs.title ?? a.title) ?? "",
-                year: (aAttrs.year ?? a.year) ?? "",
+                title: aAttrs.title ?? a.title ?? "",
+                year: aAttrs.year ?? a.year ?? "",
               };
             })
         : undefined,
@@ -216,9 +251,9 @@ function mapStrapiPerformance(d: any): Performance | null {
             .map((f: any) => {
               const fAttrs = (f as any).attributes ?? f;
               return {
-                title: (fAttrs.title ?? f.title) ?? "",
-                year: (fAttrs.year ?? f.year) ?? "",
-                place: (fAttrs.place ?? f.place) ?? "",
+                title: fAttrs.title ?? f.title ?? "",
+                year: fAttrs.year ?? f.year ?? "",
+                place: fAttrs.place ?? f.place ?? "",
               };
             })
         : undefined,
@@ -328,12 +363,12 @@ function mapStrapiHeroSlide(d: any) {
   const image = getMediaUrl(attrs.image ?? d.image) || "";
   return {
     id: d.documentId ?? attrs.documentId ?? String(d.id ?? ""),
-    title: (attrs.title ?? d.title) ?? "",
-    subtitle: (attrs.subtitle ?? d.subtitle) ?? "",
+    title: attrs.title ?? d.title ?? "",
+    subtitle: attrs.subtitle ?? d.subtitle ?? "",
     image,
-    cta: (attrs.cta ?? d.cta) ?? "",
-    ctaHref: (attrs.ctaHref ?? d.ctaHref) ?? "",
-    order: (attrs.order ?? d.order) ?? 0,
+    cta: attrs.cta ?? d.cta ?? "",
+    ctaHref: attrs.ctaHref ?? d.ctaHref ?? "",
+    order: attrs.order ?? d.order ?? 0,
   };
 }
 
@@ -341,19 +376,20 @@ function mapStrapiReview(d: any): Review {
   const attrs = d.attributes ?? d;
   return {
     id: d.documentId ?? attrs.documentId ?? String(d.id ?? ""),
-    quote: (attrs.quote ?? d.quote) ?? "",
-    author: (attrs.author ?? d.author) ?? "",
-    vkUrl: (attrs.vkUrl ?? d.vkUrl) ?? undefined,
-    yandexMapsUrl: (attrs.yandexMapsUrl ?? d.yandexMapsUrl) ?? undefined,
-    twoGisUrl: (attrs.twoGisUrl ?? d.twoGisUrl) ?? undefined,
+    quote: attrs.quote ?? d.quote ?? "",
+    author: attrs.author ?? d.author ?? "",
+    vkUrl: attrs.vkUrl ?? d.vkUrl ?? undefined,
+    yandexMapsUrl: attrs.yandexMapsUrl ?? d.yandexMapsUrl ?? undefined,
+    twoGisUrl: attrs.twoGisUrl ?? d.twoGisUrl ?? undefined,
   };
 }
 
-/** Populate для спектаклей: все поля + cast.photo для фото участников не из команды */
+/** Populate для спектаклей: все поля + invitedCast.photo для фото приглашённых */
 const PERFORMANCE_POPULATE = {
   poster: true,
+  heroSlider: true,
   gallery: true,
-  cast: { populate: ["photo"] },
+  invitedCast: { populate: ["photo"] },
   reviews: true,
   schedule: true,
   awards: true,
@@ -598,7 +634,8 @@ export async function getContactInfo(): Promise<ContactInfo> {
         mapEmbed: (attrs.mapEmbed as string) || "",
         howToGetThere: (attrs.howToGetThere as string) || "",
         footerTagline: (attrs.footerTagline as string)?.trim() || "",
-        footerContactsTitle: (attrs.footerContactsTitle as string)?.trim() || "",
+        footerContactsTitle:
+          (attrs.footerContactsTitle as string)?.trim() || "",
         footerCopyright: (attrs.footerCopyright as string)?.trim() || "",
       };
     }
@@ -651,7 +688,10 @@ export async function getTheaterGalleryImages(): Promise<GalleryImage[]> {
 export { GALLERY_PAGE_SIZE };
 
 /** Маппит медиа в { src, alt } для галерей */
-function mapGalleryImages(field: unknown, defaultAlt = "Фото"): { src: string; alt: string }[] {
+function mapGalleryImages(
+  field: unknown,
+  defaultAlt = "Фото",
+): { src: string; alt: string }[] {
   if (!field) return [];
   const arr = Array.isArray(field) ? field : [field];
   return arr
@@ -659,7 +699,10 @@ function mapGalleryImages(field: unknown, defaultAlt = "Фото"): { src: strin
       const src = getMediaUrl(item);
       if (!src) return null;
       const alt =
-        item && typeof item === "object" && item !== null && "alternativeText" in item
+        item &&
+        typeof item === "object" &&
+        item !== null &&
+        "alternativeText" in item
           ? String((item as Record<string, unknown>).alternativeText)
           : defaultAlt;
       return { src, alt: alt || defaultAlt };
@@ -672,9 +715,11 @@ export interface TeatrTeosPageData {
   title: string;
   lead: string;
   aboutText: string;
-  sliderImages: { src: string; alt: string }[];
-  galleryImages: { src: string; alt: string }[];
+  /** Логотип театра (справа от текста в блоке «О театре») */
+  logo: { src: string; alt: string } | null;
   address: string;
+  /** Как добраться (транспорт, ориентиры) */
+  howToGetThere: string;
   phone: string;
   socialVk: string;
   socialTelegram: string;
@@ -739,9 +784,9 @@ export async function getTeatrTeosPageData(): Promise<TeatrTeosPageData> {
     lead: "Театральный проект Маргариты Вафиной",
     aboutText:
       "Здесь будет текст о театре Маргариты Вафиной. Добавьте описание проекта, миссию, историю и ключевую информацию.",
-    sliderImages: [],
-    galleryImages: [],
+    logo: null,
     address: "Укажите адрес театра",
+    howToGetThere: "",
     phone: "+7 921 64 59 200",
     socialVk: "https://vk.com",
     socialTelegram: "https://t.me",
@@ -757,33 +802,32 @@ export async function getTeatrTeosPageData(): Promise<TeatrTeosPageData> {
     const d = (res as { data?: Record<string, unknown> } | null)?.data;
     if (d) {
       const attrs = (d.attributes ?? d) as Record<string, unknown>;
-      const sliderRaw = attrs.sliderImages;
-      const sliderArr = Array.isArray(sliderRaw)
-        ? sliderRaw
-        : (sliderRaw as { data?: unknown })?.data ?? [];
-      const galleryRaw = attrs.galleryImages;
-      const galleryArr = Array.isArray(galleryRaw)
-        ? galleryRaw
-        : (galleryRaw as { data?: unknown })?.data ?? [];
+      const logoRaw = attrs.logo;
+      const logoArr = logoRaw
+        ? mapGalleryImages(
+            (logoRaw as { data?: unknown })?.data ?? logoRaw,
+            "Логотип театра Теос",
+          )
+        : [];
+      const logo = logoArr[0] ?? null;
       return {
         title: (attrs.title as string) || defaults.title,
         lead: (attrs.lead as string) || defaults.lead,
         aboutText: (attrs.aboutText as string) || defaults.aboutText,
-        sliderImages:
-          mapGalleryImages(sliderArr, "Слайд").length > 0
-            ? mapGalleryImages(sliderArr, "Слайд")
-            : defaults.sliderImages,
-        galleryImages:
-          mapGalleryImages(galleryArr, "Фото").length > 0
-            ? mapGalleryImages(galleryArr, "Фото")
-            : defaults.galleryImages,
+        logo,
         address: (attrs.address as string) || defaults.address,
+        howToGetThere: (attrs.howToGetThere as string) ?? defaults.howToGetThere,
         phone: (attrs.phone as string) || defaults.phone,
         socialVk: (attrs.socialVk as string) || defaults.socialVk,
-        socialTelegram: (attrs.socialTelegram as string) || defaults.socialTelegram,
-        partnerBlockText: (attrs.partnerBlockText as string) || defaults.partnerBlockText,
-        partnerBlockLink: (attrs.partnerBlockLink as string) || defaults.partnerBlockLink,
-        partnerBlockButtonLabel: (attrs.partnerBlockButtonLabel as string) || defaults.partnerBlockButtonLabel,
+        socialTelegram:
+          (attrs.socialTelegram as string) || defaults.socialTelegram,
+        partnerBlockText:
+          (attrs.partnerBlockText as string) || defaults.partnerBlockText,
+        partnerBlockLink:
+          (attrs.partnerBlockLink as string) || defaults.partnerBlockLink,
+        partnerBlockButtonLabel:
+          (attrs.partnerBlockButtonLabel as string) ||
+          defaults.partnerBlockButtonLabel,
       };
     }
   } catch (err) {
@@ -814,16 +858,18 @@ export async function getArendaZalaPageData(): Promise<ArendaZalaPageData> {
       const galleryRaw = attrs.gallery;
       const galleryArr = Array.isArray(galleryRaw)
         ? galleryRaw
-        : (galleryRaw as { data?: unknown })?.data ?? [];
+        : ((galleryRaw as { data?: unknown })?.data ?? []);
       return {
         title: (attrs.title as string) || defaults.title,
         lead: (attrs.lead as string) || defaults.lead,
-        conditionsText: (attrs.conditionsText as string) || defaults.conditionsText,
+        conditionsText:
+          (attrs.conditionsText as string) || defaults.conditionsText,
         galleryImages:
           mapGalleryImages(galleryArr, "Фото").length > 0
             ? mapGalleryImages(galleryArr, "Фото")
             : defaults.galleryImages,
-        howToBookText: (attrs.howToBookText as string) || defaults.howToBookText,
+        howToBookText:
+          (attrs.howToBookText as string) || defaults.howToBookText,
       };
     }
   } catch (err) {
@@ -855,7 +901,8 @@ export async function getPomochTeatruPageData(): Promise<PomochTeatruPageData> {
         title: (attrs.title as string) || defaults.title,
         lead: (attrs.lead as string) || defaults.lead,
         introText: (attrs.introText as string) || defaults.introText,
-        requisitesText: (attrs.requisitesText as string) || defaults.requisitesText,
+        requisitesText:
+          (attrs.requisitesText as string) || defaults.requisitesText,
         qrCodeImageUrl: qrUrl || defaults.qrCodeImageUrl,
       };
     }
@@ -928,12 +975,14 @@ export async function getOTeatrePageData(): Promise<OTeatrePageData> {
       const galleryRaw = attrs.gallery;
       const galleryArr = Array.isArray(galleryRaw)
         ? galleryRaw
-        : (galleryRaw as { data?: unknown })?.data ?? [];
+        : ((galleryRaw as { data?: unknown })?.data ?? []);
       return {
         title: (attrs.title as string) || defaults.title,
         lead: typeof attrs.lead === "string" ? attrs.lead : "",
-        historyText: typeof attrs.historyText === "string" ? attrs.historyText : "",
-        missionText: typeof attrs.missionText === "string" ? attrs.missionText : "",
+        historyText:
+          typeof attrs.historyText === "string" ? attrs.historyText : "",
+        missionText:
+          typeof attrs.missionText === "string" ? attrs.missionText : "",
         galleryImages:
           mapGalleryImages(galleryArr, "Фото").length > 0
             ? mapGalleryImages(galleryArr, "Фото")
@@ -944,7 +993,8 @@ export async function getOTeatrePageData(): Promise<OTeatrePageData> {
           (attrs.showOnMainPage == null &&
             (!!(typeof attrs.lead === "string" && attrs.lead.trim()) ||
               mapGalleryImages(galleryArr, "Фото").length > 0)),
-        mainPageTitle: typeof attrs.mainPageTitle === "string" ? attrs.mainPageTitle : "",
+        mainPageTitle:
+          typeof attrs.mainPageTitle === "string" ? attrs.mainPageTitle : "",
         mainPageShowLead: attrs.mainPageShowLead !== false,
         mainPageShowMission: attrs.mainPageShowMission === true,
       };

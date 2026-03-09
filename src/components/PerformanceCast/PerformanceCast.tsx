@@ -45,10 +45,11 @@ export default function PerformanceCast({
                   <OptimizedImage
                     src={photo}
                     alt={member.name}
-                    width={256}
-                    height={256}
+                    width={400}
+                    height={500}
                     className={styles.photo}
-                    effect="blur"
+                    style={{ objectFit: "contain", objectPosition: "top" }}
+                    skipShimmer
                   />
                 ) : (
                   <span className={styles.placeholder}>

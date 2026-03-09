@@ -95,6 +95,10 @@ export default function OptimizedImage({
   const hasDimensions = imageProps.width != null && imageProps.height != null;
 
   if (effect && hasDimensions) {
+    const imgStyle =
+      typeof imageProps.style === "object" && imageProps.style
+        ? { ...imageProps.style }
+        : undefined;
     if (skipShimmer) {
       return (
         <LazyLoadImage
@@ -103,6 +107,7 @@ export default function OptimizedImage({
           width={imageProps.width}
           height={imageProps.height}
           className={imageProps.className as string}
+          style={imgStyle}
           effect={effect}
           threshold={150}
           useIntersectionObserver
@@ -129,6 +134,7 @@ export default function OptimizedImage({
           width={imageProps.width}
           height={imageProps.height}
           className={imageProps.className as string}
+          style={imgStyle}
           effect={effect}
           threshold={150}
           useIntersectionObserver
@@ -139,10 +145,10 @@ export default function OptimizedImage({
   }
 
   if (effect && fill) {
-    /* objectFit не задаём — пусть CSS (Hero/PerformanceHero) управляет через media queries */
     const imgStyle: React.CSSProperties = {
       width: "100%",
       height: "100%",
+      objectFit: "cover",
     };
     const explicitObjectFit =
       typeof imageProps.style === "object" &&

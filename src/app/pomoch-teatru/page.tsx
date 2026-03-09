@@ -36,17 +36,18 @@ export default async function PomochTeatruPage() {
 
       <header className={styles.header}>
         <h1 className={styles.h1}>{data.title || "Помочь театру"}</h1>
-        <p className={styles.lead}>{data.lead || ""}</p>
       </header>
 
-      {data.introText?.trim() && (
+      {(data.lead?.trim() || data.introText?.trim()) && (
         <section className={styles.contentSection}>
-          {data.introText
-            .split(/\n\n+/)
-            .filter((p) => p.trim())
-            .map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
+          {data.lead?.trim() && <p>{data.lead}</p>}
+          {data.introText?.trim() &&
+            data.introText
+              .split(/\n\n+/)
+              .filter((p) => p.trim())
+              .map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
         </section>
       )}
 

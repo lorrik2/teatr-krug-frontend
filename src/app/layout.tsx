@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import NavigationProgress from "@/components/NavigationProgress/NavigationProgress";
 import { getContactInfo, EMPTY_CONTACT } from "@/lib/cms-data";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import { SITE_URL } from "@/lib/site-config";
@@ -76,6 +77,7 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen flex flex-col">
+        <NavigationProgress />
         <OrganizationJsonLd />
         <Header />
         <main className="flex-1">{children}</main>

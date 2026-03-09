@@ -689,7 +689,6 @@ export interface ApiPerformancePerformance extends Struct.CollectionTypeSchema {
     ageRating: Schema.Attribute.String;
     author: Schema.Attribute.String;
     awards: Schema.Attribute.Component<'shared.award', true>;
-    cast: Schema.Attribute.Component<'shared.cast-member', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -702,8 +701,10 @@ export interface ApiPerformancePerformance extends Struct.CollectionTypeSchema {
     festivals: Schema.Attribute.Component<'shared.festival', true>;
     gallery: Schema.Attribute.Media<'images', true>;
     genre: Schema.Attribute.String;
+    heroSlider: Schema.Attribute.Media<'images', true>;
     inAfisha: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     intermissions: Schema.Attribute.Integer;
+    invitedCast: Schema.Attribute.Component<'shared.cast-member', true>;
     isPremiere: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     lightingDesigner: Schema.Attribute.String;
     lightSoundOperator: Schema.Attribute.String;
@@ -779,7 +780,7 @@ export interface ApiTeatrTeosTeatrTeos extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    galleryImages: Schema.Attribute.Media<'images', true>;
+    howToGetThere: Schema.Attribute.Text;
     lead: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -787,12 +788,12 @@ export interface ApiTeatrTeosTeatrTeos extends Struct.SingleTypeSchema {
       'api::teatr-teos.teatr-teos'
     > &
       Schema.Attribute.Private;
+    logo: Schema.Attribute.Media<'images'>;
     partnerBlockButtonLabel: Schema.Attribute.String;
     partnerBlockLink: Schema.Attribute.String;
     partnerBlockText: Schema.Attribute.Text;
     phone: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    sliderImages: Schema.Attribute.Media<'images', true>;
     socialTelegram: Schema.Attribute.String;
     socialVk: Schema.Attribute.String;
     title: Schema.Attribute.String;

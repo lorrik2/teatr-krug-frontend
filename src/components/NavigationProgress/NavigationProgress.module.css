@@ -1,0 +1,8 @@
+.bar {
+  @apply fixed left-0 right-0 top-0 z-[100] h-1 overflow-hidden;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.fill {
+  @apply h-full bg-accent-red;
+}

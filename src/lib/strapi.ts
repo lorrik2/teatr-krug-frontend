@@ -12,7 +12,11 @@ function serializePopulate(
   for (const [key, value] of Object.entries(obj)) {
     const paramKey = `${prefix}[${key}]`;
     if (value === null || value === undefined) continue;
-    if (typeof value === "boolean" || typeof value === "number" || typeof value === "string") {
+    if (
+      typeof value === "boolean" ||
+      typeof value === "number" ||
+      typeof value === "string"
+    ) {
       params.set(paramKey, String(value));
     } else if (Array.isArray(value)) {
       value.forEach((v, i) => {
@@ -76,7 +80,11 @@ export async function fetchStrapi<T>(
       });
     } else if (p && typeof p === "object" && !Array.isArray(p)) {
       // Сериализация объекта populate для Strapi (формат qs)
-      serializePopulate(url.searchParams, "populate", p as Record<string, unknown>);
+      serializePopulate(
+        url.searchParams,
+        "populate",
+        p as Record<string, unknown>,
+      );
     }
   }
   if (options?.filters) {

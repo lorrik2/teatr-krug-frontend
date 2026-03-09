@@ -22,23 +22,20 @@
       "type": "text",
       "description": "Текст блока «О театре»"
     },
-    "sliderImages": {
+    "logo": {
       "type": "media",
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "allowedTypes": ["images"],
-      "description": "Фото для слайдера"
-    },
-    "galleryImages": {
-      "type": "media",
-      "multiple": true,
-      "required": false,
-      "allowedTypes": ["images"],
-      "description": "Фотогалерея"
+      "description": "Логотип театра (отображается справа от текста в блоке «О театре»)"
     },
     "address": {
       "type": "string",
       "description": "Адрес"
+    },
+    "howToGetThere": {
+      "type": "text",
+      "description": "Как добраться (транспорт, ориентиры)"
     },
     "phone": {
       "type": "string",

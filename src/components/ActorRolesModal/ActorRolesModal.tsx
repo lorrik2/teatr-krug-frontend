@@ -125,10 +125,11 @@ export default function ActorRolesModal({
               <OptimizedImage
                 src={photo}
                 alt={name || "Актёр"}
-                width={120}
-                height={120}
+                width={400}
+                height={500}
                 className={styles.photo}
-                effect="blur"
+                style={{ objectFit: "contain", objectPosition: "top" }}
+                skipShimmer
               />
             ) : (
               <span className={styles.placeholder}>{(name || "?")[0]}</span>
