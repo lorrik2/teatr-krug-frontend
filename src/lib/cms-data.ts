@@ -35,19 +35,73 @@ const EMPTY_CONTACT: ContactInfo = {
 export { EMPTY_CONTACT };
 import { getPerformanceSlug, getActorSlug, getNewsSlug } from "./slug-utils";
 
-/** Безопасно извлекает URL из медиа-поля Strapi (поддержка data.attributes.url и прямого url) */
+/** Безопасно извлекает URL из медиа-поля Strapi (поддержка data.attributes.url, data.url и прямого url) */
 function getMediaUrl(field: unknown): string {
   if (!field || typeof field !== "object") return "";
   const f = field as Record<string, unknown>;
   if (typeof f.url === "string") return getStrapiMediaUrl(f.url);
   const data = f.data as Record<string, unknown> | undefined;
+  if (!data || typeof data !== "object") return "";
   if (data?.attributes && typeof data.attributes === "object") {
     const url = (data.attributes as Record<string, unknown>).url;
     if (typeof url === "string") return getStrapiMediaUrl(url);
   }
-  if (data?.url && typeof data.url === "string")
-    return getStrapiMediaUrl(data.url);
+  if (typeof data.url === "string") return getStrapiMediaUrl(data.url);
   return "";
+}
+
+const MONTH_NAMES: Record<string, number> = {
+  января: 1, февраля: 2, марта: 3, апреля: 4, мая: 5, июня: 6,
+  июля: 7, августа: 8, сентября: 9, октября: 10, ноября: 11, декабря: 12,
+};
+
+/** Парсит дату "28 марта" или "15 февраля 2025" в timestamp для сортировки. Без года — текущий год. */
+function parseDisplayDate(dateStr: string): number {
+  if (!dateStr || dateStr === "—") return Infinity;
+  const match = dateStr.match(
+    /(\d+)\s+(января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря)(?:\s+(\d{4}))?/
+  );
+  if (!match) return Infinity;
+  const [, day, monthName, year] = match;
+  const month = MONTH_NAMES[monthName];
+  if (!month) return Infinity;
+  const yr = year ? Number(year) : new Date().getFullYear();
+  const d = new Date(yr, month - 1, Number(day));
+  return d.getTime();
+}
+
+/** Парсит время "19:00" в минуты от полуночи. */
+function parseTime(timeStr: string): number {
+  if (!timeStr) return 0;
+  const m = timeStr.match(/^(\d{1,2}):(\d{2})/);
+  if (!m) return 0;
+  return parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
+}
+
+/** Минимальная дата спектакля (из schedule или date) для сортировки. */
+function getEarliestSortKey(p: Performance): { ts: number; timeMins: number } {
+  const dates: { date: string; time: string }[] =
+    p.schedule?.length ? p.schedule : p.date ? [{ date: p.date, time: p.time || "" }] : [];
+  if (dates.length === 0) return { ts: Infinity, timeMins: 0 };
+  let min = { ts: Infinity, timeMins: 0 };
+  for (const { date, time } of dates) {
+    const ts = parseDisplayDate(date);
+    const timeMins = parseTime(time);
+    if (ts < min.ts || (ts === min.ts && timeMins < min.timeMins)) {
+      min = { ts, timeMins };
+    }
+  }
+  return min;
+}
+
+/** Сортирует спектакли по хронологии: по ближайшей дате показа. Без даты — в конец. */
+export function sortPerformancesChronologically(performances: Performance[]): Performance[] {
+  return [...performances].sort((a, b) => {
+    const ka = getEarliestSortKey(a);
+    const kb = getEarliestSortKey(b);
+    if (ka.ts !== kb.ts) return ka.ts - kb.ts;
+    return ka.timeMins - kb.timeMins;
+  });
 }
 
 /** Безопасно маппит элемент галереи Strapi */
@@ -81,12 +135,11 @@ function mapStrapiPerformance(d: any): Performance | null {
       ? castRaw
           .filter((c: unknown) => c && typeof c === "object")
           .map((c: any) => {
-            const actorSlug =
-              c.actor?.slug ?? c.actor?.data?.attributes?.slug ?? c.actorSlug;
+            const photoUrl = getMediaUrl(c.photo) || getMediaUrl(c.photo?.data);
             return {
               name: typeof c.name === "string" ? c.name : "",
               role: typeof c.role === "string" ? c.role : "",
-              actorSlug: typeof actorSlug === "string" ? actorSlug : "",
+              photo: typeof photoUrl === "string" && photoUrl ? photoUrl : undefined,
             };
           })
           .filter((m: { name: string }) => m.name)
@@ -296,11 +349,22 @@ function mapStrapiReview(d: any): Review {
   };
 }
 
+/** Populate для спектаклей: все поля + cast.photo для фото участников не из команды */
+const PERFORMANCE_POPULATE = {
+  poster: true,
+  gallery: true,
+  cast: { populate: ["photo"] },
+  reviews: true,
+  schedule: true,
+  awards: true,
+  festivals: true,
+} as const;
+
 /** Спектакли для афиши (inAfisha) */
 export async function getPerformances(): Promise<Performance[]> {
   try {
     const res = await fetchStrapi<Array<unknown>>("/performances", {
-      populate: "*",
+      populate: PERFORMANCE_POPULATE,
       filters: { inAfisha: true },
       sort: ["date:asc"],
     });
@@ -308,7 +372,7 @@ export async function getPerformances(): Promise<Performance[]> {
       const mapped = res.data
         .map((d: any) => mapStrapiPerformance(d))
         .filter((p): p is Performance => p != null);
-      if (mapped.length > 0) return mapped;
+      if (mapped.length > 0) return sortPerformancesChronologically(mapped);
     }
   } catch (err) {
     console.warn("getPerformances error:", err);
@@ -320,14 +384,13 @@ export async function getPerformances(): Promise<Performance[]> {
 export async function getRepertoirePerformances(): Promise<Performance[]> {
   try {
     const res = await fetchStrapi<Array<unknown>>("/performances", {
-      populate: "*",
-      sort: ["title:asc"],
+      populate: PERFORMANCE_POPULATE,
     });
     if (res?.data && Array.isArray(res.data)) {
       const mapped = res.data
         .map((d: any) => mapStrapiPerformance(d))
         .filter((p): p is Performance => p != null);
-      if (mapped.length > 0) return mapped;
+      if (mapped.length > 0) return sortPerformancesChronologically(mapped);
     }
   } catch (err) {
     console.warn("getRepertoirePerformances error:", err);
@@ -341,7 +404,7 @@ export async function getPerformanceBySlug(
 ): Promise<Performance | null> {
   try {
     const res = await fetchStrapi<Array<unknown>>("/performances", {
-      populate: "*",
+      populate: PERFORMANCE_POPULATE,
       sort: ["title:asc"],
     });
     const data = res?.data;

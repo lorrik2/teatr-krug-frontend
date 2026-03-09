@@ -3,7 +3,7 @@
   "info": {
     "displayName": "Роль в спектакле",
     "icon": "theater",
-    "description": "Роль в спектакле"
+    "description": "Связь актёра со спектаклем — актёр появится в составе спектакля"
   },
   "options": {},
   "attributes": {

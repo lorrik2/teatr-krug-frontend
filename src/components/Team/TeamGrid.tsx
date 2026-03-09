@@ -31,7 +31,6 @@ export default function TeamGrid({
       {director && (
         <div className={styles.directorRow}>
           <div className={styles.directorWrap}>
-            <p className={styles.directorLabel}>Художественный руководитель и режиссёр-постановщик</p>
             <ul className={styles.directorGrid}>
             <li key={director.id} className={styles.card}>
               <Link
@@ -64,7 +63,7 @@ export default function TeamGrid({
       )}
       {otherActors.length > 0 && (
         <>
-          <h2 className={styles.actorsTitle}>Актеры и режиссёры театра</h2>
+          {director && <div className={styles.teamDivider} aria-hidden />}
           <ul className={styles.teamGrid}>
         {otherActors.map((actor, index) => {
           const isDirector = isDirectorOrArtisticDirector(actor);

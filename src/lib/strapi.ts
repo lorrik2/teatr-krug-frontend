@@ -3,6 +3,27 @@
  * Подключается к http://localhost:1337 при разработке
  */
 
+/** Рекурсивно сериализует объект populate в searchParams (формат qs) */
+function serializePopulate(
+  params: URLSearchParams,
+  prefix: string,
+  obj: Record<string, unknown>,
+): void {
+  for (const [key, value] of Object.entries(obj)) {
+    const paramKey = `${prefix}[${key}]`;
+    if (value === null || value === undefined) continue;
+    if (typeof value === "boolean" || typeof value === "number" || typeof value === "string") {
+      params.set(paramKey, String(value));
+    } else if (Array.isArray(value)) {
+      value.forEach((v, i) => {
+        params.set(`${paramKey}[${i}]`, String(v));
+      });
+    } else if (typeof value === "object" && value !== null) {
+      serializePopulate(params, paramKey, value as Record<string, unknown>);
+    }
+  }
+}
+
 const STRAPI_URL =
   process.env.STRAPI_URL ||
   process.env.NEXT_PUBLIC_STRAPI_URL ||
@@ -33,7 +54,7 @@ export interface StrapiResponse<T> {
 export async function fetchStrapi<T>(
   path: string,
   options?: {
-    populate?: string | Record<string, unknown>;
+    populate?: string | string[] | Record<string, unknown>;
     filters?: Record<string, unknown>;
     sort?: string | string[];
     locale?: string;
@@ -45,13 +66,18 @@ export async function fetchStrapi<T>(
   if (options?.locale) {
     url.searchParams.set("locale", options.locale);
   }
-  if (options?.populate) {
-    url.searchParams.set(
-      "populate",
-      typeof options.populate === "string"
-        ? options.populate
-        : JSON.stringify(options.populate),
-    );
+  if (options?.populate !== undefined) {
+    const p = options.populate;
+    if (typeof p === "string") {
+      url.searchParams.set("populate", p);
+    } else if (Array.isArray(p)) {
+      p.forEach((v, i) => {
+        url.searchParams.set(`populate[${i}]`, String(v));
+      });
+    } else if (p && typeof p === "object" && !Array.isArray(p)) {
+      // Сериализация объекта populate для Strapi (формат qs)
+      serializePopulate(url.searchParams, "populate", p as Record<string, unknown>);
+    }
   }
   if (options?.filters) {
     Object.entries(options.filters).forEach(([key, value]) => {

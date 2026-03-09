@@ -1,1 +1,20 @@
-{"collectionName":"components_shared_cast_members","info":{"displayName":"Актёр и роль","icon":"user","description":"Актёр и роль в спектакле"},"options":{},"attributes":{"name":{"type":"string","required":true},"role":{"type":"string","required":true},"actor":{"type":"relation","relation":"oneToOne","target":"api::actor.actor","description":"Ссылка на актёра для фото"}}}
+{
+  "collectionName": "components_shared_cast_members",
+  "info": {
+    "displayName": "Участник спектакля (не из команды)",
+    "icon": "user",
+    "description": "Музыканты, приглашённые и др. — только для участников, которых нет в команде. Актёров из команды добавляйте в карточке актёра (роли в спектаклях)."
+  },
+  "options": {},
+  "attributes": {
+    "name": { "type": "string", "required": true },
+    "role": { "type": "string", "required": true },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"],
+      "description": "Фото участника"
+    }
+  }
+}

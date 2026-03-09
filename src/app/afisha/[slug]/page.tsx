@@ -12,6 +12,7 @@ import {
   getMergedCast,
 } from "@/lib/actor-utils";
 import { DEFAULT_TICKETS_URL } from "@/lib/site-config";
+import { formatDisplayDate } from "@/lib/date-utils";
 import PerformanceHero from "@/components/PerformanceHero";
 import PerformanceEventJsonLd from "@/components/seo/PerformanceEventJsonLd";
 import PerformanceReviewsJsonLd from "@/components/seo/PerformanceReviewsJsonLd";
@@ -254,7 +255,7 @@ export default async function PerformancePage({ params }: Props) {
                   {schedule.map((item, i) => (
                     <div key={i} className={styles.scheduleRow}>
                       <span className={styles.scheduleDateTime}>
-                        {item.date}
+                        {formatDisplayDate(item.date)}
                         <span className={styles.scheduleSep}>|</span>
                         {item.time}
                       </span>

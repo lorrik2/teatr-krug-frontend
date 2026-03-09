@@ -6,8 +6,10 @@
 export interface CastMember {
   name: string;
   role: string;
-  /** slug актёра из команды — для фото */
+  /** slug актёра из команды — для фото и ссылки на страницу актёра */
   actorSlug?: string;
+  /** Фото участника — для записей без связи с актёром (музыканты, приглашённые) */
+  photo?: string;
 }
 
 export interface Performance {

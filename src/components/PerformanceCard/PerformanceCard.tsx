@@ -5,6 +5,7 @@ import OptimizedImage from "@/components/OptimizedImage";
 import { motion, type Variants } from "framer-motion";
 import type { Performance } from "@/lib/types";
 import { DEFAULT_TICKETS_URL } from "@/lib/site-config";
+import { formatDisplayDate } from "@/lib/date-utils";
 import styles from "./PerformanceCard.module.css";
 
 type CardVariant = "afisha" | "repertuar";
@@ -51,7 +52,7 @@ export default function PerformanceCard({ play, variant, animated, variants, com
               <span className={styles.dateTime}>
                 {play.date !== "—" ? (
                   <>
-                    {play.date}
+                    {formatDisplayDate(play.date)}
                     {play.time !== "—" && (
                       <>
                         <br />

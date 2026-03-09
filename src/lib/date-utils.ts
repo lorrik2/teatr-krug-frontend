@@ -15,6 +15,12 @@ export function toIsoDateTime(dateStr: string, timeStr: string): string | null {
   return `${year}-${month}-${day.padStart(2, "0")}T${h}:${min}:00`;
 }
 
+/** Убирает год из даты для отображения: "28 марта 2026" → "28 марта" */
+export function formatDisplayDate(dateStr: string): string {
+  if (!dateStr || dateStr === "—") return dateStr;
+  return dateStr.replace(/\s+\d{4}$/, "");
+}
+
 /** Конвертирует "15 февраля 2025" в ISO дату YYYY-MM-DD */
 export function toIsoDate(dateStr: string): string | null {
   const m = dateStr.match(/^(\d{1,2})\s+(\S+)\s+(\d{4})$/);

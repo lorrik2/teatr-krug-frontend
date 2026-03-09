@@ -35,16 +35,13 @@
   @apply mb-8 flex justify-center;
 }
 
-.actorsTitle {
-  @apply mb-8 text-center font-sans text-sm font-medium uppercase tracking-wider text-graphite-500;
+.teamDivider {
+  @apply my-10 border-0 border-t border-graphite-200;
+  @apply w-full max-w-2xl mx-auto;
 }
 
 .directorWrap {
   @apply flex flex-col items-center;
-}
-
-.directorLabel {
-  @apply mb-4 text-center font-sans text-sm font-medium uppercase tracking-wider text-graphite-500;
 }
 
 .directorGrid {

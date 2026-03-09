@@ -35,7 +35,8 @@
     "cast": {
       "type": "component",
       "repeatable": true,
-      "component": "shared.cast-member"
+      "component": "shared.cast-member",
+      "description": "Только участники не из команды (музыканты и т.д.). Актёров добавляйте в карточке актёра — Роли в спектаклях."
     },
     "reviews": {
       "type": "component",

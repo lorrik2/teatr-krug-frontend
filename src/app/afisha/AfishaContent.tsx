@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 import * as Accordion from "@radix-ui/react-accordion";
 import type { Performance } from "@/lib/types";
 import { PerformanceCard } from "@/components/PerformanceCard";
+import { sortPerformancesChronologically } from "@/lib/cms-data";
 import styles from "../styles/Page.module.css";
 
 const MONTH_NAMES: Record<string, number> = {
@@ -21,15 +22,16 @@ const MONTH_NAMES: Record<string, number> = {
   декабря: 12,
 };
 
-/** Извлекает ключ месяца из даты "15 февраля 2025" → { key: "2025-02", label: "Февраль 2025" } */
+/** Извлекает месяц из даты "28 марта" или "15 февраля 2025" → { key: "03", label: "Март" } */
 function getMonthFromDate(dateStr: string): { key: string; label: string } | null {
   if (!dateStr || dateStr === "—") return null;
-  const match = dateStr.match(/(\d+)\s+(января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря)\s+(\d{4})/);
+  // Поддержка "28 марта" (без года) и "15 февраля 2025" (с годом — год игнорируем)
+  const match = dateStr.match(/(\d+)\s+(января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря)(?:\s+\d{4})?/);
   if (!match) return null;
-  const [, , monthName, year] = match;
+  const [, , monthName] = match;
   const monthNum = MONTH_NAMES[monthName];
   if (!monthNum) return null;
-  const key = `${year}-${String(monthNum).padStart(2, "0")}`;
+  const key = String(monthNum).padStart(2, "0");
   const labelMap: Record<string, string> = {
     января: "Январь",
     февраля: "Февраль",
@@ -44,7 +46,7 @@ function getMonthFromDate(dateStr: string): { key: string; label: string } | nul
     ноября: "Ноябрь",
     декабря: "Декабрь",
   };
-  const label = `${labelMap[monthName] || monthName} ${year}`;
+  const label = labelMap[monthName] || monthName;
   return { key, label };
 }
 
@@ -163,7 +165,7 @@ export default function AfishaContent({
             </Accordion.Header>
             <Accordion.Content className={styles.accordionContent}>
               <ul className={`${styles.cardsGrid} ${styles.monthCards}`}>
-                {items.map((play) => (
+                {sortPerformancesChronologically(items).map((play) => (
                   <PerformanceCard key={play.id} play={play} variant="afisha" />
                 ))}
               </ul>

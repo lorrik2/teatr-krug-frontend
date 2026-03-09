@@ -32,7 +32,7 @@ export default function PerformanceCast({
           const actor = member.actorSlug
             ? actors.find((a) => a.slug === member.actorSlug)
             : null;
-          const photo = actor?.photo;
+          const photo = actor?.photo ?? member.photo;
           const isDirector =
             actor && isDirectorOrArtisticDirector(actor);
           const showLink = !!isDirector;

@@ -41,6 +41,7 @@ export default async function TroupePage() {
       </nav>
       <header className={styles.header}>
         <h1 className={styles.title}>Команда</h1>
+        <p className={styles.subtitle}>Актеры и режиссёры театра</p>
       </header>
 
       <section className={styles.section}>

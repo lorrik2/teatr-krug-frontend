@@ -16,10 +16,21 @@ export const metadata: Metadata = {
     url: canonicalUrl("/afisha"),
     siteName: "Драматический театр «Круг»",
     title: "Афиша — Драматический театр «Круг»",
-    description: "Репертуар спектаклей текущего сезона. Даты, время, возрастной рейтинг. Купить билеты онлайн.",
-    images: [{ url: "/logo/logoLayout.png", width: 1200, height: 630, alt: "Афиша театра Круг" }],
+    description:
+      "Репертуар спектаклей текущего сезона. Даты, время, возрастной рейтинг. Купить билеты онлайн.",
+    images: [
+      {
+        url: "/logo/logoLayout.png",
+        width: 1200,
+        height: 630,
+        alt: "Афиша театра Круг",
+      },
+    ],
   },
-  twitter: { card: "summary_large_image", title: "Афиша — Драматический театр «Круг»" },
+  twitter: {
+    card: "summary_large_image",
+    title: "Афиша — Драматический театр «Круг»",
+  },
 };
 
 export default async function AfishaPage() {
@@ -33,7 +44,6 @@ export default async function AfishaPage() {
       </nav>
       <header className={styles.header}>
         <h1 className={styles.h1}>Афиша</h1>
-        <p className={styles.lead}>Выберите спектакль и дату.</p>
       </header>
 
       <AfishaContent performances={performances} />

@@ -46,7 +46,7 @@
       "type": "component",
       "repeatable": true,
       "component": "shared.role-item",
-      "description": "Роли в спектаклях"
+      "description": "Роли в спектаклях — выберите спектакль и укажите роль. Актёр появится в составе на странице спектакля."
     },
     "gallery": {
       "type": "media",
