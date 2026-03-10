@@ -107,7 +107,12 @@ export default function PerformanceFeaturedBlock({
               <Swiper
                 modules={[Pagination, Autoplay]}
                 spaceBetween={12}
-                slidesPerView={1.2}
+                slidesPerView={1}
+                breakpoints={{
+                  480: { slidesPerView: 2, spaceBetween: 16 },
+                  768: { slidesPerView: 2.5, spaceBetween: 20 },
+                  1024: { slidesPerView: 3, spaceBetween: 24 },
+                }}
                 loop={carouselImages.length > 1}
                 autoplay={
                   carouselImages.length > 1
@@ -115,11 +120,6 @@ export default function PerformanceFeaturedBlock({
                     : false
                 }
                 pagination={{ clickable: true }}
-                breakpoints={{
-                  480: { slidesPerView: 2, spaceBetween: 16 },
-                  768: { slidesPerView: 2.5, spaceBetween: 20 },
-                  1024: { slidesPerView: 3, spaceBetween: 24 },
-                }}
                 className={styles.carousel}
               >
                 {carouselImages.map((src, i) => {
@@ -140,7 +140,7 @@ export default function PerformanceFeaturedBlock({
                             alt={alt}
                             fill
                             className={styles.carouselImg}
-                            sizes="(max-width: 479px) 85vw, (max-width: 767px) 45vw, (max-width: 1023px) 40vw, 30vw"
+                            sizes="(max-width: 479px) 95vw, (max-width: 767px) 50vw, (max-width: 1023px) 45vw, 400px"
                             effect="blur"
                           />
                         </div>

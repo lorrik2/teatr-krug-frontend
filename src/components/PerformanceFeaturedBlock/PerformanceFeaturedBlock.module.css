@@ -52,7 +52,7 @@
 }
 
 .textContent {
-  @apply space-y-4 text-base leading-relaxed text-graphite-200 md:text-lg;
+  @apply space-y-4 text-base leading-relaxed text-graphite-200 md:text-lg whitespace-pre-line;
 }
 
 .textContent p {
@@ -63,10 +63,10 @@
   @apply mt-4;
 }
 
-/* 3. Карусель фото (альбомный формат) */
+/* 3. Карусель фото (альбомный формат, без обрезки) */
 .carouselSection {
   width: 100%;
-  max-width: 480px;
+  max-width: 640px;
 }
 
 .carousel {
@@ -87,11 +87,12 @@
 
 .carouselSlideInner {
   @apply relative block w-full overflow-hidden rounded-sm;
-  aspect-ratio: 4/5;
+  aspect-ratio: 16/9;
 }
 
 .carouselImg {
-  @apply h-full w-full object-cover transition-transform duration-300;
+  @apply h-full w-full object-contain transition-transform duration-300;
+  background: #141414;
 }
 
 /* Swiper pagination для карусели */

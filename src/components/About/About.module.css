@@ -29,11 +29,11 @@
 }
 
 .text p {
-  @apply text-graphite-300;
+  @apply text-graphite-300 whitespace-pre-line;
 }
 
 .lead {
-  @apply text-lg font-medium text-graphite-100;
+  @apply text-lg font-medium text-graphite-100 whitespace-pre-line;
 }
 
 .subblockTitle {

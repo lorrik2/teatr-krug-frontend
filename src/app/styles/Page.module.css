@@ -32,7 +32,7 @@
 }
 
 .lead {
-  @apply mt-2 text-lg text-graphite-600;
+  @apply mt-2 text-lg text-graphite-600 whitespace-pre-line;
 }
 
 .section {
@@ -52,7 +52,7 @@
 }
 
 .contentSection p {
-  @apply mt-3 text-graphite-700 leading-relaxed;
+  @apply mt-3 text-graphite-700 leading-relaxed whitespace-pre-line;
 }
 
 .h2 {
@@ -328,11 +328,11 @@
 }
 
 .teamRank {
-  @apply mt-0.5 text-sm text-graphite-600;
+  @apply mt-0.5 text-sm text-graphite-600 whitespace-pre-line;
 }
 
 .teamRole {
-  @apply text-sm text-graphite-500;
+  @apply text-sm text-graphite-500 whitespace-pre-line;
 }
 
 /* News */
@@ -373,5 +373,5 @@
 }
 
 .newsExcerpt {
-  @apply mt-2 line-clamp-2 text-sm text-graphite-600;
+  @apply mt-2 line-clamp-2 text-sm text-graphite-600 whitespace-pre-line;
 }

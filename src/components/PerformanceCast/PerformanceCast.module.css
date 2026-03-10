@@ -56,5 +56,5 @@ button.link {
 }
 
 .role {
-  @apply text-sm text-graphite-500 sm:text-base;
+  @apply text-sm text-graphite-500 sm:text-base whitespace-pre-line;
 }

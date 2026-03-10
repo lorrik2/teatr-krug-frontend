@@ -91,7 +91,7 @@ export default async function EventItemPage({ params }: Props) {
           <OptimizedImage src={item.image} alt="" fill className="object-cover" effect="blur" />
         </div>
         <div className="mt-6 prose prose-graphite max-w-none">
-          <p className="text-lg text-graphite-700">{item.excerpt}</p>
+          <p className="text-lg text-graphite-700 whitespace-pre-line">{item.excerpt}</p>
           {item.content ? (
             <p className="mt-4 whitespace-pre-line text-graphite-700">{item.content}</p>
           ) : null}

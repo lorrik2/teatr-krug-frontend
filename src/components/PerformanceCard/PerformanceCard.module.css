@@ -56,7 +56,7 @@
 }
 
 .genre {
-  @apply mt-0.5 text-sm text-white/80;
+  @apply mt-0.5 text-sm text-white/80 whitespace-pre-line;
 }
 
 .btnDetail {

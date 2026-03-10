@@ -119,9 +119,9 @@ button.cardLink {
 }
 
 .rank {
-  @apply mt-0.5 text-xs text-graphite-600 sm:text-sm;
+  @apply mt-0.5 text-xs text-graphite-600 sm:text-sm whitespace-pre-line;
 }
 
 .role {
-  @apply text-xs text-graphite-500 sm:text-sm;
+  @apply text-xs text-graphite-500 sm:text-sm whitespace-pre-line;
 }

@@ -27,7 +27,7 @@
 }
 
 .aboutDesc {
-  @apply mt-6 max-w-3xl text-base leading-relaxed text-graphite-700 md:text-lg;
+  @apply mt-6 max-w-3xl text-base leading-relaxed text-graphite-700 md:text-lg whitespace-pre-line;
 }
 
 .aboutDesc p + p {
@@ -48,7 +48,7 @@
 }
 
 .infoValue {
-  @apply font-sans text-base text-graphite-950 md:text-lg;
+  @apply font-sans text-base text-graphite-950 md:text-lg whitespace-pre-line;
 }
 
 /* Создатели — стиль mbronnaya: роль | имена */
@@ -65,11 +65,11 @@
 }
 
 .creatorName {
-  @apply font-sans text-base text-graphite-950 md:text-lg;
+  @apply font-sans text-base text-graphite-950 md:text-lg whitespace-pre-line;
 }
 
 .creatorNameLink {
-  @apply font-sans text-base text-graphite-950 no-underline hover:underline md:text-lg;
+  @apply font-sans text-base text-graphite-950 no-underline hover:underline md:text-lg whitespace-pre-line;
 }
 
 .directorQuoteLabelLink {
@@ -86,7 +86,7 @@
 }
 
 .directorQuoteText {
-  @apply mt-2 font-sans text-base italic leading-relaxed text-graphite-800 md:text-lg;
+  @apply mt-2 font-sans text-base italic leading-relaxed text-graphite-800 md:text-lg whitespace-pre-line;
 }
 
 /* Даты и время показов — между режиссёром и участниками */
@@ -157,11 +157,11 @@
 }
 
 .awardTitle {
-  @apply font-sans text-base text-graphite-800 md:text-lg;
+  @apply font-sans text-base text-graphite-800 md:text-lg whitespace-pre-line;
 }
 
 .awardMeta {
-  @apply shrink-0 text-sm text-graphite-500;
+  @apply shrink-0 text-sm text-graphite-500 whitespace-pre-line;
 }
 
 /* Отступ от тизера до блока покупки билетов */

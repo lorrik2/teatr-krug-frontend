@@ -73,15 +73,19 @@
 }
 
 .rank {
-  @apply mt-1 text-sm font-medium uppercase tracking-wider text-graphite-600;
+  @apply mt-1 text-sm font-medium uppercase tracking-wider text-graphite-600 whitespace-pre-line;
 }
 
 .role {
-  @apply mt-2 font-sans text-lg text-graphite-700;
+  @apply mt-2 font-sans text-lg text-graphite-700 whitespace-pre-line;
 }
 
 .bio {
   @apply mt-6 text-base leading-relaxed text-graphite-700 md:text-lg;
+}
+
+.bio p {
+  @apply whitespace-pre-line;
 }
 
 .bio p + p {
@@ -101,7 +105,7 @@
 }
 
 .roleLink {
-  @apply text-graphite-950 no-underline hover:underline;
+  @apply text-graphite-950 no-underline hover:underline whitespace-pre-line;
 }
 
 .performanceTitle {

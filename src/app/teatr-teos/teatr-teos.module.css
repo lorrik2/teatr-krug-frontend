@@ -8,7 +8,7 @@
 }
 
 .aboutText p {
-  @apply text-graphite-800 leading-relaxed;
+  @apply text-graphite-800 leading-relaxed whitespace-pre-line;
 }
 
 .aboutLogo {
@@ -41,6 +41,10 @@
   @apply text-graphite-800 no-underline;
 }
 
+.contactItem p {
+  @apply whitespace-pre-line;
+}
+
 .contactItem a:hover {
   @apply text-graphite-950 underline;
 }
@@ -69,7 +73,7 @@
 }
 
 .partnerBlockText {
-  @apply mt-2 text-lg text-graphite-600;
+  @apply mt-2 text-lg text-graphite-600 whitespace-pre-line;
 }
 
 .partnerBlockCta {

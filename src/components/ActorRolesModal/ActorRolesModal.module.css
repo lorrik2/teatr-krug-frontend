@@ -37,7 +37,7 @@
 }
 
 .rank {
-  @apply mt-0.5 text-sm text-graphite-600;
+  @apply mt-0.5 text-sm text-graphite-600 whitespace-pre-line;
 }
 
 .rolesBlock {
@@ -61,7 +61,7 @@
 }
 
 .roleName {
-  @apply font-medium text-graphite-900;
+  @apply font-medium text-graphite-900 whitespace-pre-line;
 }
 
 .performanceTitle {

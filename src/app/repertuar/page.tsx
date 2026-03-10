@@ -5,6 +5,8 @@ import { PerformanceCard } from "@/components/PerformanceCard";
 import { canonicalUrl } from "@/lib/site-config";
 import styles from "../styles/Page.module.css";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Репертуар — Драматический театр «Круг»",
   description:

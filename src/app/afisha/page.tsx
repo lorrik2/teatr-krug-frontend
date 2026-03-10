@@ -5,6 +5,8 @@ import { getPerformances } from "@/lib/cms-data";
 import { canonicalUrl } from "@/lib/site-config";
 import styles from "../styles/Page.module.css";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Афиша — Драматический театр «Круг»",
   description:
