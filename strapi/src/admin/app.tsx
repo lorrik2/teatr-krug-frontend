@@ -52,7 +52,6 @@ export default {
         'content-manager.content-types.api::news-item.news-item.fields.excerpt': 'Краткое описание',
         'content-manager.content-types.api::news-item.news-item.fields.image': 'Изображение',
         'content-manager.content-types.api::news-item.news-item.fields.date': 'Дата',
-        'content-manager.content-types.api::news-item.news-item.fields.category': 'Категория',
         'content-manager.content-types.api::news-item.news-item.fields.content': 'Полный текст',
 
         // api::performance.performance — Спектакль

@@ -55,7 +55,6 @@ const CONTENT_TYPE_LABELS = {
     excerpt: 'Краткое описание',
     image: 'Изображение',
     date: 'Дата',
-    category: 'Категория',
     content: 'Полный текст',
   },
   'api::performance.performance': {

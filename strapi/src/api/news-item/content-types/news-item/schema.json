@@ -26,10 +26,6 @@
       "description": "Изображение"
     },
     "date": { "type": "string", "description": "Дата" },
-    "category": {
-      "type": "string",
-      "description": "Категория (новость/событие)"
-    },
     "content": { "type": "text", "description": "Полный текст новости/события" }
   }
 }
