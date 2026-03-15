@@ -9,6 +9,7 @@ import NavigationProgress from "@/components/NavigationProgress/NavigationProgre
 import { getContactInfo, EMPTY_CONTACT } from "@/lib/cms-data";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import YandexMetrika from "@/components/YandexMetrika";
+import MailRuMetrika from "@/components/MailRuMetrika";
 import { SITE_URL } from "@/lib/site-config";
 
 const montserrat = Montserrat({
@@ -84,6 +85,7 @@ export default async function RootLayout({
     >
       <body className="min-h-screen flex flex-col">
         <YandexMetrika />
+        <MailRuMetrika />
         <NavigationProgress />
         <OrganizationJsonLd />
         <Header />
