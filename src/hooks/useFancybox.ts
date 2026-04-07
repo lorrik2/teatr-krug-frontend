@@ -1,9 +1,9 @@
 "use client";
 
+import { useState, useEffect, useMemo } from "react";
+
 // @ts-ignore
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
-
-import { useState, useEffect, useMemo } from "react";
 
 const EMPTY_OPTIONS = {};
 
