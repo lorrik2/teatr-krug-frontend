@@ -1,5 +1,9 @@
-type ContactInfo = Awaited<ReturnType<typeof import("@/lib/cms-data").getContactInfo>>;
+import Link from "next/link";
 import styles from "./Contacts.module.css";
+
+type ContactInfo = Awaited<
+  ReturnType<typeof import("@/lib/cms-data").getContactInfo>
+>;
 
 const IconVK = () => (
   <svg
@@ -65,18 +69,28 @@ export default function Contacts({
           </>
         )}
 
-        <div className={`${styles.layoutGrid} ${compact ? styles.layoutGridCompact : ""}`}>
-          <div className={`${styles.info} ${compact ? styles.infoCompact : ""}`}>
-            <div className={`${styles.block} ${compact ? styles.blockCompact : ""}`}>
+        <div
+          className={`${styles.layoutGrid} ${compact ? styles.layoutGridCompact : ""}`}
+        >
+          <div
+            className={`${styles.info} ${compact ? styles.infoCompact : ""}`}
+          >
+            <div
+              className={`${styles.block} ${compact ? styles.blockCompact : ""}`}
+            >
               <h3 className={styles.blockTitle}>Адрес</h3>
               <p className={styles.address}>{contactInfo.address}</p>
             </div>
-            <div className={`${styles.block} ${compact ? styles.blockCompact : ""}`}>
+            <div
+              className={`${styles.block} ${compact ? styles.blockCompact : ""}`}
+            >
               <h3 className={styles.blockTitle}>Режим работы</h3>
               <p>{contactInfo.workingHours.boxOffice}</p>
               <p className="mt-1">{contactInfo.workingHours.admin}</p>
             </div>
-            <div className={`${styles.contactsBlock} ${compact ? styles.blockCompact : ""}`}>
+            <div
+              className={`${styles.contactsBlock} ${compact ? styles.blockCompact : ""}`}
+            >
               <h3 className={styles.blockTitle}>Контакты</h3>
               <div className={styles.contactsContent}>
                 <div className={styles.contactRow}>
@@ -119,11 +133,29 @@ export default function Contacts({
                 </div>
               </div>
             </div>
-            <div className={`${styles.transport} ${compact ? styles.blockCompact : ""}`}>
+            <div
+              className={`${styles.transport} ${compact ? styles.blockCompact : ""}`}
+            >
               <h3 className={styles.blockTitle}>Как добраться</h3>
               <p className={styles.howToGet}>
-                {contactInfo.howToGetThere || "Информация о проезде скоро появится."}
+                {contactInfo.howToGetThere ||
+                  "Информация о проезде скоро появится."}
               </p>
+            </div>
+            <div
+              className={`${styles.accessibility} ${compact ? styles.blockCompact : ""}`}
+            >
+              <h3 className={styles.blockTitle}>Доступная среда</h3>
+              <p className={styles.accessibilityText}>
+                Сведения о посещении театра лицами с ограниченными возможностями
+                здоровья и помощи персонала.
+              </p>
+              <Link
+                href="/dostupnaya-sreda"
+                className={styles.accessibilityLink}
+              >
+                Перейти к разделу «Доступная среда»
+              </Link>
             </div>
           </div>
           <div className={styles.mapWrap}>

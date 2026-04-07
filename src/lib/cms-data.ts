@@ -208,6 +208,8 @@ function mapStrapiPerformance(d: any): Performance | null {
       intermissions: attrs.intermissions ?? d.intermissions ?? undefined,
       isPremiere: attrs.isPremiere ?? d.isPremiere ?? false,
       inAfisha: (attrs.inAfisha ?? d.inAfisha) !== false,
+      showScheduleAndTickets:
+        (attrs.showScheduleAndTickets ?? d.showScheduleAndTickets) !== false,
       schedule: Array.isArray(scheduleRaw)
         ? scheduleRaw
             .filter((s: unknown) => s && typeof s === "object")
@@ -777,6 +779,26 @@ export interface OTeatrePageData {
   mainPageShowMission: boolean;
 }
 
+/** Страница «Доступная среда» (ФЗ № 181-ФЗ) */
+export interface DostupnayaSredaPageData {
+  title: string;
+  lead: string;
+  metaTitle: string;
+  metaDescription: string;
+  generalHeading: string;
+  generalText: string;
+  buildingHeading: string;
+  buildingText: string;
+  servicesHeading: string;
+  servicesText: string;
+  staffHeading: string;
+  staffText: string;
+  contactHeading: string;
+  contactText: string;
+  /** Если true — после текста блока контактов показывается ссылка на /kontakty */
+  showContactsLink: boolean;
+}
+
 /** Театр ТЕОС */
 export async function getTeatrTeosPageData(): Promise<TeatrTeosPageData> {
   const defaults: TeatrTeosPageData = {
@@ -970,4 +992,62 @@ export async function getOTeatrePageData(): Promise<OTeatrePageData> {
     console.warn("getOTeatrePageData error:", err);
   }
   return defaults;
+}
+
+const DEFAULT_DOSTUPNAYA_SREDA: DostupnayaSredaPageData = {
+  title: "Доступная среда",
+  lead: "Сведения для зрителей с ограниченными возможностями здоровья и лиц, сопровождающих их",
+  metaTitle: "",
+  metaDescription:
+    "Информация о посещении театра лицами с ограниченными возможностями здоровья: доступ в здание, услуги, помощь персонала, контакты для согласования.",
+  generalHeading:
+    "Могут ли посетить театр зрители с ограниченными возможностями здоровья",
+  generalText: `Да. Драматический театр «Круг» принимает зрителей с ограниченными возможностями здоровья (ОВЗ) и стремится обеспечить комфортное посещение в рамках возможностей здания и режима работы театра. Мы готовы заранее согласовать детали визита и оказать дополнительную помощь со стороны персонала.`,
+  buildingHeading: "Порядок обеспечения доступа в здание театра",
+  buildingText: `Вход в здание и перемещение по помещениям театра осуществляются в соответствии с правилами посещения и техническими особенностями объекта. Рекомендуем при планировании визита заранее связаться с кассой или администрацией: мы подскажем удобный вход, порядок прохода в зрительный зал и рассадку с учётом ваших потребностей (в том числе при использовании кресла-коляски, опорных средств, сопровождении собакой-проводником — в рамках действующего законодательства).
+
+Билеты можно приобрести онлайн (при наличии технической возможности) или в кассе театра. Если вам нужна помощь при покупке или обмене билета, обратитесь в кассу или администрацию — сотрудники окажут содействие.`,
+  servicesHeading: "Особенности оказания услуг",
+  servicesText: `Информация о спектаклях, возрастных ограничениях, длительности и антрактах размещена на сайте на страницах афиши и репертуара. При необходимости уточнить условия просмотра для людей с нарушениями слуха, зрения или другими особенностями восприятия свяжитесь с администрацией до даты спектакля.`,
+  staffHeading: "Дополнительная помощь со стороны персонала",
+  staffText: `Персонал театра (касса, администраторы, гардероб, бригада зала) по возможности помогает зрителям с ОВЗ: встреча у входа, сопровождение до места в зале, консультации по расписанию и правилам посещения. Просим сообщить о предстоящем визите и необходимой поддержке заранее — так мы сможем лучше подготовиться и организовать встречу.`,
+  contactHeading: "Контакты для вопросов о доступности",
+  contactText: `По всем вопросам, связанным с доступом в здание, рассадкой и сопровождением, обращайтесь в кассу и администрацию театра.`,
+  showContactsLink: true,
+};
+
+/** Доступная среда */
+export async function getDostupnayaSredaPageData(): Promise<DostupnayaSredaPageData> {
+  const defaults = DEFAULT_DOSTUPNAYA_SREDA;
+  try {
+    const res = await fetchStrapi<Record<string, unknown>>("/dostupnaya-sreda", {
+      populate: "*",
+    });
+    const d = (res as { data?: Record<string, unknown> } | null)?.data;
+    if (d) {
+      const attrs = (d.attributes ?? d) as Record<string, unknown>;
+      const str = (k: string) =>
+        typeof attrs[k] === "string" ? (attrs[k] as string) : "";
+      return {
+        title: str("title").trim() || defaults.title,
+        lead: str("lead").trim() || defaults.lead,
+        metaTitle: str("metaTitle").trim(),
+        metaDescription: str("metaDescription").trim() || defaults.metaDescription,
+        generalHeading: str("generalHeading").trim() || defaults.generalHeading,
+        generalText: str("generalText").trim() || defaults.generalText,
+        buildingHeading: str("buildingHeading").trim() || defaults.buildingHeading,
+        buildingText: str("buildingText").trim() || defaults.buildingText,
+        servicesHeading: str("servicesHeading").trim() || defaults.servicesHeading,
+        servicesText: str("servicesText").trim() || defaults.servicesText,
+        staffHeading: str("staffHeading").trim() || defaults.staffHeading,
+        staffText: str("staffText").trim() || defaults.staffText,
+        contactHeading: str("contactHeading").trim() || defaults.contactHeading,
+        contactText: str("contactText").trim() || defaults.contactText,
+        showContactsLink: attrs.showContactsLink !== false,
+      };
+    }
+  } catch (err) {
+    console.warn("getDostupnayaSredaPageData error:", err);
+  }
+  return { ...defaults };
 }

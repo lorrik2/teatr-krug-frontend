@@ -4,7 +4,6 @@
 import { useState } from "react";
 import Image, { type ImageProps, type StaticImageData } from "next/image";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
 import styles from "./OptimizedImage.module.css";
 
 export type OptimizedImageProps = ImageProps & {

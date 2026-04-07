@@ -16,10 +16,6 @@
   letter-spacing: 0.04em;
 }
 
-.subtitle {
-  @apply mt-2 text-lg text-graphite-200;
-}
-
 .content {
   @apply grid gap-10 lg:grid-cols-2 lg:gap-16;
 }
@@ -34,18 +30,6 @@
 
 .lead {
   @apply text-lg font-medium text-graphite-100 whitespace-pre-line;
-}
-
-.subblockTitle {
-  @apply mt-6 text-base font-semibold text-graphite-100;
-}
-
-.subblockTitle {
-  @apply mt-6 font-posterama text-xl font-semibold text-white first:mt-0;
-}
-
-.subblockTitle {
-  @apply mt-6 text-xl font-semibold text-white first:mt-0;
 }
 
 .link {

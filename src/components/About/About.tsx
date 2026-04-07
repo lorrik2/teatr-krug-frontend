@@ -86,7 +86,7 @@ export default function About({ data }: { data?: OTeatrePageData | null }) {
                 className={styles.slider}
               >
                 {gallery.map((img, i) => (
-                  <SwiperSlide key={i} className={styles.slide}>
+                  <SwiperSlide key={i}>
                     <a
                       href={img.src}
                       data-fancybox="about-gallery"

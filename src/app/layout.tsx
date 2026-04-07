@@ -24,7 +24,8 @@ const posterama = localFont({
   src: "../../public/fonts/font_3.woff2",
   variable: "--font-posterama",
   display: "swap",
-  preload: true,
+  /** Только заголовки — не конкурирует с Montserrat за критический путь на мобильных */
+  preload: false,
   adjustFontFallback: "Arial",
 });
 

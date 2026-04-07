@@ -56,6 +56,7 @@ export const navItems: NavItem[] = [
     label: "О нас",
     items: [
       { href: "/o-teatre", label: "О театре: история, ценности" },
+      { href: "/dostupnaya-sreda", label: "Доступная среда" },
       { href: "/team", label: "Команда" },
       { href: "/o-teatre/fotogalereya", label: "Фотогалерея" },
       { href: "/sobytiya", label: "События" },

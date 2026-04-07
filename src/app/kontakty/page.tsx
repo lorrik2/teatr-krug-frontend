@@ -35,6 +35,14 @@ export default async function ContactsPage() {
         <p className={styles.lead}>
           Адрес, телефоны, карта и режим работы
         </p>
+        <p className="mt-6">
+          <Link
+            href="/dostupnaya-sreda"
+            className={styles.btnDetail}
+          >
+            Доступная среда для зрителей с ОВЗ
+          </Link>
+        </p>
       </header>
       {contactInfo.address || contactInfo.boxOffice ? (
         <Contacts contactInfo={contactInfo} showTitle={false} compact />

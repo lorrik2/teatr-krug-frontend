@@ -5,6 +5,7 @@ import OptimizedImage from "@/components/OptimizedImage";
 import { motion, type Variants } from "framer-motion";
 import type { Performance } from "@/lib/types";
 import { DEFAULT_TICKETS_URL } from "@/lib/site-config";
+import { performanceShowsTicketsAndSchedule } from "@/lib/performance-tickets";
 import { formatDisplayDate } from "@/lib/date-utils";
 import styles from "./PerformanceCard.module.css";
 
@@ -25,7 +26,8 @@ export default function PerformanceCard({ play, variant, animated, variants, com
   const Wrapper = animated ? motion.li : "li";
   const detailBase = variant === "afisha" ? "/afisha" : "/repertuar";
   const detailHref = `${detailBase}/${play.slug}`;
-  const showTicket = variant === "afisha" || play.inAfisha;
+  const showTicket =
+    variant === "afisha" || performanceShowsTicketsAndSchedule(play);
 
   return (
     <Wrapper

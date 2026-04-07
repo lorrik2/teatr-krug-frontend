@@ -52,10 +52,4 @@
     background: var(--color-graphite-950);
     color: white;
   }
-  .section-title {
-    @apply font-posterama text-3xl font-bold tracking-tight text-graphite-950 md:text-4xl;
-  }
-  .section-subtitle {
-    @apply mt-2 text-lg text-graphite-600;
-  }
 }

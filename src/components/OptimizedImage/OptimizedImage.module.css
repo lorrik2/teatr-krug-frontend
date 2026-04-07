@@ -1,15 +1,3 @@
-.blurWrap {
-  display: block;
-  position: relative;
-  overflow: hidden;
-  filter: blur(15px);
-  transition: filter 0.3s ease-out;
-}
-
-.blurWrap.blurLoaded {
-  filter: blur(0);
-}
-
 /* Shimmer skeleton — пока изображение загружается */
 .skeleton {
   position: absolute;
@@ -33,11 +21,36 @@
 }
 
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 .wrapper {
   position: relative;
   overflow: hidden;
+}
+
+/* ... остальные локальные стили (.skeleton, .wrapper и т.д.) ... */
+
+.wrapper :global(.lazy-load-image-background.blur) {
+  filter: blur(15px);
+}
+
+.wrapper :global(.lazy-load-image-background.blur.lazy-load-image-loaded) {
+  filter: blur(0);
+  transition: filter 0.3s;
+}
+
+.wrapper :global(.lazy-load-image-background.blur > img) {
+  opacity: 0;
+}
+
+.wrapper
+  :global(.lazy-load-image-background.blur.lazy-load-image-loaded > img) {
+  opacity: 1;
+  transition: opacity 0.3s;
 }

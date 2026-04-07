@@ -1,9 +1,6 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { Fancybox } from "@fancyapps/ui";
-
-import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 const EMPTY_OPTIONS = {};
 
@@ -15,10 +12,25 @@ export default function useFancybox(options: Record<string, unknown> = EMPTY_OPT
   );
 
   useEffect(() => {
-    if (root) {
+    if (!root) return;
+
+    let cancelled = false;
+    let bound = false;
+
+    void (async () => {
+      await import("@fancyapps/ui/dist/fancybox/fancybox.css");
+      const { Fancybox } = await import("@fancyapps/ui");
+      if (cancelled || !root) return;
       Fancybox.bind(root, "[data-fancybox]", opts);
-      return () => Fancybox.unbind(root, "[data-fancybox]");
-    }
+      bound = true;
+    })();
+
+    return () => {
+      cancelled = true;
+      void import("@fancyapps/ui").then(({ Fancybox }) => {
+        if (bound) Fancybox.unbind(root, "[data-fancybox]");
+      });
+    };
   }, [root, opts]);
 
   return [setRoot] as const;

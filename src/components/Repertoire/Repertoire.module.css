@@ -15,30 +15,6 @@
   letter-spacing: 0.04em;
 }
 
-.subtitle {
-  @apply mt-2 text-lg text-graphite-600;
-}
-
-.filters {
-  @apply mt-4 flex flex-wrap items-center justify-center gap-4;
-}
-
-.filterTabs {
-  @apply flex gap-1 rounded-md border border-graphite-200 bg-graphite-50 p-1;
-}
-
-.filterTab {
-  @apply rounded px-3 py-1.5 text-sm font-medium text-graphite-600 transition-colors hover:bg-graphite-200 hover:text-graphite-950;
-}
-
-.filterTabActive {
-  @apply rounded bg-graphite-950 px-3 py-1.5 text-sm font-medium text-white;
-}
-
-.select {
-  @apply rounded-md border border-graphite-300 bg-white px-4 py-2 text-graphite-900 focus:border-graphite-950 focus:outline-none focus:ring-1 focus:ring-graphite-950;
-}
-
 .cardsWrap {
   @apply relative;
 }

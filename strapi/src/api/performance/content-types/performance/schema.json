@@ -60,7 +60,16 @@
     "duration": { "type": "string" },
     "intermissions": { "type": "integer" },
     "isPremiere": { "type": "boolean", "default": false },
-    "inAfisha": { "type": "boolean", "default": true },
+    "inAfisha": {
+      "type": "boolean",
+      "default": true,
+      "description": "Спектакль в афише на сайте (главная, страница «Афиша», URL /afisha/…). Если выключено — только раздел «Репертуар» (/repertuar/…); даты и покупка билета на странице спектакля скрываются."
+    },
+    "showScheduleAndTickets": {
+      "type": "boolean",
+      "default": true,
+      "description": "Показывать на странице спектакля блок с датами и кнопку «Купить билет» на слайдере (и в карточках). Имеет смысл при «В афише». Для спектакля только из репертуара снимите «В афише» — этот флаг можно не трогать."
+    },
     "schedule": {
       "type": "component",
       "repeatable": true,

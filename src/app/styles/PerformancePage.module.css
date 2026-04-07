@@ -1,12 +1,22 @@
 /* Макет в стиле mbronnaya.ru — классический театральный */
 
 .wrap {
-  @apply mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-8 md:px-8 md:py-10 lg:px-12 lg:py-12;
+  @apply mx-auto max-w-4xl px-4 py-4 sm:px-6 sm:py-6 md:px-8 md:py-8 lg:px-12 lg:py-10;
+}
+
+/* Первый wrap (описание + расписание): меньше воздуха до следующего блока */
+.wrapTightAfterSchedule {
+  @apply pb-2 sm:pb-3 md:pb-4 lg:pb-5;
+}
+
+/* Нижний wrap (тизер + фото): больше воздуха перед футером */
+.wrapBottomGallery {
+  @apply pb-10 sm:pb-12 md:pb-16 lg:pb-20;
 }
 
 /* Breadcrumbs — сверху */
 .breadcrumbs {
-  @apply mb-5 flex items-center gap-2 text-xs uppercase tracking-wider text-graphite-500 sm:mb-6 md:mb-8;
+  @apply mb-3 flex items-center gap-2 text-xs uppercase tracking-wider text-graphite-500 sm:mb-4 md:mb-5;
 }
 
 .breadcrumbs a:hover {
@@ -19,7 +29,7 @@
 
 /* Текстовый блок под слайдером */
 .aboutBlock {
-  @apply mt-3 md:mt-6;
+  @apply mt-2 md:mt-4;
 }
 
 .aboutTitle {
@@ -27,7 +37,7 @@
 }
 
 .aboutDesc {
-  @apply mt-6 max-w-3xl text-base leading-relaxed text-graphite-700 md:text-lg whitespace-pre-line;
+  @apply mt-4 max-w-3xl text-base leading-relaxed text-graphite-700 md:mt-5 md:text-lg whitespace-pre-line;
 }
 
 .aboutDesc p + p {
@@ -36,7 +46,7 @@
 
 /* Продолжительность и антракты */
 .infoBlock {
-  @apply mt-5 flex flex-wrap gap-x-8 gap-y-4 sm:mt-6 md:mt-8;
+  @apply mt-7 flex flex-wrap gap-x-6 gap-y-3 sm:mt-8 md:mt-10;
 }
 
 .infoItem {
@@ -53,7 +63,7 @@
 
 /* Создатели — стиль mbronnaya: роль | имена */
 .creatorsBlock {
-  @apply mt-8 grid gap-x-12 gap-y-6 border-t border-graphite-200 pt-6 sm:mt-10 sm:grid-cols-2 sm:pt-8 md:mt-12 md:pt-10 lg:grid-cols-3;
+  @apply mt-5 grid gap-x-10 gap-y-4 border-t border-graphite-200 pt-4 sm:mt-6 sm:grid-cols-2 sm:pt-5 sm:gap-y-5 md:mt-8 md:pt-6 md:gap-y-6 lg:grid-cols-3 lg:pt-8;
 }
 
 .creatorRow {
@@ -78,7 +88,7 @@
 
 /* Цитата режиссёра — блок как на mbronnaya */
 .directorQuoteBlock {
-  @apply mt-8 border-l-2 border-graphite-800 bg-graphite-50 py-5 pl-4 pr-6 sm:mt-10 sm:py-6 sm:pl-6 md:mt-12 md:pl-10 md:pr-8;
+  @apply mt-5 border-l-2 border-graphite-800 bg-graphite-50 py-4 pl-4 pr-5 sm:mt-6 sm:py-5 sm:pl-5 md:mt-8 md:pl-8 md:pr-7 lg:mt-10 lg:pl-10 lg:pr-8;
 }
 
 .directorQuoteLabel {
@@ -91,7 +101,7 @@
 
 /* Даты и время показов — между режиссёром и чёрным блоком */
 .scheduleBlock {
-  @apply mt-8 space-y-3 border-t border-graphite-200 pt-6 sm:mt-10 sm:pt-8 md:mt-12 md:pt-10;
+  @apply mt-5 space-y-2 border-t border-graphite-200 pt-4 sm:mt-6 sm:space-y-3 sm:pt-5 md:mt-8 md:pt-6 lg:pt-8;
 }
 
 .scheduleRow {
@@ -116,13 +126,20 @@
 
 /* Секции */
 .section {
-  @apply mt-10 border-t border-graphite-200 pt-8 sm:mt-12 sm:pt-10 md:mt-16 md:pt-14 lg:mt-20 lg:pt-16;
+  @apply mt-6 border-t border-graphite-200 pt-5 sm:mt-8 sm:pt-6 md:mt-10 md:pt-8 lg:mt-12 lg:pt-10;
 }
 
-/* Первая секция в wrap без тизера — без лишнего пустого места */
-.sectionFirstInWrap {
-  @apply border-t border-graphite-200 pt-6 sm:pt-8;
-  margin-top: 0;
+/*
+ * Без верхней «палочки»: когда предыдущей секции нет (нет тизера перед фото,
+ * нет наград перед актёрами и т.п.) — только вертикальный ритм.
+ */
+.sectionFlowContinue {
+  @apply mt-4 border-t-0 pt-4 sm:mt-5 sm:pt-5 md:mt-6 md:pt-6 lg:mt-8 lg:pt-8;
+}
+
+/* После чёрного блока, без линии (например актёры без блока наград) */
+.sectionAfterFeaturedContinue {
+  @apply mt-0 border-t-0 pt-4 sm:pt-5 md:pt-6 lg:pt-8;
 }
 
 .sectionTitle {
@@ -131,18 +148,23 @@
 
 /* Wrap сразу после чёрного блока — тот же отступ, что перед блоком фотографий без тизера */
 .wrapAfterFeatured {
-  @apply pt-6 sm:pt-8 md:pt-10 lg:pt-12;
+  @apply pt-4 sm:pt-5 md:pt-7 lg:pt-8;
 }
 
-/* Первая секция после чёрного блока — меньше верхний отступ */
+/* Первая секция после чёрного блока — без разделительной полосы */
 .sectionAfterFeatured {
-  @apply border-t border-graphite-200 pt-6 sm:pt-8;
+  @apply border-t-0 pt-4 sm:pt-5 md:pt-6;
   margin-top: 0;
+}
+
+/* Первая светлая секция после тёмного full-bleed (отзывы) — без линии и без лишнего зазора */
+.sectionFirstAfterDarkBleed {
+  @apply mt-0 border-t-0 pt-0;
 }
 
 /* Обёртка для Reviews — блок вынесен из wrap, фон на всю ширину страницы */
 .reviewsWrapper {
-  @apply mt-10 sm:mt-12 md:mt-16 lg:mt-20;
+  @apply mt-6 sm:mt-8 md:mt-10 lg:mt-12;
 }
 
 /* Меньший отступ у секции, когда она сразу после блока отзывов */
@@ -152,7 +174,7 @@
 
 /* Награды, дипломы и участие в фестивалях */
 .awardsList {
-  @apply mt-6 list-none space-y-4;
+  @apply mt-4 list-none space-y-3 sm:mt-5 sm:space-y-4;
 }
 
 .awardItem {
@@ -183,5 +205,5 @@
 
 /* Отступ от тизера до блока покупки билетов */
 .ticketsWrapper {
-  @apply mt-10 sm:mt-12 md:mt-16 lg:mt-20;
+  @apply mt-6 sm:mt-8 md:mt-10 lg:mt-12;
 }

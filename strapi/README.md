@@ -40,6 +40,7 @@ cd strapi && rm -rf node_modules && yarn install
 | Новость / Событие | `/api/news-items` | Анонсы, рецензии, события |
 | Слайд героя | `/api/hero-slides` | Слайды главного баннера |
 | Контакты | `/api/contact` | Единая запись контактной информации |
+| Доступная среда | `/api/dostupnaya-sreda` | Текст страницы для зрителей с ОВЗ (ФЗ № 181-ФЗ) |
 | Отзыв о театре | `/api/theater-reviews` | Отзывы зрителей |
 
 ## Настройка прав доступа
@@ -50,7 +51,7 @@ cd strapi && rm -rf node_modules && yarn install
 1. **Settings** → **Users & Permissions** → **Roles**
 2. Выберите **Public**
 3. В блоке **Actor** (Актёры) отметьте **find** и **findOne**
-4. Аналогично для **Performance**, **News-item** и других типов
+4. Аналогично для **Performance**, **News-item**, **Dostupnaya-sreda** (Доступная среда) и других типов
 5. **Save**
 
 **Вариант B — API Token (с STRAPI_API_TOKEN в .env):**

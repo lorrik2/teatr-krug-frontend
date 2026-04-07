@@ -53,6 +53,8 @@ type ReviewsProps = {
   subtitle?: string;
   /** dark — отзывы о театре (только VK, лого+ссылки с hover); light — отзывы о спектакле (только VK как сейчас) */
   variant?: "dark" | "light";
+  /** Плотнее по вертикали — страница спектакля */
+  compact?: boolean;
   id?: string;
 };
 
@@ -61,12 +63,18 @@ export default function Reviews({
   title = "Отзывы о театре",
   subtitle = "Что говорят наши зрители",
   variant = "dark",
+  compact = false,
   id = "otzyvy",
 }: ReviewsProps) {
   if (!reviews?.length) return null;
 
-  const sectionClass =
-    variant === "light" ? styles.sectionLight : styles.section;
+  const sectionClass = [
+    variant === "light" ? styles.sectionLight : styles.section,
+    compact &&
+      (variant === "light" ? styles.sectionLightCompact : styles.sectionCompact),
+  ]
+    .filter(Boolean)
+    .join(" ");
   const titleClass = variant === "light" ? styles.titleLight : styles.title;
   const subtitleClass =
     variant === "light" ? styles.subtitleLight : styles.subtitle;
@@ -82,7 +90,7 @@ export default function Reviews({
     <section className={sectionClass} id={id} aria-labelledby="reviews-title">
       <div className={styles.container}>
         <motion.div
-          className={styles.header}
+          className={compact ? styles.headerCompact : styles.header}
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -115,7 +123,9 @@ export default function Reviews({
               768: { slidesPerView: 2, spaceBetween: 24 },
               1024: { slidesPerView: 2, spaceBetween: 48 },
             }}
-            className={styles.slider}
+            className={
+              compact ? `${styles.slider} ${styles.sliderCompact}` : styles.slider
+            }
           >
             {reviews.map((review) => (
               <SwiperSlide key={review.id}>

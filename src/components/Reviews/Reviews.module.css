@@ -13,6 +13,26 @@
   }
 }
 
+/* Встроенный блок на странице спектакля — плотнее по вертикали */
+.sectionCompact {
+  padding-top: 1.25rem;
+  padding-bottom: 0.625rem;
+}
+
+@media (min-width: 640px) {
+  .sectionCompact {
+    padding-top: 1.5rem;
+    padding-bottom: 0.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .sectionCompact {
+    padding-top: 2.25rem;
+    padding-bottom: 1.25rem;
+  }
+}
+
 /* Светлый вариант — страница спектакля */
 .sectionLight {
   @apply overflow-x-hidden bg-white;
@@ -27,12 +47,35 @@
   }
 }
 
+.sectionLightCompact {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .sectionLightCompact {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .sectionLightCompact {
+    padding-top: 2.25rem;
+    padding-bottom: 2rem;
+  }
+}
+
 .container {
   @apply mx-auto max-w-7xl overflow-x-hidden px-4 sm:px-6 lg:px-8;
 }
 
 .header {
   @apply mb-12 text-center pt-1;
+}
+
+.headerCompact {
+  @apply mb-6 text-center pt-1 sm:mb-8 md:mb-10;
 }
 
 .title {
@@ -61,6 +104,22 @@
 
 .slider {
   @apply w-full overflow-hidden pb-14;
+}
+
+.sliderCompact {
+  @apply w-full overflow-hidden pb-4 sm:pb-5 md:pb-6;
+}
+
+.sectionCompact .slider :global(.swiper-pagination) {
+  margin-top: 1.125rem;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+@media (min-width: 640px) {
+  .sectionCompact .slider :global(.swiper-pagination) {
+    margin-top: 1.375rem;
+  }
 }
 
 .slider :global(.swiper-wrapper) {
@@ -143,7 +202,7 @@
 /* Swiper pagination */
 .slider :global(.swiper-pagination) {
   position: relative;
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
 }
 
 .slider :global(.swiper-pagination-bullet) {

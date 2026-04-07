@@ -1,0 +1,75 @@
+{
+  "kind": "singleType",
+  "collectionName": "dostupnaya_sreda",
+  "info": {
+    "singularName": "dostupnaya-sreda",
+    "pluralName": "dostupnaya-sredas",
+    "displayName": "Доступная среда",
+    "description": "Страница о доступе в театр для лиц с ОВЗ (ФЗ № 181-ФЗ)"
+  },
+  "options": {},
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "description": "Заголовок страницы (H1)"
+    },
+    "lead": {
+      "type": "text",
+      "description": "Подзаголовок под заголовком"
+    },
+    "metaTitle": {
+      "type": "string",
+      "description": "Title для поисковиков; если пусто — из заголовка страницы"
+    },
+    "metaDescription": {
+      "type": "text",
+      "description": "Meta description для SEO"
+    },
+    "generalHeading": {
+      "type": "string",
+      "description": "Заголовок блока «Могут ли посетить…»"
+    },
+    "generalText": {
+      "type": "text",
+      "description": "Текст блока; абзацы через пустую строку"
+    },
+    "buildingHeading": {
+      "type": "string",
+      "description": "Заголовок блока о доступе в здание"
+    },
+    "buildingText": {
+      "type": "text",
+      "description": "Текст блока; абзацы через пустую строку"
+    },
+    "servicesHeading": {
+      "type": "string",
+      "description": "Заголовок блока об услугах"
+    },
+    "servicesText": {
+      "type": "text",
+      "description": "Текст блока; абзацы через пустую строку"
+    },
+    "staffHeading": {
+      "type": "string",
+      "description": "Заголовок блока о помощи персонала"
+    },
+    "staffText": {
+      "type": "text",
+      "description": "Текст блока; абзацы через пустую строку"
+    },
+    "contactHeading": {
+      "type": "string",
+      "description": "Заголовок блока о контактах"
+    },
+    "contactText": {
+      "type": "text",
+      "description": "Текст до ссылки на «Контакты»; абзацы через пустую строку"
+    },
+    "showContactsLink": {
+      "type": "boolean",
+      "default": true,
+      "description": "Добавить в конец блока ссылку на страницу «Контакты»"
+    }
+  }
+}

@@ -90,34 +90,6 @@
   }
 }
 
-.card {
-  @apply list-none overflow-hidden rounded-lg border border-graphite-200 bg-graphite-50;
-}
-
-.cardLink {
-  @apply block no-underline;
-}
-
-.posterWrap {
-  @apply relative aspect-[4/5] overflow-hidden bg-graphite-200;
-}
-
-.poster {
-  @apply h-full w-full object-cover;
-}
-
-.age {
-  @apply absolute right-2 top-2 rounded bg-graphite-950 px-2 py-0.5 text-xs font-medium text-white;
-}
-
-.premiere {
-  @apply absolute left-2 top-2 rounded bg-graphite-950 px-2 py-0.5 text-xs font-medium text-white;
-}
-
-.filtersRow {
-  @apply mb-6 flex flex-wrap gap-2;
-}
-
 /* Кнопки фильтра по месяцам — афиша, sticky при скролле */
 .monthFilters {
   @apply sticky z-10 mb-6 flex flex-wrap gap-2 overflow-x-auto bg-white py-3 pb-2 sm:gap-3;
@@ -226,34 +198,6 @@
   @apply mt-2 pb-6 md:pb-8;
 }
 
-.filterBtn {
-  @apply rounded-md border border-graphite-300 bg-white px-4 py-2 text-sm font-medium text-graphite-700 transition-colors hover:bg-graphite-100 hover:border-graphite-400;
-}
-
-.filterActive {
-  @apply rounded-md border border-graphite-950 bg-graphite-950 px-4 py-2 text-sm font-medium text-white;
-}
-
-.body {
-  @apply p-4;
-}
-
-.cardTitle {
-  @apply font-posterama text-lg font-bold text-graphite-950;
-}
-
-.meta {
-  @apply mt-1 text-sm text-graphite-600;
-}
-
-.genre {
-  @apply mt-0.5 text-sm font-medium text-graphite-700;
-}
-
-.desc {
-  @apply mt-2 line-clamp-2 text-sm text-graphite-600;
-}
-
 /* Контурная */
 .btnDetail {
   @apply mt-3 inline-block rounded border-2 px-4 py-2 text-sm font-medium no-underline transition-colors;
@@ -264,24 +208,6 @@
   background: rgb(0 0 0 / 0.06);
 }
 
-/* Полная заливка */
-.btnTicket {
-  @apply mt-3 block w-full rounded-md px-6 py-3 text-center text-sm font-semibold text-white shadow-sm transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
-  background: var(--color-graphite-950);
-}
-.btnTicket:hover {
-  filter: brightness(1.2);
-}
-
-/* Gallery (about) */
-.gallery {
-  @apply mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3;
-}
-
-.gallery li {
-  @apply list-none overflow-hidden rounded-lg;
-}
-
 .galleryLink {
   @apply mt-4 inline-block font-medium no-underline transition-colors;
   color: var(--color-graphite-950);
@@ -290,49 +216,8 @@
   @apply underline;
 }
 
-.galleryImg {
-  @apply h-full w-full object-cover;
-}
-
 .videoPlaceholder {
   @apply flex min-h-[240px] items-center justify-center rounded-lg border-2 border-dashed border-graphite-300 bg-graphite-100 text-graphite-600;
-}
-
-/* Team */
-.teamGrid {
-  @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-4;
-}
-
-.teamCard {
-  @apply list-none overflow-hidden rounded-lg border border-graphite-200 bg-white shadow-sm;
-}
-
-.teamCardLink {
-  @apply block no-underline;
-}
-
-.teamPhotoWrap {
-  @apply relative aspect-[4/5] overflow-hidden bg-graphite-200;
-}
-
-.teamPhoto {
-  @apply h-full w-full object-cover;
-}
-
-.teamBody {
-  @apply p-4;
-}
-
-.teamName {
-  @apply font-posterama text-lg font-bold text-graphite-950;
-}
-
-.teamRank {
-  @apply mt-0.5 text-sm text-graphite-600 whitespace-pre-line;
-}
-
-.teamRole {
-  @apply text-sm text-graphite-500 whitespace-pre-line;
 }
 
 /* News */
@@ -354,10 +239,6 @@
 
 .newsImage {
   @apply h-full w-full object-contain object-center;
-}
-
-.newsCategory {
-  @apply absolute left-2 top-2 rounded bg-graphite-950 px-2 py-0.5 text-xs font-medium text-white;
 }
 
 .newsBody {

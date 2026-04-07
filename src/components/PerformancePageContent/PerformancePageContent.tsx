@@ -5,6 +5,7 @@ import {
   getMergedCast,
 } from "@/lib/actor-utils";
 import { DEFAULT_TICKETS_URL } from "@/lib/site-config";
+import { performanceShowsTicketsAndSchedule } from "@/lib/performance-tickets";
 import { formatDisplayDate } from "@/lib/date-utils";
 import PerformanceHero from "@/components/PerformanceHero";
 import PerformanceEventJsonLd from "@/components/seo/PerformanceEventJsonLd";
@@ -57,6 +58,8 @@ export default function PerformancePageContent({
   const galleryImages = (play.gallery ?? (play.poster ? [play.poster] : []))
     .filter((s): s is string => !!s);
 
+  const hasTeaserOrGallery = !!play.teaserUrl || galleryImages.length > 0;
+
   const featuredMainImage = play.featuredBlockImage;
   const featuredText = play.featuredBlockText?.trim();
   const featuredCarousel = play.featuredBlockGallery?.filter((s): s is string => !!s) ?? [];
@@ -84,8 +87,10 @@ export default function PerformancePageContent({
         ? [{ date: play.date, time: play.time }]
         : [];
 
-  const scheduleBlock =
-    play.inAfisha && schedule.length > 0 ? (
+  const showTicketUi = performanceShowsTicketsAndSchedule(play);
+  const showScheduleBlock = showTicketUi && schedule.length > 0;
+
+  const scheduleBlock = showScheduleBlock ? (
       <div
         className={styles.scheduleBlock}
         aria-label="Ближайшие показы"
@@ -110,10 +115,17 @@ export default function PerformancePageContent({
       </div>
     ) : null;
 
+  const gallerySectionClass =
+    play.teaserUrl
+      ? styles.section
+      : hasReviews
+        ? styles.sectionFirstAfterDarkBleed
+        : styles.sectionFlowContinue;
+
   const gallerySection =
     galleryImages.length > 0 ? (
       <section
-        className={play.teaserUrl ? styles.section : styles.sectionFirstInWrap}
+        className={gallerySectionClass}
         aria-labelledby="gallery-title"
       >
         <h2 id="gallery-title" className={styles.sectionTitle}>
@@ -136,9 +148,11 @@ export default function PerformancePageContent({
     hasCast ? (
       <section
         className={
-          hasFeaturedBlock && !hasAwards
-            ? styles.sectionAfterFeatured
-            : styles.section
+          hasAwards
+            ? styles.section
+            : hasFeaturedBlock
+              ? styles.sectionAfterFeaturedContinue
+              : styles.sectionFlowContinue
         }
         aria-labelledby="cast-title"
       >
@@ -158,7 +172,9 @@ export default function PerformancePageContent({
       <PerformanceEventJsonLd
         play={play}
         basePath={basePath}
-        ticketsUrl={play.inAfisha ? (play.ticketsUrl ?? DEFAULT_TICKETS_URL) : undefined}
+        ticketsUrl={
+          showTicketUi ? (play.ticketsUrl ?? DEFAULT_TICKETS_URL) : undefined
+        }
       />
       {hasReviews && (
         <PerformanceReviewsJsonLd play={play} basePath={basePath} />
@@ -173,10 +189,18 @@ export default function PerformancePageContent({
       <PerformanceHero
         title={play.title}
         images={heroImages}
-        ticketsUrl={play.ticketsUrl}
+        ticketsUrl={
+          showTicketUi ? (play.ticketsUrl ?? DEFAULT_TICKETS_URL) : undefined
+        }
         ticketButtonLabel={play.ticketButtonLabel}
       />
-      <div className={styles.wrap}>
+      <div
+        className={
+          showScheduleBlock
+            ? `${styles.wrap} ${styles.wrapTightAfterSchedule}`
+            : styles.wrap
+        }
+      >
         <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
           <Link href="/">Главная</Link>
           <span className={styles.breadcrumbsSep}>→</span>
@@ -330,7 +354,7 @@ export default function PerformancePageContent({
         {hasAwards && (
           <section
             className={
-              hasFeaturedBlock ? styles.sectionAfterFeatured : styles.section
+              hasFeaturedBlock ? styles.sectionAfterFeatured : styles.sectionFlowContinue
             }
             aria-labelledby="awards-title"
           >
@@ -380,14 +404,28 @@ export default function PerformancePageContent({
             title="Отзывы зрителей"
             subtitle="Что говорят о спектакле"
             variant="dark"
+            compact
             id="reviews"
           />
         </div>
       )}
 
-      <div className={styles.wrap}>
+      <div
+        className={
+          hasTeaserOrGallery
+            ? `${styles.wrap} ${styles.wrapBottomGallery}`
+            : styles.wrap
+        }
+      >
         {play.teaserUrl && (
-          <section className={styles.section} aria-labelledby="teaser-title">
+          <section
+            className={
+              hasReviews
+                ? styles.sectionFirstAfterDarkBleed
+                : styles.section
+            }
+            aria-labelledby="teaser-title"
+          >
             <h2 id="teaser-title" className={styles.sectionTitle}>
               Тизер
             </h2>

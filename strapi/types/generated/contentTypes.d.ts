@@ -541,6 +541,51 @@ export interface ApiContactContact extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiDostupnayaSredaDostupnayaSreda
+  extends Struct.SingleTypeSchema {
+  collectionName: 'dostupnaya_sreda';
+  info: {
+    description: '\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u043E \u0434\u043E\u0441\u0442\u0443\u043F\u0435 \u0432 \u0442\u0435\u0430\u0442\u0440 \u0434\u043B\u044F \u043B\u0438\u0446 \u0441 \u041E\u0412\u0417 (\u0424\u0417 \u2116 181-\u0424\u0417)';
+    displayName: '\u0414\u043E\u0441\u0442\u0443\u043F\u043D\u0430\u044F \u0441\u0440\u0435\u0434\u0430';
+    pluralName: 'dostupnaya-sredas';
+    singularName: 'dostupnaya-sreda';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    buildingHeading: Schema.Attribute.String;
+    buildingText: Schema.Attribute.Text;
+    contactHeading: Schema.Attribute.String;
+    contactText: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    generalHeading: Schema.Attribute.String;
+    generalText: Schema.Attribute.Text;
+    lead: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::dostupnaya-sreda.dostupnaya-sreda'
+    > &
+      Schema.Attribute.Private;
+    metaDescription: Schema.Attribute.Text;
+    metaTitle: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    servicesHeading: Schema.Attribute.String;
+    servicesText: Schema.Attribute.Text;
+    showContactsLink: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
+    staffHeading: Schema.Attribute.String;
+    staffText: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiHeroSlideHeroSlide extends Struct.CollectionTypeSchema {
   collectionName: 'hero_slides';
   info: {
@@ -720,6 +765,8 @@ export interface ApiPerformancePerformance extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     reviews: Schema.Attribute.Component<'shared.review', true>;
     schedule: Schema.Attribute.Component<'shared.schedule-item', true>;
+    showScheduleAndTickets: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
     soundDesigner: Schema.Attribute.String;
     subtitle: Schema.Attribute.String;
@@ -1388,6 +1435,7 @@ declare module '@strapi/strapi' {
       'api::actor.actor': ApiActorActor;
       'api::arenda-zala.arenda-zala': ApiArendaZalaArendaZala;
       'api::contact.contact': ApiContactContact;
+      'api::dostupnaya-sreda.dostupnaya-sreda': ApiDostupnayaSredaDostupnayaSreda;
       'api::hero-slide.hero-slide': ApiHeroSlideHeroSlide;
       'api::news-item.news-item': ApiNewsItemNewsItem;
       'api::o-teatre.o-teatre': ApiOTeatreOTeatre;

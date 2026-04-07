@@ -15,10 +15,6 @@
   letter-spacing: 0.04em;
 }
 
-.subtitle {
-  @apply mt-2 text-lg text-graphite-600;
-}
-
 /* Строчный список в стиле mbronnaya.ru «События» */
 .eventList {
   @apply list-none divide-y border-t border-b border-graphite-200;

@@ -87,14 +87,6 @@
   @apply mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 sm:flex-row sm:px-6 lg:px-8;
 }
 
-.bottomRight {
-  @apply flex flex-wrap items-center justify-center gap-6 sm:gap-8;
-}
-
-.socialIcons {
-  @apply flex gap-3;
-}
-
 .copyright {
   @apply text-sm text-graphite-400;
 }
