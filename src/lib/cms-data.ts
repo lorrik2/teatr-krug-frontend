@@ -134,11 +134,15 @@ function mapStrapiPerformance(d: any): Performance | null {
       getMediaUrl(attrs.poster ?? d.poster) || getMediaUrl(d.poster) || "";
     const galleryArr = extractMediaArray(attrs.gallery ?? d.gallery);
     const gallery =
-      galleryArr.length > 0 ? galleryArr.map(mapGalleryItem).filter(Boolean) : undefined;
+      galleryArr.length > 0
+        ? galleryArr.map(mapGalleryItem).filter(Boolean)
+        : undefined;
 
     const heroSliderArr = extractMediaArray(attrs.heroSlider ?? d.heroSlider);
     const heroSlider =
-      heroSliderArr.length > 0 ? heroSliderArr.map(mapGalleryItem).filter(Boolean) : undefined;
+      heroSliderArr.length > 0
+        ? heroSliderArr.map(mapGalleryItem).filter(Boolean)
+        : undefined;
 
     const rawSlug = attrs.slug ?? d.slug;
     const title = (attrs.title ?? d.title) || "";
@@ -218,7 +222,8 @@ function mapStrapiPerformance(d: any): Performance | null {
               return {
                 date: sAttrs.date ?? s.date ?? "",
                 time: sAttrs.time ?? s.time ?? "",
-                ticketsUrl: (sAttrs.ticketsUrl ?? s.ticketsUrl)?.trim() || undefined,
+                ticketsUrl:
+                  (sAttrs.ticketsUrl ?? s.ticketsUrl)?.trim() || undefined,
               };
             })
         : undefined,
@@ -248,14 +253,20 @@ function mapStrapiPerformance(d: any): Performance | null {
             })
         : undefined,
       ticketsUrl: (attrs.ticketsUrl ?? d.ticketsUrl) || undefined,
-      ticketButtonLabel: (attrs.ticketButtonLabel ?? d.ticketButtonLabel)?.trim() || undefined,
-      featuredBlockImage: getMediaUrl(
-        attrs.featuredBlockImage ?? d.featuredBlockImage,
-      ) || undefined,
-      featuredBlockText: (attrs.featuredBlockText ?? d.featuredBlockText)?.trim() || undefined,
+      ticketButtonLabel:
+        (attrs.ticketButtonLabel ?? d.ticketButtonLabel)?.trim() || undefined,
+      featuredBlockImage:
+        getMediaUrl(attrs.featuredBlockImage ?? d.featuredBlockImage) ||
+        undefined,
+      featuredBlockText:
+        (attrs.featuredBlockText ?? d.featuredBlockText)?.trim() || undefined,
       featuredBlockGallery: (() => {
-        const arr = extractMediaArray(attrs.featuredBlockGallery ?? d.featuredBlockGallery);
-        return arr.length > 0 ? arr.map(mapGalleryItem).filter(Boolean) : undefined;
+        const arr = extractMediaArray(
+          attrs.featuredBlockGallery ?? d.featuredBlockGallery,
+        );
+        return arr.length > 0
+          ? arr.map(mapGalleryItem).filter(Boolean)
+          : undefined;
       })(),
     };
   } catch (err) {
@@ -785,16 +796,7 @@ export interface DostupnayaSredaPageData {
   lead: string;
   metaTitle: string;
   metaDescription: string;
-  generalHeading: string;
-  generalText: string;
-  buildingHeading: string;
-  buildingText: string;
-  servicesHeading: string;
-  servicesText: string;
-  staffHeading: string;
-  staffText: string;
-  contactHeading: string;
-  contactText: string;
+  textBlocks: { title: string; descriptions: string }[];
   /** Если true — после текста блока контактов показывается ссылка на /kontakty */
   showContactsLink: boolean;
 }
@@ -845,7 +847,8 @@ export async function getTeatrTeosPageData(): Promise<TeatrTeosPageData> {
         logo,
         galleryImages,
         address: (attrs.address as string) || defaults.address,
-        howToGetThere: (attrs.howToGetThere as string) ?? defaults.howToGetThere,
+        howToGetThere:
+          (attrs.howToGetThere as string) ?? defaults.howToGetThere,
         phone: (attrs.phone as string) || defaults.phone,
         socialVk: (attrs.socialVk as string) || defaults.socialVk,
         socialTelegram:
@@ -994,25 +997,14 @@ export async function getOTeatrePageData(): Promise<OTeatrePageData> {
   return defaults;
 }
 
-const DEFAULT_DOSTUPNAYA_SREDA: DostupnayaSredaPageData = {
+const DEFAULT_DOSTUPNAYA_SREDA = {
   title: "Доступная среда",
   lead: "Сведения для зрителей с ограниченными возможностями здоровья и лиц, сопровождающих их",
-  metaTitle: "",
+  metaTitle: "Доступная среда",
+  textBlocks: [],
   metaDescription:
     "Информация о посещении театра лицами с ограниченными возможностями здоровья: доступ в здание, услуги, помощь персонала, контакты для согласования.",
-  generalHeading:
-    "Могут ли посетить театр зрители с ограниченными возможностями здоровья",
-  generalText: `Да. Драматический театр «Круг» принимает зрителей с ограниченными возможностями здоровья (ОВЗ) и стремится обеспечить комфортное посещение в рамках возможностей здания и режима работы театра. Мы готовы заранее согласовать детали визита и оказать дополнительную помощь со стороны персонала.`,
-  buildingHeading: "Порядок обеспечения доступа в здание театра",
-  buildingText: `Вход в здание и перемещение по помещениям театра осуществляются в соответствии с правилами посещения и техническими особенностями объекта. Рекомендуем при планировании визита заранее связаться с кассой или администрацией: мы подскажем удобный вход, порядок прохода в зрительный зал и рассадку с учётом ваших потребностей (в том числе при использовании кресла-коляски, опорных средств, сопровождении собакой-проводником — в рамках действующего законодательства).
 
-Билеты можно приобрести онлайн (при наличии технической возможности) или в кассе театра. Если вам нужна помощь при покупке или обмене билета, обратитесь в кассу или администрацию — сотрудники окажут содействие.`,
-  servicesHeading: "Особенности оказания услуг",
-  servicesText: `Информация о спектаклях, возрастных ограничениях, длительности и антрактах размещена на сайте на страницах афиши и репертуара. При необходимости уточнить условия просмотра для людей с нарушениями слуха, зрения или другими особенностями восприятия свяжитесь с администрацией до даты спектакля.`,
-  staffHeading: "Дополнительная помощь со стороны персонала",
-  staffText: `Персонал театра (касса, администраторы, гардероб, бригада зала) по возможности помогает зрителям с ОВЗ: встреча у входа, сопровождение до места в зале, консультации по расписанию и правилам посещения. Просим сообщить о предстоящем визите и необходимой поддержке заранее — так мы сможем лучше подготовиться и организовать встречу.`,
-  contactHeading: "Контакты для вопросов о доступности",
-  contactText: `По всем вопросам, связанным с доступом в здание, рассадкой и сопровождением, обращайтесь в кассу и администрацию театра.`,
   showContactsLink: true,
 };
 
@@ -1020,29 +1012,44 @@ const DEFAULT_DOSTUPNAYA_SREDA: DostupnayaSredaPageData = {
 export async function getDostupnayaSredaPageData(): Promise<DostupnayaSredaPageData> {
   const defaults = DEFAULT_DOSTUPNAYA_SREDA;
   try {
-    const res = await fetchStrapi<Record<string, unknown>>("/dostupnaya-sreda", {
-      populate: "*",
-    });
+    const res = await fetchStrapi<Record<string, unknown>>(
+      "/dostupnaya-sreda",
+      {
+        populate: "*",
+      },
+    );
     const d = (res as { data?: Record<string, unknown> } | null)?.data;
     if (d) {
       const attrs = (d.attributes ?? d) as Record<string, unknown>;
       const str = (k: string) =>
         typeof attrs[k] === "string" ? (attrs[k] as string) : "";
       return {
-        title: str("title").trim() || defaults.title,
-        lead: str("lead").trim() || defaults.lead,
+        title: str("title").trim(),
+        lead: str("lead").trim(),
         metaTitle: str("metaTitle").trim(),
-        metaDescription: str("metaDescription").trim() || defaults.metaDescription,
-        generalHeading: str("generalHeading").trim() || defaults.generalHeading,
-        generalText: str("generalText").trim() || defaults.generalText,
-        buildingHeading: str("buildingHeading").trim() || defaults.buildingHeading,
-        buildingText: str("buildingText").trim() || defaults.buildingText,
-        servicesHeading: str("servicesHeading").trim() || defaults.servicesHeading,
-        servicesText: str("servicesText").trim() || defaults.servicesText,
-        staffHeading: str("staffHeading").trim() || defaults.staffHeading,
-        staffText: str("staffText").trim() || defaults.staffText,
-        contactHeading: str("contactHeading").trim() || defaults.contactHeading,
-        contactText: str("contactText").trim() || defaults.contactText,
+        metaDescription: str("metaDescription").trim(),
+        textBlocks: [
+          {
+            title: str("generalHeading").trim(),
+            descriptions: str("generalText").trim(),
+          },
+          {
+            title: str("buildingHeading").trim(),
+            descriptions: str("buildingText").trim(),
+          },
+          {
+            title: str("servicesHeading").trim(),
+            descriptions: str("servicesHeading").trim(),
+          },
+          {
+            title: str("staffHeading").trim(),
+            descriptions: str("staffText").trim(),
+          },
+          {
+            title: str("contactHeading").trim(),
+            descriptions: str("contactText").trim(),
+          },
+        ],
         showContactsLink: attrs.showContactsLink !== false,
       };
     }

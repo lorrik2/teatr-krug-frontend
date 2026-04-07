@@ -32,7 +32,7 @@ function buildDocumentTitle(data: DostupnayaSredaPageData): string {
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getDostupnayaSredaPageData();
   const title = buildDocumentTitle(data);
-  const description = data.metaDescription.trim();
+  const description = data?.metaDescription.trim();
   return {
     title,
     description,
@@ -97,10 +97,7 @@ export default async function DostupnayaSredaPage() {
   return (
     <>
       <BreadcrumbJsonLd
-        items={[
-          { name: "Главная", href: "/" },
-          { name: breadcrumbName },
-        ]}
+        items={[{ name: "Главная", href: "/" }, { name: breadcrumbName }]}
       />
       <div className={styles.wrap}>
         <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
@@ -111,46 +108,27 @@ export default async function DostupnayaSredaPage() {
 
         <header className={styles.header}>
           <h1 className={styles.h1}>{data.title}</h1>
-          {data.lead.trim() ? (
-            <p className={styles.lead}>{data.lead}</p>
-          ) : null}
+          {data.lead.trim() ? <p className={styles.lead}>{data.lead}</p> : null}
         </header>
 
-        <ContentSection
-          sectionId="access-general"
-          heading={data.generalHeading}
-          body={data.generalText}
-        />
-        <ContentSection
-          sectionId="access-building"
-          heading={data.buildingHeading}
-          body={data.buildingText}
-        />
-        <ContentSection
-          sectionId="access-services"
-          heading={data.servicesHeading}
-          body={data.servicesText}
-        />
-        <ContentSection
-          sectionId="access-staff"
-          heading={data.staffHeading}
-          body={data.staffText}
-        />
-        <ContentSection
-          sectionId="access-contact"
-          heading={data.contactHeading}
-          body={data.contactText}
-        >
-          {data.showContactsLink ? (
-            <p>
-              Телефоны, e-mail и режим работы указаны на странице{" "}
-              <Link href="/kontakty" className={styles.galleryLink}>
-                Контакты
-              </Link>
-              .
-            </p>
-          ) : null}
-        </ContentSection>
+        {data?.textBlocks?.map((el) => (
+          <ContentSection
+            key={el.title + el.descriptions}
+            sectionId={`access-${el.title}`}
+            heading={el.title}
+            body={el.descriptions}
+          />
+        ))}
+
+        {data.showContactsLink ? (
+          <p>
+            Телефоны, e-mail и режим работы указаны на странице{" "}
+            <Link href="/kontakty" className={styles.galleryLink}>
+              Контакты
+            </Link>
+            .
+          </p>
+        ) : null}
       </div>
     </>
   );
