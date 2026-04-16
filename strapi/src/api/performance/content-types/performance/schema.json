@@ -34,7 +34,12 @@
     },
     "subtitle": { "type": "string" },
     "author": { "type": "string" },
-    "director": { "type": "string" },
+    "directorActor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::actor.actor",
+      "description": "Режиссёр из труппы (ссылка на страницу актёра на сайте)"
+    },
     "directorQuote": { "type": "text" },
     "designer": { "type": "string" },
     "lightingDesigner": { "type": "string" },

@@ -6,7 +6,7 @@ import {
 } from "@/lib/actor-utils";
 import { DEFAULT_TICKETS_URL } from "@/lib/site-config";
 import { performanceShowsTicketsAndSchedule } from "@/lib/performance-tickets";
-import { formatDisplayDate } from "@/lib/date-utils";
+import { formatDisplayDate, toIsoDateTime } from "@/lib/date-utils";
 import PerformanceHero from "@/components/PerformanceHero";
 import PerformanceEventJsonLd from "@/components/seo/PerformanceEventJsonLd";
 import PerformanceReviewsJsonLd from "@/components/seo/PerformanceReviewsJsonLd";
@@ -68,11 +68,22 @@ export default function PerformancePageContent({
 
   const hasCreators =
     play.author ||
+    play.directorActor?.name ||
     play.director ||
     play.designer ||
     play.lightingDesigner ||
     play.soundDesigner ||
     play.lightSoundOperator;
+  const directorName = play.directorActor?.name || play.director;
+  const matchedDirectorActor = directorName
+    ? actors.find((a) => a.name === directorName)
+    : undefined;
+  const directorSlug =
+    play.directorActor?.slug ||
+    (matchedDirectorActor &&
+    isDirectorOrArtisticDirector(matchedDirectorActor)
+      ? matchedDirectorActor.slug
+      : undefined);
 
   const mergedCast = getMergedCast(play, actors);
   const hasCast = mergedCast.length > 0;
@@ -82,10 +93,17 @@ export default function PerformancePageContent({
 
   const schedule =
     play.schedule?.length
-      ? play.schedule.filter((s) => s?.date || s?.time)
-      : play.date && play.date !== "—" && (play.date || play.time)
-        ? [{ date: play.date, time: play.time }]
-        : [];
+      ? [...play.schedule]
+          .filter((s) => s?.date || s?.time)
+          .sort((a, b) => {
+            const aTs = Date.parse(toIsoDateTime(a.date, a.time));
+            const bTs = Date.parse(toIsoDateTime(b.date, b.time));
+            if (Number.isNaN(aTs) && Number.isNaN(bTs)) return 0;
+            if (Number.isNaN(aTs)) return 1;
+            if (Number.isNaN(bTs)) return -1;
+            return aTs - bTs;
+          })
+      : [];
 
   const showTicketUi = performanceShowsTicketsAndSchedule(play);
   const showScheduleBlock = showTicketUi && schedule.length > 0;
@@ -245,29 +263,21 @@ export default function PerformancePageContent({
                   <span className={styles.creatorName}>{play.author}</span>
                 </div>
               )}
-              {play.director &&
-                (() => {
-                  const directorActor = actors.find(
-                    (a) => a.name === play.director,
-                  );
-                  return (
-                    <div className={styles.creatorRow}>
-                      <span className={styles.creatorLabel}>Режиссёр</span>
-                      {directorActor && isDirectorOrArtisticDirector(directorActor) ? (
-                        <Link
-                          href={`/team/${directorActor.slug}`}
-                          className={styles.creatorNameLink}
-                        >
-                          {play.director}
-                        </Link>
-                      ) : (
-                        <span className={styles.creatorName}>
-                          {play.director}
-                        </span>
-                      )}
-                    </div>
-                  );
-                })()}
+              {directorName && (
+                <div className={styles.creatorRow}>
+                  <span className={styles.creatorLabel}>Режиссёр</span>
+                  {directorSlug ? (
+                    <Link
+                      href={`/team/${directorSlug}`}
+                      className={styles.creatorNameLink}
+                    >
+                      {directorName}
+                    </Link>
+                  ) : (
+                    <span className={styles.creatorName}>{directorName}</span>
+                  )}
+                </div>
+              )}
               {play.designer && (
                 <div className={styles.creatorRow}>
                   <span className={styles.creatorLabel}>Художник</span>
@@ -302,33 +312,26 @@ export default function PerformancePageContent({
               )}
             </div>
           )}
-          {play.directorQuote &&
-            play.director &&
-            (() => {
-              const directorActor = actors.find(
-                (a) => a.name === play.director,
-              );
-              return (
-                <div className={styles.directorQuoteBlock}>
-                  <p className={styles.directorQuoteLabel}>
-                    {directorActor && isDirectorOrArtisticDirector(directorActor) ? (
-                      <Link
-                        href={`/team/${directorActor.slug}`}
-                        className={styles.directorQuoteLabelLink}
-                      >
-                        {play.director}
-                      </Link>
-                    ) : (
-                      play.director
-                    )}
-                    , режиссёр спектакля
-                  </p>
-                  <blockquote className={styles.directorQuoteText}>
-                    {play.directorQuote}
-                  </blockquote>
-                </div>
-              );
-            })()}
+          {play.directorQuote && directorName && (
+            <div className={styles.directorQuoteBlock}>
+              <p className={styles.directorQuoteLabel}>
+                {directorSlug ? (
+                  <Link
+                    href={`/team/${directorSlug}`}
+                    className={styles.directorQuoteLabelLink}
+                  >
+                    {directorName}
+                  </Link>
+                ) : (
+                  directorName
+                )}
+                , режиссёр спектакля
+              </p>
+              <blockquote className={styles.directorQuoteText}>
+                {play.directorQuote}
+              </blockquote>
+            </div>
+          )}
           {scheduleBlock}
         </section>
       </div>

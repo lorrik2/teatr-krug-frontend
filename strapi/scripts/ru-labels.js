@@ -82,7 +82,7 @@ const CONTENT_TYPE_LABELS = {
     gallery: 'Фотогалерея',
     subtitle: 'Подзаголовок',
     author: 'Автор',
-    director: 'Режиссёр',
+    directorActor: 'Режиссёр',
     directorQuote: 'Цитата режиссёра',
     designer: 'Художник',
     lightingDesigner: 'Художник по свету',

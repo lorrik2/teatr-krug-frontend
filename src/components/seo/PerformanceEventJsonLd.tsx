@@ -28,9 +28,7 @@ export default function PerformanceEventJsonLd({
 
   const schedule = play.schedule?.length
     ? play.schedule
-    : play.date !== "—"
-      ? [{ date: play.date, time: play.time }]
-      : [];
+    : [];
 
   const firstShow = schedule[0];
   const startDate = firstShow

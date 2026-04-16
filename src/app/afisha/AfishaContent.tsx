@@ -27,8 +27,8 @@ function groupByMonth(performances: Performance[]): Map<string, { label: string;
 
   for (const p of performances) {
     const datesToCheck: string[] = p.schedule?.length
-      ? p.schedule.map((s) => s.date)
-      : [p.date];
+      ? p.schedule.map((s) => s.date).filter(Boolean)
+      : [];
 
     const seenMonths = new Set<string>();
     for (const d of datesToCheck) {
@@ -138,7 +138,12 @@ export default function AfishaContent({
             <Accordion.Content className={styles.accordionContent}>
               <ul className={`${styles.cardsGrid} ${styles.monthCards}`}>
                 {sortPerformancesChronologically(items).map((play) => (
-                  <PerformanceCard key={play.id} play={play} variant="afisha" />
+                  <PerformanceCard
+                    key={play.id}
+                    play={play}
+                    variant="afisha"
+                    monthKey={monthKey !== "no-date" ? monthKey : undefined}
+                  />
                 ))}
               </ul>
             </Accordion.Content>

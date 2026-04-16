@@ -739,7 +739,7 @@ export interface ApiPerformancePerformance extends Struct.CollectionTypeSchema {
     date: Schema.Attribute.String;
     description: Schema.Attribute.Text;
     designer: Schema.Attribute.String;
-    director: Schema.Attribute.String;
+    directorActor: Schema.Attribute.Relation<'manyToOne', 'api::actor.actor'>;
     directorQuote: Schema.Attribute.Text;
     duration: Schema.Attribute.String;
     featuredBlockGallery: Schema.Attribute.Media<'images', true>;

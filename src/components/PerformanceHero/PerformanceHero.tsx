@@ -75,7 +75,6 @@ export default function PerformanceHero({
                     className={styles.image}
                     sizes="100vw"
                     priority={index === 0}
-                    effect="blur"
                     style={{ objectFit: isDesktop ? "contain" : "cover" }}
                   />
                 </div>

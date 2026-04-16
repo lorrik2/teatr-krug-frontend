@@ -6,7 +6,7 @@ import { motion, type Variants } from "framer-motion";
 import type { Performance } from "@/lib/types";
 import { DEFAULT_TICKETS_URL } from "@/lib/site-config";
 import { performanceShowsTicketsAndSchedule } from "@/lib/performance-tickets";
-import { formatDisplayDate } from "@/lib/date-utils";
+import { formatDisplayDate, toIsoDateTime } from "@/lib/date-utils";
 import styles from "./PerformanceCard.module.css";
 
 type CardVariant = "afisha" | "repertuar";
@@ -14,6 +14,8 @@ type CardVariant = "afisha" | "repertuar";
 interface PerformanceCardProps {
   play: Performance;
   variant: CardVariant;
+  /** Месяц в формате MM (для секции афиши), чтобы показывать даты именно этого месяца */
+  monthKey?: string;
   /** Использовать motion.li для анимации (на главной) */
   animated?: boolean;
   /** Варианты анимации для stagger (передавать при animated) */
@@ -22,12 +24,48 @@ interface PerformanceCardProps {
   compact?: boolean;
 }
 
-export default function PerformanceCard({ play, variant, animated, variants, compact }: PerformanceCardProps) {
+export default function PerformanceCard({
+  play,
+  variant,
+  monthKey,
+  animated,
+  variants,
+  compact,
+}: PerformanceCardProps) {
   const Wrapper = animated ? motion.li : "li";
   const detailBase = variant === "afisha" ? "/afisha" : "/repertuar";
   const detailHref = `${detailBase}/${play.slug}`;
   const showTicket =
     variant === "afisha" || performanceShowsTicketsAndSchedule(play);
+  const sortedSchedule = play.schedule?.length
+    ? [...play.schedule].sort((a, b) => {
+        const aTs = Date.parse(toIsoDateTime(a.date, a.time));
+        const bTs = Date.parse(toIsoDateTime(b.date, b.time));
+        if (Number.isNaN(aTs) && Number.isNaN(bTs)) return 0;
+        if (Number.isNaN(aTs)) return 1;
+        if (Number.isNaN(bTs)) return -1;
+        return aTs - bTs;
+      })
+    : [];
+  const getMonth = (dateStr: string) => {
+    const iso = toIsoDateTime(dateStr, "00:00");
+    if (!iso) return "";
+    return iso.slice(5, 7);
+  };
+  const monthScoped = monthKey
+    ? sortedSchedule.filter((s) => getMonth(s.date) === monthKey)
+    : [];
+  const activeSchedule = monthScoped.length ? monthScoped : sortedSchedule;
+  const nearestShow = activeSchedule[0];
+  const sameMonthShows = nearestShow
+    ? activeSchedule.filter((s) => getMonth(s.date) === getMonth(nearestShow.date))
+    : [];
+  const datesLabel = sameMonthShows
+    .map((s) => formatDisplayDate(s.date))
+    .filter(Boolean)
+    .join(", ");
+  const showSingleTime = sameMonthShows.length === 1;
+  const hasNearestShow = !!(play.inAfisha && nearestShow?.date && datesLabel);
 
   return (
     <Wrapper
@@ -49,16 +87,19 @@ export default function PerformanceCard({ play, variant, animated, variants, com
               style={{ objectFit: "cover" }}
               effect="blur"
             />
-            <span className={styles.age}>{play.ageRating}</span>
+            <div className={styles.badges}>
+              {play.isPremiere && <span className={styles.premiere}>Премьера</span>}
+              <span className={styles.age}>{play.ageRating}</span>
+            </div>
             <div className={styles.topLeft}>
               <span className={styles.dateTime}>
-                {play.inAfisha && play.date !== "—" ? (
+                {hasNearestShow ? (
                   <>
-                    {formatDisplayDate(play.date)}
-                    {play.time !== "—" && (
+                    {datesLabel}
+                    {showSingleTime && nearestShow.time && nearestShow.time !== "—" && (
                       <>
                         <br />
-                        {play.time}
+                        {nearestShow.time}
                       </>
                     )}
                   </>

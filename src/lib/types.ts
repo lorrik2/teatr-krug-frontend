@@ -25,8 +25,10 @@ export interface Performance {
   subtitle?: string;
   /** Драматург / автор пьесы */
   author?: string;
-  /** Режиссёр-постановщик */
+  /** Режиссёр-постановщик (имя, вычисляется из directorActor) */
   director?: string;
+  /** Режиссёр как связь с актёром/участником труппы */
+  directorActor?: { name: string; slug: string };
   /** Цитата режиссёра о спектакле */
   directorQuote?: string;
   /** Художник-постановщик */

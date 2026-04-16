@@ -76,13 +76,11 @@ function parseTime(timeStr: string): number {
   return parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
 }
 
-/** Минимальная дата спектакля (из schedule или date) для сортировки. */
+/** Минимальная дата спектакля (только из schedule) для сортировки. */
 function getEarliestSortKey(p: Performance): { ts: number; timeMins: number } {
   const dates: { date: string; time: string }[] = p.schedule?.length
     ? p.schedule
-    : p.date
-      ? [{ date: p.date, time: p.time || "" }]
-      : [];
+    : [];
   if (dates.length === 0) return { ts: Infinity, timeMins: 0 };
   let min = { ts: Infinity, timeMins: 0 };
   for (const { date, time } of dates) {
@@ -95,7 +93,7 @@ function getEarliestSortKey(p: Performance): { ts: number; timeMins: number } {
   return min;
 }
 
-/** Сортирует спектакли по хронологии: по ближайшей дате показа. Без даты — в конец. */
+/** Сортирует спектакли по хронологии: по ближайшей дате из schedule. Без schedule — в конец. */
 export function sortPerformancesChronologically(
   performances: Performance[],
 ): Performance[] {
@@ -123,6 +121,29 @@ function extractMediaArray(raw: unknown): unknown[] {
   if (Array.isArray(data)) return data;
   if (data && typeof data === "object" && !Array.isArray(data)) return [data];
   return [];
+}
+
+/** Извлекает связанного актёра из relation-поля Strapi (data/attributes или плоский формат) */
+function mapRelatedActor(
+  raw: unknown,
+): { name: string; slug: string } | undefined {
+  if (!raw || typeof raw !== "object") return undefined;
+  const relation = (raw as Record<string, unknown>).data ?? raw;
+  if (!relation || typeof relation !== "object" || Array.isArray(relation)) {
+    return undefined;
+  }
+  const rel = relation as Record<string, unknown>;
+  const attrs = (rel.attributes as Record<string, unknown> | undefined) ?? rel;
+  const nameRaw = attrs.name ?? rel.name;
+  const name = typeof nameRaw === "string" ? nameRaw.trim() : "";
+  if (!name) return undefined;
+  const rawSlug = attrs.slug ?? rel.slug;
+  const slug = getActorSlug({
+    name,
+    slug: typeof rawSlug === "string" ? rawSlug : undefined,
+  });
+  if (!slug) return undefined;
+  return { name, slug };
 }
 
 // Маппинг Strapi → наш формат (с защитой от неполных/битых данных)
@@ -168,6 +189,33 @@ function mapStrapiPerformance(d: any): Performance | null {
 
     const reviewsRaw = attrs.reviews ?? d.reviews;
     const scheduleRaw = attrs.schedule ?? d.schedule;
+    const directorActor = mapRelatedActor(
+      attrs.directorActor ?? d.directorActor,
+    );
+    const schedule = Array.isArray(scheduleRaw)
+      ? scheduleRaw
+          .filter((s: unknown) => s && typeof s === "object")
+          .map((s: any) => {
+            const sAttrs = (s as any).attributes ?? s;
+            return {
+              date: sAttrs.date ?? s.date ?? "",
+              time: sAttrs.time ?? s.time ?? "",
+              ticketsUrl:
+                (sAttrs.ticketsUrl ?? s.ticketsUrl)?.trim() || undefined,
+            };
+          })
+          .filter((s) => s.date || s.time)
+      : [];
+    const firstSchedule = schedule.reduce<
+      { date: string; time: string; ticketsUrl?: string } | undefined
+    >((best, current) => {
+      if (!best) return current;
+      const bestTs = parseDisplayDate(best.date);
+      const currentTs = parseDisplayDate(current.date);
+      if (currentTs < bestTs) return current;
+      if (currentTs > bestTs) return best;
+      return parseTime(current.time) < parseTime(best.time) ? current : best;
+    }, undefined);
     const awardsRaw = attrs.awards ?? d.awards;
     const festivalsRaw = attrs.festivals ?? d.festivals;
 
@@ -180,7 +228,8 @@ function mapStrapiPerformance(d: any): Performance | null {
       gallery: gallery?.length ? gallery : undefined,
       subtitle: attrs.subtitle ?? d.subtitle ?? undefined,
       author: attrs.author ?? d.author ?? undefined,
-      director: attrs.director ?? d.director ?? undefined,
+      director: directorActor?.name ?? undefined,
+      directorActor,
       directorQuote: attrs.directorQuote ?? d.directorQuote ?? undefined,
       designer: attrs.designer ?? d.designer ?? undefined,
       lightingDesigner:
@@ -203,8 +252,8 @@ function mapStrapiPerformance(d: any): Performance | null {
             })
         : undefined,
       teaserUrl: attrs.teaserUrl ?? d.teaserUrl ?? undefined,
-      date: (attrs.date ?? d.date) || "",
-      time: (attrs.time ?? d.time) || "",
+      date: firstSchedule?.date || "",
+      time: firstSchedule?.time || "",
       ageRating: (attrs.ageRating ?? d.ageRating) || "",
       genre: (attrs.genre ?? d.genre) || "",
       description: (attrs.description ?? d.description) || "",
@@ -214,19 +263,7 @@ function mapStrapiPerformance(d: any): Performance | null {
       inAfisha: (attrs.inAfisha ?? d.inAfisha) !== false,
       showScheduleAndTickets:
         (attrs.showScheduleAndTickets ?? d.showScheduleAndTickets) !== false,
-      schedule: Array.isArray(scheduleRaw)
-        ? scheduleRaw
-            .filter((s: unknown) => s && typeof s === "object")
-            .map((s: any) => {
-              const sAttrs = (s as any).attributes ?? s;
-              return {
-                date: sAttrs.date ?? s.date ?? "",
-                time: sAttrs.time ?? s.time ?? "",
-                ticketsUrl:
-                  (sAttrs.ticketsUrl ?? s.ticketsUrl)?.trim() || undefined,
-              };
-            })
-        : undefined,
+      schedule: schedule.length ? schedule : undefined,
       awards: Array.isArray(awardsRaw)
         ? awardsRaw
             .filter((a: unknown) => a && typeof a === "object")
@@ -402,6 +439,7 @@ const PERFORMANCE_POPULATE = {
   featuredBlockGallery: true,
   invitedCast: { populate: ["photo"] },
   reviews: true,
+  directorActor: true,
   schedule: true,
   awards: true,
   festivals: { populate: { logo: true } },

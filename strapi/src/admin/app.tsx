@@ -82,7 +82,7 @@ export default {
         'content-manager.content-types.api::performance.performance.fields.gallery': 'Галерея',
         'content-manager.content-types.api::performance.performance.fields.subtitle': 'Подзаголовок',
         'content-manager.content-types.api::performance.performance.fields.author': 'Автор',
-        'content-manager.content-types.api::performance.performance.fields.director': 'Режиссёр',
+        'content-manager.content-types.api::performance.performance.fields.directorActor': 'Режиссёр',
         'content-manager.content-types.api::performance.performance.fields.directorQuote': 'Цитата режиссёра',
         'content-manager.content-types.api::performance.performance.fields.designer': 'Художник',
         'content-manager.content-types.api::performance.performance.fields.lightingDesigner': 'Художник по свету',
